@@ -1,0 +1,3 @@
+{
+    "directory": "<%= pathSource %>/bower_components"
+}

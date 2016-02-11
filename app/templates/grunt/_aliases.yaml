@@ -1,0 +1,21 @@
+default:
+    - clean
+    - 'exec:bower'
+    - jshint<% if (sassCompiler == "compass") { %>
+    - compass<% } else { %>
+    - sass<% } %>
+    - postcss
+    - csslint
+    - copy<% if (includeModernizr) { %>
+    - modernizr<% } %>
+    - merge-json
+    - patternlab
+    - processhtml
+
+serve:
+    - default
+    - browserSync
+    - watch
+
+'build-patternlab':
+    - patternlab

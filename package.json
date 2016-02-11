@@ -1,0 +1,46 @@
+{
+  "name": "generator-gruntlab",
+  "version": "0.6.0",
+  "description": "Yeoman grunt & patternlab generator",
+  "license": "MIT",
+  "main": "app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bramsmulders/generator-gruntlab"
+  },
+  "author": {
+    "name": "Bram Smulders",
+    "email": "bram@bramsmulders.com",
+    "url": "https://github.com/bramsmulders"
+  },
+  "engines": {
+    "node": ">=0.10.0",
+    "npm": ">=1.2.10"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "files": [
+    "app"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "chalk": "^0.5.1",
+    "cheerio": "^0.17.0",
+    "yeoman-generator": "~0.17.3",
+    "yosay": "~1.0.0"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "peerDependencies": {
+    "yo": ">=1.2.0"
+  },
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/bramsmulders/generator-gruntlab/issues"
+  },
+  "homepage": "http://bramsmulders.github.io/generator-gruntlab/"
+}

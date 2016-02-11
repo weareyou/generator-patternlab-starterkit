@@ -1,0 +1,66 @@
+{
+    "paths" : {
+        "source" : {
+            "root": "./<%= pathSource %>/",
+            "patterns" : "./<%= pathSource %>/_patterns/",
+            "data" : "./<%= pathSource %>/_data/",
+            "styleguide" : "./node_modules/patternlab-node/core/styleguide/",
+            "patternlabFiles" : "./<%= pathSource %>/_patternlab-files/",
+            "js" : "./<%= pathSource %>/js/",
+            "images" : "./<%= pathSource %>/images/",
+            "fonts" : "./<%= pathSource %>/fonts/",
+            "sass" : "./<%= pathSource %>/_sass/",
+            "bower" : "./<%= pathSource %>/bower_components/"
+        },
+        "public" : {
+            "root" : "./<%= pathPublic %>/",
+            "patterns" : "./<%= pathPublic %>/patterns/",
+            "data" : "./<%= pathPublic %>/data/",
+            "styleguide" : "./<%= pathPublic %>/styleguide/",
+            "js" : "./<%= pathPublic %>/js/",
+            "images" : "./<%= pathPublic %>/images/",
+            "fonts" : "./<%= pathPublic %>/fonts/",
+            "css" : "./<%= pathPublic %>/css/",
+            "bower" : "./<%= pathPublic %>/bower_components/"
+        }
+    },
+    "browserlist": [
+        "last 2 versions",
+        "Firefox ESR"
+    ],
+    "styleGuideExcludes": [
+        "templates",
+        "pages"
+    ],
+    "ignored-extensions" : ["scss", "DS_Store", "less"],
+    "ignored-directories" : ["scss"],
+    "contentSyncPort" : 8002,
+    "navSyncPort" : 8003,
+    "debug": false,
+    "ishControlsVisible": {
+        "s": true,
+        "m": true,
+        "l": true,
+        "full": true,
+        "random": true,
+        "disco": true,
+        "hay": true,
+        "mqs": false,
+        "find": true,
+        "views-all": true,
+        "views-annotations": true,
+        "views-code": true,
+        "views-new": true,
+        "tools-all": true,
+        "tools-follow": false,
+        "tools-reload": false,
+        "tools-shortcuts": true,
+        "tools-docs": true
+    },
+    "patternStates": {
+        "homepage-emergency" : "inprogress"
+    },
+    "patternExportKeys": [],
+    "patternExportDirectory": "./pattern_exports/",
+    "baseurl" : ""
+}
