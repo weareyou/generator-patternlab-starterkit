@@ -19,6 +19,7 @@ node_modules/
 <%= pathPublic %>/js/*
 <%= pathPublic %>/images/*<% }%>
 <%= pathPublic %>/patterns/*
-<%= pathSource %>_data/data.json
+<%= pathPublic %>/data/*
+<%= pathSource %>/_data/data.json
 <%= pathSource %>/css/style.css.map
 patternlab.json

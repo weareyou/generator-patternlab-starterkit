@@ -26,6 +26,12 @@ module.exports = function(grunt, data) {
             "dest": '<%%= paths.dest.fonts %>',
         },
         <% } %>
+        "annotations": {
+            "expand": true,
+            "cwd": "<%%= paths.src.data %>",
+            "src": ['annotations.js'],
+            "dest": '<%%= paths.dest.data %>',
+        },
         "styleguide": {
             "expand": true,
             "cwd": "<%%= paths.src.styleguide %>",

@@ -25,6 +25,7 @@ module.exports = function(grunt) {
             js: config.paths.public.js,
             images: config.paths.public.images,
             html: config.paths.public.patterns,
+            data: config.paths.public.data,
             styleguide: config.paths.public.styleguide
         }
     };
