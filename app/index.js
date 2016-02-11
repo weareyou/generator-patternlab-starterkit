@@ -15,14 +15,14 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
     prompting: function() {
         var cb = this.async();
 
-        this.log(yosay('Welcome to the gruntlab generator!'));
+        this.log(yosay('Welcome to the Patternlab starterkit generator!'));
 
         var prompts = [
             {
                 type: 'input',
                 name: 'projectName',
                 message: 'What is the name of your project?',
-                default: 'project gruntlab'
+                default: 'Patternlab Starterkit'
             },
             {
                 type: 'input',
@@ -38,7 +38,7 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             },
             {
                 type: 'list',
-                message: 'Do you want to use Sass(Reliable), LibSass(Blazing fast) or Compass(Slow)?',
+                message: 'Do you want to use Sass(Reliable but slow), LibSass(Blazing fast)?',
                 name: 'sassCompiler',
                 choices: [
                     {
@@ -48,10 +48,6 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
                     {
                         name: 'Lib Sass',
                         value: 'libsass'
-                    },
-                    {
-                        name: 'Compass',
-                        value: 'compass'
                     }
                 ]
             },
@@ -156,9 +152,7 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
 
         this.mkdir('grunt');
         this.copy('grunt/_aliases.yaml', 'grunt/aliases.yaml');
-        if (this.sassCompiler == "compass") {
-            this.copy('grunt/_compass.js', 'grunt/compass.js');
-        } else if (this.sassCompiler == "sass") {
+        if (this.sassCompiler == "sass") {
             this.copy('grunt/_sass.js', 'grunt/sass.js');
         } else {
             this.copy('grunt/_libsass.js', 'grunt/sass.js');
@@ -216,7 +210,7 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
         this.on('end', function() {
             this.installDependencies({
                 callback: function () {
-                    this.log(yosay('Your project is ready! Type "grunt serve" to start developing on your front-end. Type "grunt" once for a single compile.'));
+                    this.log(yosay('Your project is ready! Type "grunt serve" to start developing on your styleguide. Type "grunt" once for a single compile.'));
                 }.bind(this)
             });
         });

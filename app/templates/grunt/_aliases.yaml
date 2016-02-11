@@ -1,9 +1,8 @@
 default:
     - clean
     - 'exec:bower'
-    - jshint<% if (sassCompiler == "compass") { %>
-    - compass<% } else { %>
-    - sass<% } %>
+    - jshint
+    - sass
     - postcss
     - csslint
     - copy<% if (includeModernizr) { %>
