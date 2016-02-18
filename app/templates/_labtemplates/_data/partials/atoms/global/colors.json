@@ -1,0 +1,17 @@
+{
+    "colors": [
+        {
+            "groupname": "Grayscale",
+            "swatches": [
+                {
+                    "name": "black",
+                    "colorCode": "#000000"
+                },
+                {
+                    "name": "white",
+                    "colorCode": "#ffffff"
+                }
+            ]
+        }
+    ]
+}
