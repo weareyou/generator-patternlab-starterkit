@@ -1,0 +1,10 @@
+{
+    "button": {
+        "type": "button",
+        "title": "Button title",
+        "href": "#",
+        "modifier": "",
+        "label": "Button element",
+        "isDisabled": false
+    }
+}

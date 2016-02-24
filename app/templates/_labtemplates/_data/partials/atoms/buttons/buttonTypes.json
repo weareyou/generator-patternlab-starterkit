@@ -1,0 +1,24 @@
+{
+    "buttonTypes": [
+        {
+            "button": {
+                "type": "button",
+                "title": "Primary button",
+                "href": false,
+                "modifier": "",
+                "label": "Primary button",
+                "isDisabled": false
+            }
+        },
+        {
+            "button": {
+                "type": "button",
+                "title": "Disabled button",
+                "href": false,
+                "modifier": "",
+                "label": "Disabled button",
+                "isDisabled": true
+            }
+        }
+    ]
+}
