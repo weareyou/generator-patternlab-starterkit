@@ -73,6 +73,7 @@ module.exports = function(grunt, data) {
             ],
             tasks: [
                 'clean:patternlab',
+                'clean:data',
                 'merge-json',
                 'copy:annotations',
                 'patternlab',

@@ -16,6 +16,9 @@ module.exports = function(grunt, data) {
         <% } %>
         "patternlab": {
             "src": "<%%= paths.dest.html %>"
+        },
+        "data": {
+            "src": "<%%= paths.src.data %>data.json"
         }
     }
 };
