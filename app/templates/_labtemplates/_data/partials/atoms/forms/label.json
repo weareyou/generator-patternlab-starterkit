@@ -1,0 +1,8 @@
+{
+    "label": {
+        "modifier": "",
+        "isRequired": false,
+        "for": "input-text",
+        "label": "Label for text input"
+    }
+}
