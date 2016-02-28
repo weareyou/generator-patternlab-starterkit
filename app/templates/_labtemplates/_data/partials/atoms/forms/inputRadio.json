@@ -1,0 +1,10 @@
+{
+    "inputRadio": {
+        "modifier": "",
+        "id": "radio1",
+        "name": "radio1",
+        "label": "Radio 1",
+        "isDisabled": false,
+        "isChecked": false
+    }
+}

@@ -1,0 +1,5 @@
+{
+    "name": "<%= _.slugify(projectName) %>",
+    "version": "1.0.0",
+    "dependencies": <%= JSON.stringify(dependencies) %>
+}

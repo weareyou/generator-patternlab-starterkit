@@ -1,0 +1,9 @@
+{{#select}}
+<div class="select">
+    <select class="select__element  {{select.modifier}}" name="{{select.name}}" id="{{select.id}}">
+        {{#select.items}}
+        <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
+        {{/select.items}}
+    </select>
+</div>
+{{/select}}

@@ -1,0 +1,12 @@
+{
+    "textarea": {
+        "modifier": "",
+        "id": "",
+        "name": "text-input",
+        "hasPlaceholder": false,
+        "placeholder": "Textarea placeholder",
+        "value": "",
+        "isReadonly": false,
+        "isRequired": true
+    }
+}

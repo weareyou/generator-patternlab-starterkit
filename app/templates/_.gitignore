@@ -1,0 +1,25 @@
+#The usual
+.DS_Store
+config.ini
+latest-change.txt
+*.map
+*-ck.js
+*.sass-cache/
+bower_components/
+node_modules/
+.idea
+
+#Pl specific
+<%= pathPublic %>/index.html
+<%= pathPublic %>/styleguide.html
+<%= pathPublic %>/styleguide/html/styleguide.html
+<%= pathPublic %>/styleguide/css/*.css
+<%= pathPublic %>/css/*<% if (!sameFolder) { %>
+<%= pathPublic %>/fonts/*
+<%= pathPublic %>/js/*
+<%= pathPublic %>/images/*<% }%>
+<%= pathPublic %>/patterns/*
+<%= pathPublic %>/data/*
+<%= pathSource %>/_data/data.json
+<%= pathSource %>/css/style.css.map
+patternlab.json

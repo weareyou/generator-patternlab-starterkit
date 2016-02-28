@@ -1,0 +1,20 @@
+default:
+    - clean
+    - 'exec:bower'
+    - jshint
+    - sass
+    - postcss
+    - csslint
+    - copy<% if (includeModernizr) { %>
+    - modernizr<% } %>
+    - merge-json
+    - patternlab
+    - processhtml
+
+serve:
+    - default
+    - browserSync
+    - watch
+
+'build-patternlab':
+    - patternlab

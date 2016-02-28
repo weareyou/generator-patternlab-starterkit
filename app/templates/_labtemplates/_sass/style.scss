@@ -1,0 +1,39 @@
+@charset "UTF-8";
+/*----------------------------------------------------------------------------*\
+    $DESCRIPTION
+    Styles, extends a CSS Framework and defines all imports
+\*----------------------------------------------------------------------------*/
+
+@import "vars";
+<% if (includeBlocss) { %>@import "blocss/lib/starterkit";<% } %>
+
+
+
+/*  Atoms
+    These are basic tags, such as form labels, inputs or buttons. They also
+    include more abstract elements like color palettes, fonts, and animations.
+\*----------------------------------------------------------------------------*/
+
+@import "atoms/colors";
+@import "atoms/typography";
+@import "atoms/list.clean";
+@import "atoms/input.control";
+@import "atoms/input.select";
+
+
+
+/*  Molecules
+    Molecules are groups of elements that function together as a unit. (for
+    example a search form molecule)
+\*----------------------------------------------------------------------------*/
+
+// @import "";
+
+
+
+/*  Organisms
+    Organisms are groups of molecules (and possibly atoms) joined together to
+    form distinct section of an interface. (for example a masthead organism)
+\*----------------------------------------------------------------------------*/
+
+// @import "";
