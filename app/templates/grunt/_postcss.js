@@ -3,7 +3,7 @@ module.exports = function(grunt, data) {
         "options": {
             "map": true,
             "processors": [
-                require('autoprefixer-core')({browsers: data.config.browserlist})
+                require('autoprefixer')({browsers: data.config.browserlist})
             ]
         },
         "dev": {

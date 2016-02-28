@@ -49,7 +49,6 @@ module.exports = function(grunt) {
         }
     });
 
-    // grunt.task.loadTasks('./builder/');
     grunt.registerTask('patternlab', function (done) {
         pl.build(true);
     });
