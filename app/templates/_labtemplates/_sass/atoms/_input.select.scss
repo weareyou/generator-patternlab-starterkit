@@ -1,18 +1,16 @@
 /*----------------------------------------------------------------------------*\
     INPUT.SELECT
-    Purely css styled select input fields
+    Purely css styled select input field
 \*----------------------------------------------------------------------------*/
 
 /*  Variables
 \*----------------------------------------------------------------------------*/
 
-$select-height: 60px !default;
-$select-border-radius: 2px !default;
-$select-border-width: 2px !default;
-$select-space-horizontal: 32px !default;
-$select-arrow-width: $select-space-horizontal*2.675 !default;
-$select-border-color: $black !default;
-$select-arrow-color: $black !default;
+$select-border-width: 1px !default;
+$select-space-horizontal: 1em !default;
+$select-arrow-width: $select-space-horizontal*3 !default;
+$select-border-color: currentColor !default;
+$select-arrow-color: currentColor !default;
 
 
 
@@ -31,28 +29,26 @@ $select-arrow-color: $black !default;
     }
 
     &:before {
-        content: "▾";
-        line-height: 1;
-        width: 1em;
-        z-index: 1;
-        text-align: center;
         top: 50%;
-        @include rem(right, ($select-space-horizontal));
-        transform: translateY(-50%);
+        right: $select-arrow-width/2;
+        z-index: 1;
+        line-height: 1;
+        transform: translate(50%, -50%);
         color: $select-arrow-color;
+        content: "▾";
     }
 
     &:after {
         position: absolute;
-        top: 1px;
-        right: 1px;
-        bottom: 1px;
-        @include rem(width, $select-arrow-width);
-        border-left: 1px solid $select-border-color;
+        top: $select-border-width;
+        right: $select-border-width;
+        bottom: $select-border-width;
+        width: $select-arrow-width;
+        border-left: $select-border-width solid $select-border-color;
         content: "";
-        pointer-events: none;
     }
 }
+
 
 
 /*  Select
@@ -62,10 +58,8 @@ $select-arrow-color: $black !default;
     position: relative;
     display: inline-block;
     width: 100%;
-    @include rem(height, $select-height);
-    @include rem(padding-right, $select-arrow-width+$select-space-horizontal);
-    border: $select-border-width solid $select-border-color;
-    @include rem(border-radius, $select-border-radius);
+    padding: 0 ($select-arrow-width+$select-space-horizontal) 0 $select-space-horizontal;
+    border: $select-border-width solid;
     -webkit-appearance: none;
 
     /**
