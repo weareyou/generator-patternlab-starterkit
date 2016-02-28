@@ -1,0 +1,82 @@
+/*----------------------------------------------------------------------------*\
+    INPUT.SELECT
+    Purely css styled select input fields
+\*----------------------------------------------------------------------------*/
+
+/*  Variables
+\*----------------------------------------------------------------------------*/
+
+$select-height: 60px !default;
+$select-border-radius: 2px !default;
+$select-border-width: 2px !default;
+$select-space-horizontal: 32px !default;
+$select-arrow-width: $select-space-horizontal*2.675 !default;
+$select-border-color: $black !default;
+$select-arrow-color: $black !default;
+
+
+
+/*  Component
+\*----------------------------------------------------------------------------*/
+
+.select {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+
+    &:before,
+    &:after {
+        position: absolute;
+        pointer-events: none;
+    }
+
+    &:before {
+        content: "▾";
+        line-height: 1;
+        width: 1em;
+        z-index: 1;
+        text-align: center;
+        top: 50%;
+        @include rem(right, ($select-space-horizontal));
+        transform: translateY(-50%);
+        color: $select-arrow-color;
+    }
+
+    &:after {
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        bottom: 1px;
+        @include rem(width, $select-arrow-width);
+        border-left: 1px solid $select-border-color;
+        content: "";
+        pointer-events: none;
+    }
+}
+
+
+/*  Select
+\*----------------------------------------------------------------------------*/
+
+.select__element {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    @include rem(height, $select-height);
+    @include rem(padding-right, $select-arrow-width+$select-space-horizontal);
+    border: $select-border-width solid $select-border-color;
+    @include rem(border-radius, $select-border-radius);
+    -webkit-appearance: none;
+
+    /**
+     * Undo the Firefox inner focus ring
+     */
+    &:focus:-moz-focusring {
+        color: transparent;
+        text-shadow: 0 0 0 #000;
+    }
+
+    &::-ms-expand {
+        display: none;
+    }
+}
