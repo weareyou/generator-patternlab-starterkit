@@ -1,0 +1,10 @@
+{
+    "inputCheckbox": {
+        "modifier": "",
+        "id": "checkbox1",
+        "name": "checkbox1",
+        "label": "Checkbox 1",
+        "isDisabled": false,
+        "isChecked": false
+    }
+}

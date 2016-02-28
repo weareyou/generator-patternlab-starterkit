@@ -1,0 +1,13 @@
+{
+    "inputText": {
+        "modifier": "",
+        "id": "",
+        "name": "input-text",
+        "type": "text",
+        "placeholder": "Text input placeholder",
+        "value": false,
+        "isRequired": false,
+        "isReadonly": false,
+        "autocomplete": true
+    }
+}
