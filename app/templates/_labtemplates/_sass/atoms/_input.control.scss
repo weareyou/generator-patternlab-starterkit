@@ -7,10 +7,10 @@
 /*  Variables
 \*----------------------------------------------------------------------------*/
 
-$control-width: 24px !default;
-$control-space: 32px !default;
-$control-line-height: 24px !default;
-$control-border-width: 2px !default;
+$control-width: 1.5em !default;
+$control-space: $control-width*1.5 !default;
+$control-line-height: $control-space !default;
+$control-border-width: 1px !default;
 
 // Colors
 $control-label-color: $black !default;
@@ -18,7 +18,7 @@ $control-border-color: $black  !default;
 $control-background-color: $white !default;
 $control-focus-color: $black !default;
 $control-error-color: $black !default;
-$control-disabled-color: lighten($black, 50) !default;
+$control-disabled-color: lightgray !default;
 
 
 
@@ -28,8 +28,9 @@ $control-disabled-color: lighten($black, 50) !default;
 .control {
     position: relative;
     display: inline-block;
-    @include rem(padding-left, $control-space);
+    padding-left: $control-space;
     color: $control-label-color;
+    line-height: $control-line-height;
     cursor: pointer;
 }
 
@@ -50,13 +51,13 @@ $control-disabled-color: lighten($black, 50) !default;
 
 .control__indicator {
     position: absolute;
-    @include rem(top, $control-line-height/2);
+    top: $control-line-height/2;
     transform: translateY(-50%);
     left: 0;
     display: block;
-    @include rem(width, $control-width);
-    @include rem(height, $control-width);
-    @include rem(line-height, $control-width);
+    width: $control-width;
+    height: $control-width;
+    line-height: $control-width;
     border: $control-border-width solid $control-border-color;
     text-align: center;
     background-color: $control-background-color;
