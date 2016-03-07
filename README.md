@@ -1,16 +1,51 @@
-# generator-patternlab-starterkit - v0.0.1
+# generator-patternlab-starterkit - v1.0.0
 
 > A [Yeoman](http://yeoman.io) generator for [Pattern Lab](http://patternlab.io/), a static site generator based on Brad Frost's [Atomic Design](http://bradfrostweb.com/blog/post/atomic-web-design/) methodologies.
 > Scaffolds out a new Pattern Lab site, along with a few other optional workflow bells and whistles (Sass, Autoprefixer, Bower, Grunt) and front-end dependencies (Angular, jQuery, Modernizr, [Blocss](https://github.com/Blocss/blocss) etc.).
 
-## Getting Started
+## Prerequisites
+Make sure Node and npm are installed. A great guide can be found here: [https://docs.npmjs.com/getting-started/installing-node](https://docs.npmjs.com/getting-started/installing-node)
 
-### Prerequisites
-- Install Yeoman, Bower & node-sass `npm install -g yo bower node-sass` (one-time global install) or update: `npm update -g yo bower node-sass`.
+- Install Yeoman, Bower `npm install -g yo bower` (one-time global install) or update: `npm update -g yo bower`.
 - Install this generator with `npm install -g generator-patternlab-starterkit` (one-time global install) or update: `npm update -g generator-patternlab-starterkit`.
 
-### Installation
+**Note**: Mac users need to run above commands with sudo.
+
+## Installation
 - From the terminal, navigate to your site's directory.
 - Type `yo patternlab-starterkit`, answer a few questions about your project, and wait.
-- When it's done, type "grunt serve" to start developing on your front-end. Type "grunt" once for a single compile.
 - Bask in the glory of your fully scaffolded patternlab installation.
+
+
+## Getting Started
+### Front-end developing
+Run `grunt serve` from the commandline. This creates all patterns, the styleguide, and the pattern lab site by BrowserSync which serve the files to you.
+
+
+### Deployments
+For a single compile of all code, to build on a server for example, you can run `grunt`. This will compile the front-end one single time.
+
+## Additions/deviations to patternlab-node
+In general refer to [patternlab-node](https://github.com/pattern-lab/patternlab-node) for more in depth documentation about the use of patternlab.
+generator-patternlab-starterkit has some slight but important additions compared to patternlab-node:
+
+### Multiple data files
+Out of the box patternlab only loads `data.json` for data binding. This has a few limitations:
+
+* In big projects the file gets huge very fast
+* Constant merge conflicts when working in multiple branches
+
+The patternlab starterkit makes it possible to pull data out of multiple folders located in `your-site-public-folder/_data/partials`. Those files will still be combined into one `data.json` which in turn gets loaded into patternlab-node but will be excluded from git.
+
+This setup allows us to apply atomic design to our data as well, and makes data inheritance a lot more easy.
+
+### Header & footer includes
+The developers at patternlab-node are very busy to bring the project on feature parity with patternlab-php. But for now we need to customize the views a bit to add code to the header and footer of the page. The following files can be used to add scripts and styles to the header and footer:
+
+* `_patternlab-files/partials/headerIncludes.html`
+* `_patternlab-files/partials/footerIncludes.html`
+
+This workflow remains till the devs at patternlab-node have released [v1.x.x](https://github.com/pattern-lab/patternlab-node/wiki/Roadmap#v1xx-early-2016).
+
+## Contributing
+If you have any ideas or additions for this project please refer to the [contributing guide](CONTRIBUTING.md)

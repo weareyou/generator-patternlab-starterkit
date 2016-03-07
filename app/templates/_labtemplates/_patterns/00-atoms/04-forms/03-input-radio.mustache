@@ -1,0 +1,14 @@
+{{#inputRadio}}
+<label class="control  control--radio  js--control  {{inputRadio.modifier}}">
+    <input
+        class="control__input  js--control__input"
+        id="{{inputRadio.id}}"
+        name="{{inputRadio.name}}"
+        type="radio"
+        {{#inputRadio.isChecked}}checked{{/inputRadio.isChecked}}
+        {{#inputRadio.isDisabled}}disabled{{/inputRadio.isDisabled}}
+    >
+    <span class="control__indicator"></span>
+    <span class="control__label">{{{inputRadio.label}}}</span>
+</label>
+{{/inputRadio}}
