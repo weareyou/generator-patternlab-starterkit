@@ -7,8 +7,7 @@ module.exports = function(grunt, data) {
             files: ["<%%= paths.src.sass %>**/*.{sass,scss}"],
             tasks: [
                 "sass:dev",
-                "postcss",
-                "csslint"<% if ( includeModernizr ) { %>,
+                "postcss"<% if ( includeModernizr ) { %>,
                 "modernizr"<% } %>
             ],
             options: {

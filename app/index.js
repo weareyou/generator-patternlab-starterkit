@@ -162,8 +162,6 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
         this.template('grunt/_copy.js', 'grunt/copy.js');
 
         this.copy('grunt/_postcss.js', 'grunt/postcss.js');
-        this.copy('grunt/_csslint.js', 'grunt/csslint.js');
-        this.copy('_.csslintrc', '.csslintrc');
         this.copy('_.stylelintrc', '.stylelintrc');
         this.copy('grunt/_jshint.js', 'grunt/jshint.js');
         this.copy('_.jshintrc', '.jshintrc');
