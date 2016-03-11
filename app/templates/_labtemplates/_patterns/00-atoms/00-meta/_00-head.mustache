@@ -7,9 +7,12 @@
 
     <link rel="stylesheet" href="../../css/style.css?{{ cacheBuster }}" media="all" />
 
+<% if (includeModernizr) { %>
+    <script src="../../js/lib/modernizr.js{{ cacheBuster }}"></script>
+<% } %>
+
     <!-- Patternlab code: DO NOT MODIFY OR COPY TO PRODUCTION -->
     {% pattern-lab-head %}
     <!-- /Patternlab code: DO NOT MODIFY OR COPY TO PRODUCTION -->
-
 </head>
 <body class="{{ bodyClass }}">
