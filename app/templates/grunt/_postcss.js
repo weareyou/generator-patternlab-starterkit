@@ -19,13 +19,12 @@ module.exports = function(grunt, data) {
                 "writeDest": false,
                     "syntax": require('postcss-scss'),
                     "processors": [
-                        require('stylelint'),
+                        require('stylelint')
                     ]
                 },
             "expand": true,
             "cwd": "<%= paths.src.sass %>",
-            "src": ["**/*.scss"],
-            "dest": "<%= paths.dest.css %>"
+            "src": ["**/*.scss"]
         }
     }
 };
