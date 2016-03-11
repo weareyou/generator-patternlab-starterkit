@@ -21,6 +21,9 @@
         "string-quotes": "double",
         "value-no-vendor-prefix": true,
         "function-linear-gradient-no-nonstandard-direction": true,
-        "max-nesting-depth": 3
+        "max-nesting-depth": 3,
+        "indentation": [4, {
+          hierarchicalSelectors: false
+        }]
     }
 }
