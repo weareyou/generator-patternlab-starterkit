@@ -1,0 +1,21 @@
+{{#inputText}}
+<input
+    class="input-text  {{inputText.modifier}}"
+    type="{{inputText.type}}"
+    id="{{inputText.id}}"
+    name="{{inputText.name}}"
+    {{#inputText.placeholder}}
+    placeholder="{{inputText.placeholder}}"
+    {{/inputText.placeholder}}
+    {{#inputText.value}}
+    value="{{inputText.value}}"
+    {{/inputText.value}}
+    {{#inputText.isRequired}}
+    required
+    {{/inputText.isRequired}}
+    {{#inputText.isReadonly}}
+    readonly="readonly"
+    {{/inputText.isReadonly}}
+    autocomplete="{{#inputText.autocomplete}}on{{/inputText.autocomplete}}{{^inputText.autocomplete}}off{{/inputText.autocomplete}}"
+>
+{{/inputText}}
