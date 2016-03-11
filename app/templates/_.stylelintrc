@@ -5,6 +5,7 @@
         "color-no-invalid-hex": true,
         "declaration-colon-space-after": "always",
         "declaration-colon-space-before": "never",
+        "declaration-block-semicolon-space-before": "never",
         "value-list-comma-space-before": "always",
         "function-comma-space-after": "always",
         "function-url-quotes": "double",
