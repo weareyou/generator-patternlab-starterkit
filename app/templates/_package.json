@@ -12,7 +12,6 @@
         "grunt-browser-sync": "^2.2.0",
         "grunt-contrib-jshint": "^1.0.0",
         "grunt-merge-json": "^0.9.5",
-        "grunt-processhtml": "^0.3.13",
         "grunt-contrib-watch": "~0.6.1",<% if(sassCompiler == "sass") { %>
         "grunt-contrib-sass": "~0.9.2",<% } else {%>
         "grunt-sass": "~1.1.0",<% } %><% if (includeModernizr) { %>

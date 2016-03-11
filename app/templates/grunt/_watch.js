@@ -76,8 +76,7 @@ module.exports = function(grunt, data) {
                 'clean:data',
                 'merge-json',
                 'copy:annotations',
-                'patternlab',
-                'processhtml'
+                'patternlab'
             ],
             options: {
                 "spawn": false

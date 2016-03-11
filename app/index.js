@@ -177,7 +177,6 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
         // BrowserSync
         this.copy('grunt/_browserSync.js', 'grunt/browserSync.js');
         this.copy('grunt/_merge-json.js', 'grunt/merge-json.js');
-        this.copy('grunt/_processhtml.js', 'grunt/processhtml.js');
 
         done();
     },
