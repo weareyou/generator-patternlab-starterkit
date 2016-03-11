@@ -6,14 +6,6 @@ module.exports = function(grunt, data) {
                 require('autoprefixer')({browsers: data.config.browserlist}),
             ]
         },
-        "dev": {
-            "files": [{
-                "expand": true,
-                "cwd": "<%= paths.dest.css %>",
-                "src": ["**/*.css"],
-                "dest": "<%= paths.dest.css %>"
-            }]
-        },
         "stylelint": {
             "options": {
                 "writeDest": false,
@@ -25,6 +17,14 @@ module.exports = function(grunt, data) {
             "expand": true,
             "cwd": "<%= paths.src.sass %>",
             "src": ["**/*.scss"]
+        },
+        "dev": {
+            "files": [{
+                "expand": true,
+                "cwd": "<%= paths.dest.css %>",
+                "src": ["**/*.css"],
+                "dest": "<%= paths.dest.css %>"
+            }]
         }
     }
 };
