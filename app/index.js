@@ -38,21 +38,6 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             },
             {
                 type: 'list',
-                message: 'Do you want to use Sass(Reliable but slow), LibSass(Blazing fast)?',
-                name: 'sassCompiler',
-                choices: [
-                    {
-                        name: 'Sass',
-                        value: 'sass'
-                    },
-                    {
-                        name: 'Lib Sass',
-                        value: 'libsass'
-                    }
-                ]
-            },
-            {
-                type: 'list',
                 message: 'Do you want to copy gitignore? If you already have a gitignore choose "No"',
                 name: 'copyGitignore',
                 choices: [
@@ -110,7 +95,6 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             this.includeModernizr = hasFeature('includeModernizr');
             this.includeBlocss = hasFeature('includeBlocss');
             this.projectType = props.projectType;
-            this.sassCompiler = props.sassCompiler;
             this.sameFolder = false;
 
             this.dependencies = {};
@@ -152,11 +136,7 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
 
         this.mkdir('grunt');
         this.copy('grunt/_aliases.yaml', 'grunt/aliases.yaml');
-        if (this.sassCompiler == "sass") {
-            this.copy('grunt/_sass.js', 'grunt/sass.js');
-        } else {
-            this.copy('grunt/_libsass.js', 'grunt/sass.js');
-        }
+        this.copy('grunt/_sass.js', 'grunt/sass.js');
         this.template('grunt/_clean.js', 'grunt/clean.js');
         this.template('grunt/_copy.js', 'grunt/copy.js');
 

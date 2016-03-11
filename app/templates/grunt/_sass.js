@@ -2,7 +2,8 @@ module.exports = function(grunt, data) {
     return {
         "options": {
             "precision": 8,
-            "loadPath": '<%= paths.src.bower %>'
+            "includePaths": ['<%= paths.src.bower %>'],
+            "sourceMap": true
         },
         "dev": {
             "files": [{
