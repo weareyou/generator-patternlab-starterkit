@@ -21,7 +21,6 @@
         "string-quotes": "double",
         "value-no-vendor-prefix": true,
         "function-linear-gradient-no-nonstandard-direction": true,
-        "rule-no-shorthand-property-overrides": true,
         "max-nesting-depth": 3
     }
 }
