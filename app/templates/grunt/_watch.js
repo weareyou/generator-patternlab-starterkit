@@ -18,8 +18,8 @@ module.exports = function(grunt, data) {
         bower: {
             files: ["bower.json"],
             tasks: [
-                "exec:bower"<% if (!sameFolder) { %>,
                 "clean:bower",
+                "exec:bower"<% if (!sameFolder) { %>,
                 "copy:bower"
                 <% } %>
             ],

@@ -1,9 +1,6 @@
 module.exports = function(grunt, data) {
     return {
         <% if (!sameFolder) { %>
-        "bower": {
-            "src": '<%%= paths.dest.bower %>'
-        },
         "js": {
             "src": '<%%= paths.dest.js %>'
         },
@@ -14,6 +11,9 @@ module.exports = function(grunt, data) {
             "src": "<%%= paths.dest.fonts %>"
         },
         <% } %>
+        "bower": {
+            "src": '<%%= paths.dest.bower %>'
+        },
         "patternlab": {
             "src": "<%%= paths.dest.html %>"
         },
