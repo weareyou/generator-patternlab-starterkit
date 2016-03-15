@@ -128,6 +128,7 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
         this.copy('_config.json', 'config.json');
         this.copy('_bower.json', 'bower.json');
         this.copy('_.bowerrc', '.bowerrc');
+
         this.template('_Gruntfile.js', 'Gruntfile.js');
 
         if (this.copyGitignore) {
@@ -141,8 +142,7 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
         this.template('grunt/_copy.js', 'grunt/copy.js');
 
         this.copy('grunt/_postcss.js', 'grunt/postcss.js');
-        this.copy('grunt/_csslint.js', 'grunt/csslint.js');
-        this.copy('_.csslintrc', '.csslintrc');
+        this.copy('_.stylelintrc', '.stylelintrc');
         this.copy('grunt/_jshint.js', 'grunt/jshint.js');
         this.copy('_.jshintrc', '.jshintrc');
         this.copy('grunt/_notify_hooks.js', 'grunt/notify_hooks.js');
