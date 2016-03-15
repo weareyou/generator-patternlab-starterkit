@@ -4,12 +4,10 @@ default:
     - jshint
     - sass
     - postcss
-    - csslint
     - copy<% if (includeModernizr) { %>
     - modernizr<% } %>
     - merge-json
     - patternlab
-    - processhtml
 
 serve:
     - default

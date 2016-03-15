@@ -34,14 +34,14 @@ $control-disabled-color: lightgray !default;
     cursor: pointer;
 }
 
-    /**
-     * Actual input, needs to be hidden but not removed from rendering
-     */
-    .control__input {
-        position: absolute;
-        opacity: 0;
-        z-index: -1;
-    }
+/**
+ * Actual input, needs to be hidden but not removed from rendering
+ */
+.control__input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+}
 
 
 

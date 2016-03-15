@@ -1,4 +1,4 @@
-# generator-patternlab-starterkit - v1.0.0
+# generator-patternlab-starterkit - v1.1.0
 
 > A [Yeoman](http://yeoman.io) generator for [Pattern Lab](http://patternlab.io/), a static site generator based on Brad Frost's [Atomic Design](http://bradfrostweb.com/blog/post/atomic-web-design/) methodologies.
 > Scaffolds out a new Pattern Lab site, along with a few other optional workflow bells and whistles (Sass, Autoprefixer, Bower, Grunt) and front-end dependencies (Angular, jQuery, Modernizr, [Blocss](https://github.com/Blocss/blocss) etc.).
@@ -38,14 +38,6 @@ Out of the box patternlab only loads `data.json` for data binding. This has a fe
 The patternlab starterkit makes it possible to pull data out of multiple folders located in `your-site-public-folder/_data/partials`. Those files will still be combined into one `data.json` which in turn gets loaded into patternlab-node but will be excluded from git.
 
 This setup allows us to apply atomic design to our data as well, and makes data inheritance a lot more easy.
-
-### Header & footer includes
-The developers at patternlab-node are very busy to bring the project on feature parity with patternlab-php. But for now we need to customize the views a bit to add code to the header and footer of the page. The following files can be used to add scripts and styles to the header and footer:
-
-* `_patternlab-files/partials/headerIncludes.html`
-* `_patternlab-files/partials/footerIncludes.html`
-
-This workflow remains till the devs at patternlab-node have released [v1.x.x](https://github.com/pattern-lab/patternlab-node/wiki/Roadmap#v1xx-early-2016).
 
 ## Contributing
 If you have any ideas or additions for this project please refer to the [contributing guide](CONTRIBUTING.md)

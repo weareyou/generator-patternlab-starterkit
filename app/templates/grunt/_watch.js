@@ -7,8 +7,7 @@ module.exports = function(grunt, data) {
             files: ["<%%= paths.src.sass %>**/*.{sass,scss}"],
             tasks: [
                 "sass:dev",
-                "postcss",
-                "csslint"<% if ( includeModernizr ) { %>,
+                "postcss"<% if ( includeModernizr ) { %>,
                 "modernizr"<% } %>
             ],
             options: {
@@ -19,8 +18,8 @@ module.exports = function(grunt, data) {
         bower: {
             files: ["bower.json"],
             tasks: [
-                "exec:bower"<% if (!sameFolder) { %>,
                 "clean:bower",
+                "exec:bower"<% if (!sameFolder) { %>,
                 "copy:bower"
                 <% } %>
             ],
@@ -76,8 +75,7 @@ module.exports = function(grunt, data) {
                 'clean:data',
                 'merge-json',
                 'copy:annotations',
-                'patternlab',
-                'processhtml'
+                'patternlab'
             ],
             options: {
                 "spawn": false

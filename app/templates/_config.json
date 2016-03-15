@@ -5,7 +5,7 @@
             "patterns" : "./<%= pathSource %>/_patterns/",
             "data" : "./<%= pathSource %>/_data/",
             "styleguide" : "./node_modules/patternlab-node/core/styleguide/",
-            "patternlabFiles" : "./<%= pathSource %>/_patternlab-files/",
+            "patternlabFiles" : "./node_modules/patternlab-node/core/",
             "js" : "./<%= pathSource %>/js/",
             "images" : "./<%= pathSource %>/images/",
             "fonts" : "./<%= pathSource %>/fonts/",
@@ -37,6 +37,7 @@
     "contentSyncPort" : 8002,
     "navSyncPort" : 8003,
     "debug": false,
+    "cacheBust": true,
     "ishControlsVisible": {
         "s": true,
         "m": true,
