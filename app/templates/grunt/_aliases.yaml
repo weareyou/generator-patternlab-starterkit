@@ -5,7 +5,7 @@ default:
     - sass
     - postcss
     - copy<% if (includeModernizr) { %>
-    - modernizr<% } %>
+    - 'modernizr:dev'<% } %>
     - merge-json
     - patternlab
 
@@ -13,6 +13,10 @@ serve:
     - default
     - browserSync
     - watch
+
+prepare:
+    - default<% if (includeModernizr) { %>
+    - 'modernizr:prepare'<% } %>
 
 'build-patternlab':
     - patternlab

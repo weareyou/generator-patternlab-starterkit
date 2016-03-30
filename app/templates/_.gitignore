@@ -14,6 +14,7 @@ node_modules/
 <%= pathPublic %>/styleguide.html
 <%= pathPublic %>/styleguide/html/styleguide.html
 <%= pathPublic %>/styleguide/css/*.css
+<%= pathPublic %>/js/lib/modernizr.*
 <%= pathPublic %>/css/*<% if (!sameFolder) { %>
 <%= pathPublic %>/fonts/*
 <%= pathPublic %>/js/*
