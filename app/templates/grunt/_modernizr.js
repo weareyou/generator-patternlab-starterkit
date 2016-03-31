@@ -6,6 +6,8 @@ module.exports = {
         // Path to save out the built file.
         "dest" : "<%= paths.dest.js %>lib/modernizr.build.js",
 
+        "classPrefix": "<%= config.modernizrCssPrefix %>",
+
         "options": [
             "addTest",
             "testProp",
@@ -31,6 +33,8 @@ module.exports = {
 
         // Path to save out the built file.
         "dest" : "<%= paths.dest.js %>lib/modernizr.development.js",
+
+        "classPrefix": "<%= config.modernizrCssPrefix %>",
 
         "crawl": false,
 

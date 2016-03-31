@@ -1,5 +1,5 @@
 {
     "title" : "Pattern Lab",
-    "htmlClass": "pl",
+    "htmlClass": "pl modernizr-no-js",
     "bodyClass": "body"
 }
