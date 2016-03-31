@@ -65,6 +65,7 @@ module.exports = function(grunt, data) {
             files: [
                 '<%%= paths.src.patterns %>**/*.{mustache,json}',
                 '<%%= paths.src.data %>**/*.{js,json}',
+                '!<%%= paths.src.data %>data.json',
                 '<%%= paths.src.patternlabFiles %>**/*.{mustache,html,json}'
             ],
             tasks: [
