@@ -7,8 +7,7 @@ module.exports = function(grunt, data) {
             files: ["<%%= paths.src.sass %>**/*.{sass,scss}"],
             tasks: [
                 "sass:dev",
-                "postcss"<% if ( includeModernizr ) { %>,
-                "modernizr"<% } %>
+                "postcss"
             ],
             options: {
                 "spawn": false
@@ -33,9 +32,7 @@ module.exports = function(grunt, data) {
             tasks: [
                 "jshint"<% if (!sameFolder) { %>,
                 "clean:js",
-                "copy:js"<% } %><% if ( includeModernizr ) { %>,
-                "modernizr"
-                <% } %>
+                "copy:js"<% } %>
             ],
             options: {
                 "spawn": false
@@ -68,6 +65,7 @@ module.exports = function(grunt, data) {
             files: [
                 '<%%= paths.src.patterns %>**/*.{mustache,json}',
                 '<%%= paths.src.data %>**/*.{js,json}',
+                '!<%%= paths.src.data %>data.json',
                 '<%%= paths.src.patternlabFiles %>**/*.{mustache,html,json}'
             ],
             tasks: [

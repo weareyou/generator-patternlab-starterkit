@@ -28,6 +28,7 @@
         "last 2 versions",
         "Firefox ESR"
     ],
+    "modernizrCssPrefix": "modernizr-",
     "styleGuideExcludes": [
         "templates",
         "pages"
