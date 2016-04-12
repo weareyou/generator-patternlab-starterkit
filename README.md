@@ -29,6 +29,8 @@ Run `grunt serve` from the commandline. This creates all patterns, the styleguid
 ### Deployments
 For a single compile of all code, to build on a server for example, you can run `grunt`. This will compile the front-end one single time.
 
+
+
 ## Featureset
 In general refer to [patternlab-node](https://github.com/pattern-lab/patternlab-node) for more in depth documentation about the use of patternlab.
 generator-patternlab-starterkit has some important additions compared to patternlab-node:
@@ -43,6 +45,48 @@ The patternlab starterkit makes it possible to pull data out of multiple folders
 
 This setup allows us to apply atomic design to our data as well, and makes data inheritance a lot more easy.
 
+
+### LibSass
+[LibSass](http://sass-lang.com/libsass) is a C/C++ port of the Sass engine. The point is to be simple, faster, and easy to integrate.
+
+
+### PostCSS
+
+[Autoprefixer](https://github.com/postcss/autoprefixer) is installed by default. This way we make sure that all our CSS can be written prefix-free while the prefixes are added later on based on the supported browsers. You can add/remove supported browsers by changing the `browserlist` property in `config.json`.
+
+[Stylelint](https://github.com/stylelint/stylelint) is used to enforce some kind of code style throughout the project. By default we have some default checks in `.stylelintrc`, you can alter them per project.
+
+
+### JSHint
+[JSHint](https://github.com/gruntjs/grunt-contrib-jshint) is a tool that helps to detect errors and potential problems in your JavaScript code. By default we have some default checks in `.jshintrc`, you can alter them per project.
+
+
+### Modernizr
+[Modernizr](https://github.com/Modernizr/grunt-modernizr) is great for feature detection. During installation you can choose if you want to use modernizr in your project or not. By default the modernizr classes are prefixed with `modernizr-` eg.:
+
+```css
+/* You want to test for css-transitions */
+.modernizr-css-transitions {}
+.modernizr-no-css-transitions {}
+
+/* Test if javascript is supported */
+.modernizr-js {}
+.modernizr-no-js {}
+```
+
+And in javascript:
+```js
+/* You want to test for css-transitions */
+if (Modernizr.csstransitions) {}
+```
+
+The default prefix is configurable by changing the `modernizrCssPrefix` property in `config.json`.
+
+
+### Other optional third party plugins/tools/frameworks
+* [Blocss (‘Blocks’)](https://github.com/Blocss/blocss) is a small but powerfull css framework designed specially for serious developers.
+* [AngularJS](https://angularjs.org/) - Superheroic JavaScript MVW Framework.
+* [jQuery](https://jquery.com/) - jQuery is a fast, small, and feature-rich JavaScript library.
 
 
 ## Contributing
