@@ -66,11 +66,13 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
                     },
                     {
                         name: 'Modernizr/Grunt-Modernizr (v3.x.x)',
-                        value: 'includeModernizr'
+                        value: 'includeModernizr',
+                        checked: true
                     },
                     {
                         name: 'Blocss (~6.0)',
-                        value: 'includeBlocss'
+                        value: 'includeBlocss',
+                        checked: true
                     }
                 ]
             }
