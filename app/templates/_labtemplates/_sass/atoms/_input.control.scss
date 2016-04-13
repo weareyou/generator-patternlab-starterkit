@@ -14,7 +14,7 @@ $control-border-width: 1px !default;
 
 // Colors
 $control-label-color: $black !default;
-$control-border-color: $black  !default;
+$control-border-color: $black !default;
 $control-background-color: $white !default;
 $control-focus-color: $black !default;
 $control-error-color: $black !default;
@@ -99,6 +99,7 @@ $control-disabled-color: lightgray !default;
 .control.is-disabled {
     cursor: not-allowed;
 }
+
 .control.is-disabled .control__indicator,
 .control__input:disabled ~ .control__indicator,
 .control.is-checked.is-disabled .control__indicator,
@@ -125,7 +126,7 @@ $control-disabled-color: lightgray !default;
 .control--checkbox {
     .control__indicator {
 
-        &:after {
+        &::after {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -141,7 +142,7 @@ $control-disabled-color: lightgray !default;
     .control__input:checked ~ .control__indicator {
         border-color: $control-focus-color;
 
-        &:after {
+        &::after {
             background-color: $control-focus-color;
             width: 80%;
             height: 80%;
@@ -158,7 +159,7 @@ $control-disabled-color: lightgray !default;
     .control__indicator {
         border-radius: 50%;
 
-        &:after {
+        &::after {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -175,7 +176,7 @@ $control-disabled-color: lightgray !default;
     .control__input:checked ~ .control__indicator {
         border-color: $control-focus-color;
 
-        &:after {
+        &::after {
             background-color: $control-focus-color;
             width: 80%;
             height: 80%;
