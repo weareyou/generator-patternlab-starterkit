@@ -22,13 +22,13 @@ $select-arrow-color: currentColor !default;
     display: inline-block;
     width: 100%;
 
-    &:before,
-    &:after {
+    &::before,
+    &::after {
         position: absolute;
         pointer-events: none;
     }
 
-    &:before {
+    &::before {
         top: 50%;
         right: $select-arrow-width/2;
         z-index: 1;
@@ -38,7 +38,7 @@ $select-arrow-color: currentColor !default;
         content: "▾";
     }
 
-    &:after {
+    &::after {
         position: absolute;
         top: $select-border-width;
         right: $select-border-width;
@@ -67,7 +67,7 @@ $select-arrow-color: currentColor !default;
      */
     &:focus:-moz-focusring {
         color: transparent;
-        text-shadow: 0 0 0 #000;
+        text-shadow: 0 0 0 #000000;
     }
 
     &::-ms-expand {
