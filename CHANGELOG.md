@@ -1,5 +1,10 @@
 == HEAD
 
+== 1.1.2 (April 18, 2016)
+
+* Updated readme
+* Use stylelint config standard
+
 == 1.1.1 (April 11, 2016)
 
 * Postcss-scss isnt present in package.json
