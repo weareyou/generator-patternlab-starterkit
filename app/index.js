@@ -177,6 +177,7 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             this.copy('tasks/_styles.js', 'tasks/styles.js');
             this.copy('tasks/_bower.js', 'tasks/bower.js');
             this.copy('tasks/_merge-json.js', 'tasks/merge-json.js');
+            this.copy('tasks/_patternlab.js', 'tasks/patternlab.js');
         }
 
         done();

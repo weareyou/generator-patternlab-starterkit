@@ -2,7 +2,7 @@
  * Define a globals
  */
 global.__base = __dirname + '/';
-global.__config = require('./config.json');
+global.__config = config = require('./config.json');
 
 
 /**
@@ -28,6 +28,7 @@ gulp.task('default', function(cb) {
     runSequence (
         ['merge-json'],
         ['bower'],
+        ['patternlab'],
         ['styles']
     );
 });
