@@ -173,13 +173,13 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             }
         } else if (this.taskRunner === 'gulp') {
             this.template('_gulpfile.js', 'gulpfile.js');
-            this.mkdir('tasks');
-            this.copy('tasks/_styles.js', 'tasks/styles.js');
-            this.copy('tasks/_bower.js', 'tasks/bower.js');
-            this.copy('tasks/_merge-json.js', 'tasks/merge-json.js');
-            this.copy('tasks/_patternlab.js', 'tasks/patternlab.js');
-            this.copy('tasks/copy/_styleguide.js', 'tasks/copy/styleguide.js');
-            this.copy('tasks/copy/_annotations.js', 'tasks/copy/annotations.js');
+            // this.mkdir('tasks');
+            // this.copy('tasks/_styles.js', 'tasks/styles.js');
+            // this.copy('tasks/_bower.js', 'tasks/bower.js');
+            // this.copy('tasks/_merge-json.js', 'tasks/merge-json.js');
+            // this.copy('tasks/_patternlab.js', 'tasks/patternlab.js');
+            // this.copy('tasks/copy/_styleguide.js', 'tasks/copy/styleguide.js');
+            // this.copy('tasks/copy/_annotations.js', 'tasks/copy/annotations.js');
         }
 
         done();
