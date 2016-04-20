@@ -28,6 +28,8 @@ gulp.task('default', function(cb) {
     runSequence (
         ['merge-json'],
         ['bower'],
+        ['copy:styleguide'],
+        ['copy:annotations'],
         ['patternlab'],
         ['styles']
     );
