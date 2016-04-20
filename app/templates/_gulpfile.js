@@ -25,8 +25,7 @@ gulpRequireTasks({
  * Default task
  */
 gulp.task('default', function(cb) {
-    console.log('Hello world!');
     runSequence (
-        'styles'
+        ['styles']
     );
 });
