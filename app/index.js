@@ -175,6 +175,7 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             this.template('_gulpfile.js', 'gulpfile.js');
             this.mkdir('tasks');
             this.copy('tasks/_styles.js', 'tasks/styles.js');
+            this.copy('tasks/_bower.js', 'tasks/bower.js');
         }
 
         done();

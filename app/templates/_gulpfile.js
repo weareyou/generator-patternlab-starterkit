@@ -26,6 +26,7 @@ gulpRequireTasks({
  */
 gulp.task('default', function(cb) {
     runSequence (
+        ['bower'],
         ['styles']
     );
 });
