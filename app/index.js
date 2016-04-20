@@ -173,6 +173,8 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             }
         } else if (this.taskRunner === 'gulp') {
             this.template('_gulpfile.js', 'gulpfile.js');
+            this.mkdir('tasks');
+            this.copy('tasks/_styles.js', 'tasks/styles.js');
         }
 
         done();
