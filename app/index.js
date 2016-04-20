@@ -171,6 +171,8 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             if (this.includeModernizr) {
                 this.copy('grunt/_modernizr.js', 'grunt/modernizr.js');
             }
+        } else if (this.taskRunner === 'gulp') {
+            this.template('_gulpfile.js', 'gulpfile.js');
         }
 
         done();
