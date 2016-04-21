@@ -198,7 +198,27 @@ gulp.task('lab', function(cb){
 gulp.task('default', function(cb) {
     runSequence (
         ['bower', 'lab', 'copy:styleguide', 'copy:annotations'],
-        'styles',
+        'styles'
+    );
+});
+
+
+/**
+ * Serve
+ */
+gulp.task('serve', function(cb){
+    runSequence(
+        'default',
         'connect'
+    );
+});
+
+
+/**
+ * Serve
+ */
+gulp.task('prepare', function(cb){
+    runSequence(
+        'default'
     );
 });
