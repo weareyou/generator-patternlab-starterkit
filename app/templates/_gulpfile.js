@@ -133,7 +133,7 @@ gulp.task('styles', function(cb){
 /**
  * Connect
  */
-gulp.task('connect', ['lab'], function() {
+gulp.task('connect', function() {
     browserSync.init({
         server: {
             baseDir: config.paths.public.root
@@ -169,6 +169,7 @@ gulp.task('connect', ['lab'], function() {
         config.paths.source.patterns + '**/*.mustache',
         config.paths.source.patterns + '**/*.json',
         config.paths.source.data + '**/*.json',
+        '!'+config.paths.source.data + 'data.json',
         config.paths.source.fonts + '**/*',
         config.paths.source.images + '**/*'
     ];
@@ -181,8 +182,14 @@ gulp.task('lab-pipe', ['lab'], function(cb){
     browserSync.reload();
 });
 
-gulp.task('prelab', ['pl-clean'/*, 'assets'*/]);
-gulp.task('lab', ['prelab', 'patternlab'], function(cb){cb();});
+gulp.task('prelab', ['pl-clean', 'merge-json']);
+gulp.task('lab', function(cb){
+    runSequence (
+        ['prelab'],
+        'patternlab',
+        cb
+    );
+});
 
 
 /**
@@ -190,11 +197,8 @@ gulp.task('lab', ['prelab', 'patternlab'], function(cb){cb();});
  */
 gulp.task('default', function(cb) {
     runSequence (
-        ['merge-json'],
-        ['bower'],
-        ['copy:styleguide'],
-        ['copy:annotations'],
-        ['patternlab'],
-        ['styles']
+        ['bower', 'lab', 'copy:styleguide', 'copy:annotations'],
+        'styles',
+        'connect'
     );
 });
