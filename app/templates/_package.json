@@ -18,8 +18,8 @@
         "grunt-contrib-jshint": "^1.0.0",
         "grunt-merge-json": "^0.9.5",
         "grunt-contrib-watch": "~0.6.1",
-        "grunt-sass": "~1.1.0",<% if (includeModernizr) { %>
-        "grunt-modernizr": "~1.0.2",<% } %>
+        "grunt-sass": "~1.1.0",
+        "grunt-modernizr": "~1.0.2",
         "grunt-exec": "~0.4.6",
         "grunt-notify": "^0.4.3",
         "load-grunt-tasks": "~3.4.0",

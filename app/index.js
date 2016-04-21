@@ -80,11 +80,6 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
                         value: 'includeJquery'
                     },
                     {
-                        name: 'Modernizr/Grunt-Modernizr (v3.x.x)',
-                        value: 'includeModernizr',
-                        checked: true
-                    },
-                    {
                         name: 'Blocss (~6.0)',
                         value: 'includeBlocss',
                         checked: true
@@ -110,7 +105,6 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             this.taskRunner = props.taskRunner;
             this.includeAngular = hasFeature('includeAngular');
             this.includeJquery = hasFeature('includeJquery');
-            this.includeModernizr = hasFeature('includeModernizr');
             this.includeBlocss = hasFeature('includeBlocss');
             this.projectType = props.projectType;
             this.sameFolder = false;
@@ -165,10 +159,7 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             this.template('grunt/_watch.js', 'grunt/watch.js');
             this.copy('grunt/_browserSync.js', 'grunt/browserSync.js');
             this.copy('grunt/_merge-json.js', 'grunt/merge-json.js');
-
-            if (this.includeModernizr) {
-                this.copy('grunt/_modernizr.js', 'grunt/modernizr.js');
-            }
+            this.copy('grunt/_modernizr.js', 'grunt/modernizr.js');
         } else if (this.taskRunner === 'gulp') {
             this.template('_gulpfile.js', 'gulpfile.js');
         }
