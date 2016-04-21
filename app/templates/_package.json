@@ -33,6 +33,8 @@
         "gulp-shell": "~0.5.2",
         "gulp-merge-json": "~0.4.0",
         "del": "~2.2.0",
-        "browser-sync": "~2.12.3"<% } %>
+        "browser-sync": "~2.12.3",
+        "gulp-jshint": "~2.0.0",
+        "jshint": "~2.9.2"<% } %>
     }
 }

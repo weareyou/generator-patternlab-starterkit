@@ -159,9 +159,7 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             this.template('grunt/_clean.js', 'grunt/clean.js');
             this.template('grunt/_copy.js', 'grunt/copy.js');
             this.copy('grunt/_postcss.js', 'grunt/postcss.js');
-            this.copy('_.stylelintrc', '.stylelintrc');
             this.copy('grunt/_jshint.js', 'grunt/jshint.js');
-            this.copy('_.jshintrc', '.jshintrc');
             this.copy('grunt/_notify_hooks.js', 'grunt/notify_hooks.js');
             this.copy('grunt/_exec.js', 'grunt/exec.js');
             this.template('grunt/_watch.js', 'grunt/watch.js');
@@ -173,14 +171,10 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             }
         } else if (this.taskRunner === 'gulp') {
             this.template('_gulpfile.js', 'gulpfile.js');
-            // this.mkdir('tasks');
-            // this.copy('tasks/_styles.js', 'tasks/styles.js');
-            // this.copy('tasks/_bower.js', 'tasks/bower.js');
-            // this.copy('tasks/_merge-json.js', 'tasks/merge-json.js');
-            // this.copy('tasks/_patternlab.js', 'tasks/patternlab.js');
-            // this.copy('tasks/copy/_styleguide.js', 'tasks/copy/styleguide.js');
-            // this.copy('tasks/copy/_annotations.js', 'tasks/copy/annotations.js');
         }
+
+        this.copy('_.stylelintrc', '.stylelintrc');
+        this.copy('_.jshintrc', '.jshintrc');
 
         done();
     },
@@ -213,7 +207,7 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
         this.on('end', function() {
             this.installDependencies({
                 callback: function () {
-                    this.log(yosay('Your project is ready! Type "grunt serve" to start developing on your styleguide. Type "grunt" once for a single compile.'));
+                    this.log(yosay('Your project is ready! Type "'+this.taskRunner+' serve" to start developing on your styleguide. Type "'+this.taskRunner+' prepare" once for a single compile.'));
                 }.bind(this)
             });
         });

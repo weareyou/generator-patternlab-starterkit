@@ -19,6 +19,11 @@ var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
 var browserSync = require('browser-sync').create();
 var del = del = require('del');
+var jshint = require('gulp-jshint');
+
+
+
+
 
 
 /*----------------------------------------------------------------------------*\
@@ -103,7 +108,6 @@ gulp.task('bower', function(cb){
 
 
 
-
 /*  Styles
 \*----------------------------------------------------------------------------*/
 
@@ -123,6 +127,20 @@ gulp.task('styles', function(cb){
         .pipe(gulp.dest(config.paths.public.css))
         .pipe(browserSync.stream({match: '**/*.css'}))
     ;
+});
+
+
+
+/*  jsHint
+\*----------------------------------------------------------------------------*/
+
+gulp.task('jshint', function() {
+  return gulp.src([
+        config.paths.source.js + '**/*.js',
+        '!' + config.paths.source.js + 'lib/**/*.js'
+    ])
+    .pipe(jshint())
+    .pipe(jshint.reporter(require('jshint-stylish')));
 });
 
 
@@ -163,7 +181,10 @@ gulp.task('connect', function() {
     });
     gulp.watch(config.paths.source.sass + '**/*.scss', ['styles']);
 
-    // gulp.watch(config.paths.source.styleguide, '**/*.*', ['pl-copy:styleguide']);
+    gulp.watch([
+        config.paths.source.js + '**/*.js',
+        '!' + config.paths.source.js + 'lib/**/*.js'
+    ], ['jshint', 'bs-reload']);
 
     var patternWatches = [
         config.paths.source.patterns + '**/*.mustache',
@@ -177,12 +198,16 @@ gulp.task('connect', function() {
     gulp.watch(patternWatches, ['lab-pipe'], function () { browserSync.reload(); });
 });
 
+
 gulp.task('lab-pipe', ['lab'], function(cb){
     cb();
     browserSync.reload();
 });
 
+
 gulp.task('prelab', ['pl-clean', 'merge-json']);
+
+
 gulp.task('lab', function(cb){
     runSequence (
         ['prelab'],
@@ -192,13 +217,19 @@ gulp.task('lab', function(cb){
 });
 
 
+gulp.task('bs-reload', function(cb){
+    browserSync.reload();
+});
+
+
 /**
  * Default task
  */
 gulp.task('default', function(cb) {
     runSequence (
-        ['bower', 'lab', 'copy:styleguide', 'copy:annotations'],
-        'styles'
+        ['bower', 'lab', 'copy:styleguide', 'copy:annotations', 'jshint'],
+        'styles',
+        cb
     );
 });
 
@@ -215,7 +246,7 @@ gulp.task('serve', function(cb){
 
 
 /**
- * Serve
+ * Prepare
  */
 gulp.task('prepare', function(cb){
     runSequence(
