@@ -35,6 +35,7 @@
         "del": "~2.2.0",
         "browser-sync": "~2.12.3",
         "gulp-jshint": "~2.0.0",
-        "jshint": "~2.9.2"<% } %>
+        "jshint": "~2.9.2",
+        "customizr": "https://github.com/Modernizr/customizr.git#5de20c60f68fe6e422fc3177c977f0344eebee54"<% } %>
     }
 }

@@ -20,6 +20,7 @@ var autoprefixer = require('autoprefixer');
 var browserSync = require('browser-sync').create();
 var del = del = require('del');
 var jshint = require('gulp-jshint');
+var modernizr = require("customizr");
 
 
 
@@ -104,6 +105,365 @@ gulp.task('bower', function(cb){
             'bower install'
         ]))
     ;
+});
+
+
+
+/*  Modernizr
+\*----------------------------------------------------------------------------*/
+
+gulp.task('modernizr:prepare', function(cb) {
+    var modSettings = {
+        // Path to the build you're using for development.
+        "devFile" : config.paths.public.js + "lib/modernizr.development.js",
+
+        // Path to save out the built file.
+        "dest" : config.paths.public.js + "lib/modernizr.build.js",
+
+        "classPrefix": config.modernizrCssPrefix,
+        "cssprefix": config.modernizrCssPrefix,
+
+        "options": [
+            "addTest",
+            "testProp",
+            "setClasses",
+            "prefixed",
+            "mq"
+        ],
+
+        // When crawl = true, this task will crawl all *.js, *.css, *.scss files, except files that are in node_modules/.
+        // You can override this by defining a "files" array below.
+        "files" : {
+            "src": [
+                config.paths.public.js + "**/*.js",
+                "!" + config.paths.public.js + "lib/modernizr.*.js",
+                config.paths.public.css + "**/*.css"
+            ]
+        }
+    };
+    modernizr(modSettings, function () {
+        cb();
+    });
+});
+
+
+gulp.task('modernizr:dev', function(cb) {
+    var modSettings = {
+        // Empty, because this task is generating the dev build
+        "devFile" : false,
+
+        // Path to save out the built file.
+        "dest" : config.paths.public.js + "lib/modernizr.development.js",
+
+        "classPrefix": config.modernizrCssPrefix,
+        "cssprefix": config.modernizrCssPrefix,
+
+        "crawl": false,
+
+        "options": [
+            "addTest",
+            "testProp",
+            "setClasses",
+            "prefixed",
+            "mq"
+        ],
+
+        // All tests, add some if modernizr supports them
+        "tests": [
+            "ambientlight",
+            "applicationcache",
+            "audio",
+            "batteryapi",
+            "blobconstructor",
+            "canvas",
+            "canvastext",
+            "contenteditable",
+            "contextmenu",
+            "cookies",
+            "cors",
+            "cryptography",
+            "customprotocolhandler",
+            "customevent",
+            "dart",
+            "dataview",
+            "emoji",
+            "eventlistener",
+            "exiforientation",
+            "flash",
+            "forcetouch",
+            "fullscreen",
+            "gamepads",
+            "geolocation",
+            "hashchange",
+            "hiddenscroll",
+            "history",
+            "htmlimports",
+            "ie8compat",
+            "indexeddb",
+            "indexeddbblob",
+            "input",
+            "search",
+            "inputtypes",
+            "intl",
+            "json",
+            "ligatures",
+            "olreversed",
+            "mathml",
+            "notification",
+            "pagevisibility",
+            "performance",
+            "pointerevents",
+            "pointerlock",
+            "postmessage",
+            "proximity",
+            "queryselector",
+            "quotamanagement",
+            "requestanimationframe",
+            "serviceworker",
+            "svg",
+            "templatestrings",
+            "touchevents",
+            "typedarrays",
+            "unicoderange",
+            "unicode",
+            "userdata",
+            "vibrate",
+            "video",
+            "vml",
+            "webintents",
+            "animation",
+            "webgl",
+            "websockets",
+            "xdomainrequest",
+            "adownload",
+            "audioloop",
+            "audiopreload",
+            "webaudio",
+            "lowbattery",
+            "canvasblending",
+            [
+                "todataurljpeg",
+                "todataurlpng",
+                "todataurlwebp"
+            ],
+            [
+                "canvaswinding"
+            ],
+            "getrandomvalues",
+            "cssall",
+            "cssanimations",
+            "appearance",
+            "backdropfilter",
+            "backgroundblendmode",
+            "backgroundcliptext",
+            "bgpositionshorthand",
+            "bgpositionxy",
+            [
+                "bgrepeatspace",
+                "bgrepeatround"
+            ],
+            "backgroundsize",
+            "bgsizecover",
+            "borderimage",
+            "borderradius",
+            "boxshadow",
+            "boxsizing",
+            "csscalc",
+            "checked",
+            "csschunit",
+            "csscolumns",
+            "cubicbezierrange",
+            "display-runin",
+            "displaytable",
+            "ellipsis",
+            "cssescape",
+            "cssexunit",
+            "cssfilters",
+            "flexbox",
+            "flexboxlegacy",
+            "flexboxtweener",
+            "flexwrap",
+            "fontface",
+            "generatedcontent",
+            "cssgradients",
+            "csshairline",
+            "hsla",
+            [
+                "csshyphens",
+                "softhyphens",
+                "softhyphensfind"
+            ],
+            "cssinvalid",
+            "lastchild",
+            "cssmask",
+            "mediaqueries",
+            "multiplebgs",
+            "nthchild",
+            "objectfit",
+            "opacity",
+            "overflowscrolling",
+            "csspointerevents",
+            "csspositionsticky",
+            "csspseudoanimations",
+            "csspseudotransitions",
+            "cssreflections",
+            "regions",
+            "cssremunit",
+            "cssresize",
+            "rgba",
+            "cssscrollbar",
+            "scrollsnappoints",
+            "shapes",
+            "siblinggeneral",
+            "subpixelfont",
+            "supports",
+            "target",
+            "textalignlast",
+            "textshadow",
+            "csstransforms",
+            "csstransforms3d",
+            "preserve3d",
+            "csstransitions",
+            "userselect",
+            "cssvalid",
+            "cssvhunit",
+            "cssvmaxunit",
+            "cssvminunit",
+            "cssvwunit",
+            "willchange",
+            "wrapflow",
+            "classlist",
+            [
+                "createelementattrs",
+                "createelement-attrs"
+            ],
+            "dataset",
+            "documentfragment",
+            "hidden",
+            "microdata",
+            "mutationobserver",
+            "bdi",
+            "datalistelem",
+            "details",
+            "outputelem",
+            "picture",
+            [
+                "progressbar",
+                "meter"
+            ],
+            "ruby",
+            "template",
+            "time",
+            [
+                "texttrackapi",
+                "track"
+            ],
+            "unknownelements",
+            "es5array",
+            "es5date",
+            "es5function",
+            "es5object",
+            "es5",
+            "strictmode",
+            "es5string",
+            "es5syntax",
+            "es5undefined",
+            "es6array",
+            "es6collections",
+            "contains",
+            "generators",
+            "es6math",
+            "es6number",
+            "es6object",
+            "promises",
+            "es6string",
+            [
+                "devicemotion",
+                "deviceorientation"
+            ],
+            "oninput",
+            "filereader",
+            "filesystem",
+            "capture",
+            "fileinput",
+            "directory",
+            "formattribute",
+            "localizednumber",
+            "placeholder",
+            "requestautocomplete",
+            "formvalidation",
+            "sandbox",
+            "seamless",
+            "srcdoc",
+            "apng",
+            "imgcrossorigin",
+            "jpeg2000",
+            "jpegxr",
+            "sizes",
+            "srcset",
+            "webpalpha",
+            "webpanimation",
+            [
+                "webplossless",
+                "webp-lossless"
+            ],
+            "webp",
+            "inputformaction",
+            "inputformenctype",
+            "inputformmethod",
+            "inputformtarget",
+            "beacon",
+            "lowbandwidth",
+            "eventsource",
+            "fetch",
+            "xhrresponsetypearraybuffer",
+            "xhrresponsetypeblob",
+            "xhrresponsetypedocument",
+            "xhrresponsetypejson",
+            "xhrresponsetypetext",
+            "xhrresponsetype",
+            "xhr2",
+            "scriptasync",
+            "scriptdefer",
+            "speechrecognition",
+            "speechsynthesis",
+            "localstorage",
+            "sessionstorage",
+            "websqldatabase",
+            "stylescoped",
+            "svgasimg",
+            "svgclippaths",
+            "svgfilters",
+            "svgforeignobject",
+            "inlinesvg",
+            "smil",
+            "textareamaxlength",
+            "bloburls",
+            "datauri",
+            "urlparser",
+            "videoautoplay",
+            "videoloop",
+            "videopreload",
+            "webglextensions",
+            "datachannel",
+            "getusermedia",
+            "peerconnection",
+            "websocketsbinary",
+            [
+                "atobbtoa"
+            ],
+            "framed",
+            "matchmedia",
+            "blobworkers",
+            "dataworkers",
+            "sharedworkers",
+            "transferables",
+            "webworkers"
+        ]
+    };
+    modernizr(modSettings, function () {
+        cb();
+    });
 });
 
 
@@ -218,6 +578,7 @@ gulp.task('lab', function(cb){
 
 
 gulp.task('bs-reload', function(cb){
+    cb();
     browserSync.reload();
 });
 
@@ -229,6 +590,8 @@ gulp.task('default', function(cb) {
     runSequence (
         ['bower', 'lab', 'copy:styleguide', 'copy:annotations', 'jshint'],
         'styles',
+        'modernizr:dev',
+        'modernizr:prepare',
         cb
     );
 });
