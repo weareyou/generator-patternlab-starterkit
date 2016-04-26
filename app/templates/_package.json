@@ -36,6 +36,8 @@
         "browser-sync": "~2.12.3",
         "gulp-jshint": "~2.0.0",
         "jshint": "~2.9.2",
-        "customizr": "https://github.com/Modernizr/customizr.git#5de20c60f68fe6e422fc3177c977f0344eebee54"<% } %>
+        "customizr": "https://github.com/Modernizr/customizr.git#5de20c60f68fe6e422fc3177c977f0344eebee54",
+        "stylelint": "~5.3.0",
+        "postcss-scss": "~0.1.7"<% } %>
     }
 }

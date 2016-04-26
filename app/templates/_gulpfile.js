@@ -21,6 +21,8 @@ var browserSync = require('browser-sync').create();
 var del = del = require('del');
 var jshint = require('gulp-jshint');
 var modernizr = require("customizr");
+var stylelint = require('stylelint');
+var syntaxScss = require("postcss-scss");
 
 
 
@@ -472,17 +474,23 @@ gulp.task('modernizr:dev', function(cb) {
 \*----------------------------------------------------------------------------*/
 
 gulp.task('styles', function(cb){
-    var processors = [
-        autoprefixer({browsers: config.browserlist})
-    ];
     return gulp.src(config.paths.source.sass + '**/*.scss')
+        .pipe(postcss([
+            stylelint()
+        ], {
+            syntax: syntaxScss
+        }))
         .pipe(sourcemaps.init())
         .pipe(sass({
             includePaths: [
                 config.paths.source.bower
             ]
         }).on('error', sass.logError))
-        .pipe(postcss(processors))
+        .pipe(postcss([
+            autoprefixer({
+                browsers: config.browserlist
+            })
+        ]))
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(config.paths.public.css))
         .pipe(browserSync.stream({match: '**/*.css'}))
