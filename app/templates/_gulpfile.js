@@ -111,16 +111,97 @@ gulp.task('bower', function(cb){
 
 
 
+<% if (!sameFolder) { %>
+/*  Clean
+\*----------------------------------------------------------------------------*/
+
+gulp.task('clean:js', function(cb){
+    del.sync([
+        config.paths.public.js + '*'
+    ], {force: true});
+    cb();
+});
+
+gulp.task('clean:images', function(cb){
+    del.sync([
+        config.paths.public.images + '*'
+    ], {force: true});
+    cb();
+});
+
+gulp.task('clean:fonts', function(cb){
+    del.sync([
+        config.paths.public.fonts + '*'
+    ], {force: true});
+    cb();
+});
+
+<% } %>
+
+
+
+<% if (!sameFolder) { %>
+/*  copy
+\*----------------------------------------------------------------------------*/
+
+gulp.task('copy:js', function(cb){
+    return gulp.src(
+            '**/*.js',
+            {
+                cwd: config.paths.source.js
+            }
+        )
+        .pipe(gulp.dest(config.paths.public.js))
+    ;
+    cb();
+});
+
+gulp.task('copy:images', function(cb){
+    return gulp.src(
+            '**/*',
+            {
+                cwd: config.paths.source.images
+            }
+        )
+        .pipe(gulp.dest(config.paths.public.images))
+    ;
+    cb();
+});
+
+gulp.task('copy:fonts', function(cb){
+    return gulp.src(
+            '**/*',
+            {
+                cwd: config.paths.source.fonts
+            }
+        )
+        .pipe(gulp.dest(config.paths.public.fonts))
+    ;
+    cb();
+});
+
+<% } %>
+
+
+
 /*  Modernizr
 \*----------------------------------------------------------------------------*/
 
 gulp.task('modernizr:prepare', function(cb) {
     var modSettings = {
+        <% if (sameFolder) { %>
         // Path to the build you're using for development.
         "devFile" : config.paths.public.js + "lib/modernizr.development.js",
 
         // Path to save out the built file.
         "dest" : config.paths.public.js + "lib/modernizr.build.js",
+        <% } else { %>
+        // Path to the build you're using for development.
+        "devFile" : config.paths.source.js + "lib/modernizr.development.js",
+
+        // Path to save out the built file.
+        "dest" : config.paths.source.js + "lib/modernizr.build.js",
+        <% } %>
 
         "classPrefix": config.modernizrCssPrefix,
         "cssprefix": config.modernizrCssPrefix,
@@ -154,8 +235,14 @@ gulp.task('modernizr:dev', function(cb) {
         // Empty, because this task is generating the dev build
         "devFile" : false,
 
+        <% if (sameFolder) { %>
         // Path to save out the built file.
         "dest" : config.paths.public.js + "lib/modernizr.development.js",
+        <% } else { %>
+        // Path to save out the built file.
+        "dest" : config.paths.source.js + "lib/modernizr.development.js",
+        <% } %>
+
 
         "classPrefix": config.modernizrCssPrefix,
         "cssprefix": config.modernizrCssPrefix,
@@ -547,12 +634,48 @@ gulp.task('connect', function() {
             ]
         }
     });
+});
+
+gulp.task('watch', function() {
+    /**
+     * Styles
+     */
     gulp.watch(config.paths.source.sass + '**/*.scss', ['styles']);
 
+    /**
+     * Javascripts
+     */
     gulp.watch([
         config.paths.source.js + '**/*.js',
         '!' + config.paths.source.js + 'lib/**/*.js'
-    ], ['jshint', 'bs-reload']);
+    ], [
+        'jshint'<% if (!sameFolder) { %>,
+        'clean:js',
+        'copy:js'<% } %>,
+        'bs-reload'
+    ]);
+
+    /**
+     * Images
+     */
+    gulp.watch([
+        config.paths.source.images + '**/*'
+    ], [
+        <% if (!sameFolder) { %>'clean:images',
+        'copy:images'<% } %>,
+        'bs-reload'
+    ]);
+
+    /**
+     * Fonts
+     */
+    gulp.watch([
+        config.paths.source.fonts + '**/*'
+    ], [
+        <% if (!sameFolder) { %>'clean:fonts',
+        'copy:fonts'<% } %>,
+        'bs-reload'
+    ]);
 
     var patternWatches = [
         config.paths.source.patterns + '**/*.mustache',
@@ -565,6 +688,9 @@ gulp.task('connect', function() {
 
     gulp.watch(patternWatches, ['lab-pipe'], function () { browserSync.reload(); });
 });
+
+
+
 
 
 gulp.task('lab-pipe', ['lab'], function(cb){
@@ -596,10 +722,12 @@ gulp.task('bs-reload', function(cb){
  */
 gulp.task('default', function(cb) {
     runSequence (
+        <% if (!sameFolder) { %>['clean:js', 'clean:images', 'clean:fonts'],<% } %>
         ['bower', 'lab', 'copy:styleguide', 'copy:annotations', 'jshint'],
         'styles',
         'modernizr:dev',
         'modernizr:prepare',
+        <% if (!sameFolder) { %>['copy:js', 'copy:images', 'copy:fonts'],<% } %>
         cb
     );
 });
@@ -611,6 +739,7 @@ gulp.task('default', function(cb) {
 gulp.task('serve', function(cb){
     runSequence(
         'default',
+        'watch',
         'connect'
     );
 });
