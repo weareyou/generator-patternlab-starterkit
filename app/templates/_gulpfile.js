@@ -28,47 +28,16 @@ var syntaxScss = require("postcss-scss");
 
 
 
-
 /*----------------------------------------------------------------------------*\
     Tasks
 \*----------------------------------------------------------------------------*/
 
-/*  Patternlab
+/*  Copy
 \*----------------------------------------------------------------------------*/
 
 /**
- * Clean patterns dir
- */
-gulp.task('pl-clean', function(cb){
-    del.sync([config.paths.public.patterns + '*'], {force: true});
-    cb();
-});
-
-/**
- * Merge json
- */
-gulp.task('merge-json', function(cb){
-    return gulp.src([
-            config.paths.source.data + '**/*.json',
-            '!' + config.paths.source.data + 'data.json',
-            '!' + config.paths.source.data + 'listitems.json'
-        ])
-        .pipe(merge('data.json'))
-        .pipe(gulp.dest(config.paths.source.data))
-    ;
-});
-
-
-/**
- * Patternlab
- */
-gulp.task('patternlab', function(cb){
-    pl.build(true);
-    cb();
-});
-
-/**
- * Copy: styleguide
+ * Task: copy:styleguide
+ * Copies the patternlab styleguide to the public folder
  */
 gulp.task('copy:styleguide', function(cb){
     return gulp.src(
@@ -81,8 +50,10 @@ gulp.task('copy:styleguide', function(cb){
     ;
 });
 
+
 /**
- * Copy: annotations
+ * Task: copy:annotations
+ * Copies the annotations file to the public data folder
  */
 gulp.task('copy:annotations', function(cb){
     return gulp.src(
@@ -94,10 +65,116 @@ gulp.task('copy:annotations', function(cb){
         .pipe(gulp.dest(config.paths.public.data))
     ;
 });
+<% if (!sameFolder) { %>
+
+/**
+ * Task: copy:js
+ * Copies the javascript files to the public folder
+ */
+gulp.task('copy:js', function(cb){
+    return gulp.src(
+            '**/*.js',
+            {
+                cwd: config.paths.source.js
+            }
+        )
+        .pipe(gulp.dest(config.paths.public.js))
+    ;
+    cb();
+});
+
+
+/**
+ * Task: copy:images
+ * Copies the image files to the public folder
+ */
+gulp.task('copy:images', function(cb){
+    return gulp.src(
+            '**/*',
+            {
+                cwd: config.paths.source.images
+            }
+        )
+        .pipe(gulp.dest(config.paths.public.images))
+    ;
+    cb();
+});
+
+
+/**
+ * Task: copy:fonts
+ * Copies the font files to the public folder
+ */
+gulp.task('copy:fonts', function(cb){
+    return gulp.src(
+            '**/*',
+            {
+                cwd: config.paths.source.fonts
+            }
+        )
+        .pipe(gulp.dest(config.paths.public.fonts))
+    ;
+    cb();
+});
+<% } %>
 
 
 
-/*  Bower
+/*  Clean
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Task: clean:pl
+ * Cleans up the public pattern folder so there will be no remnants of the
+ * previous build
+ */
+gulp.task('clean:pl', function(cb){
+    del.sync([config.paths.public.patterns + '*'], {force: true});
+    cb();
+});
+<% if (!sameFolder) { %>
+
+
+/**
+ * Task: clean:js
+ * Cleans the public javascript folder
+ */
+gulp.task('clean:js', function(cb){
+    del.sync([
+        config.paths.public.js + '*'
+    ], {force: true});
+    cb();
+});
+
+
+/**
+ * Task: clean:images
+ * Cleans the public images folder
+ */
+gulp.task('clean:images', function(cb){
+    del.sync([
+        config.paths.public.images + '*'
+    ], {force: true});
+    cb();
+});
+
+
+/**
+ * Task: clean:fonts
+ * Cleans the public fonts folder
+ */
+gulp.task('clean:fonts', function(cb){
+    del.sync([
+        config.paths.public.fonts + '*'
+    ], {force: true});
+    cb();
+});
+<% } %>
+
+
+
+/*  Task: bower
+    Makes sure the bower components are cleaned and installed.
 \*----------------------------------------------------------------------------*/
 
 gulp.task('bower', function(cb){
@@ -111,125 +188,16 @@ gulp.task('bower', function(cb){
 
 
 
-<% if (!sameFolder) { %>
-/*  Clean
-\*----------------------------------------------------------------------------*/
-
-gulp.task('clean:js', function(cb){
-    del.sync([
-        config.paths.public.js + '*'
-    ], {force: true});
-    cb();
-});
-
-gulp.task('clean:images', function(cb){
-    del.sync([
-        config.paths.public.images + '*'
-    ], {force: true});
-    cb();
-});
-
-gulp.task('clean:fonts', function(cb){
-    del.sync([
-        config.paths.public.fonts + '*'
-    ], {force: true});
-    cb();
-});
-
-<% } %>
-
-
-
-<% if (!sameFolder) { %>
-/*  copy
-\*----------------------------------------------------------------------------*/
-
-gulp.task('copy:js', function(cb){
-    return gulp.src(
-            '**/*.js',
-            {
-                cwd: config.paths.source.js
-            }
-        )
-        .pipe(gulp.dest(config.paths.public.js))
-    ;
-    cb();
-});
-
-gulp.task('copy:images', function(cb){
-    return gulp.src(
-            '**/*',
-            {
-                cwd: config.paths.source.images
-            }
-        )
-        .pipe(gulp.dest(config.paths.public.images))
-    ;
-    cb();
-});
-
-gulp.task('copy:fonts', function(cb){
-    return gulp.src(
-            '**/*',
-            {
-                cwd: config.paths.source.fonts
-            }
-        )
-        .pipe(gulp.dest(config.paths.public.fonts))
-    ;
-    cb();
-});
-
-<% } %>
-
-
-
 /*  Modernizr
+    While developing we use ALL the tests. When we prepare for deployments
+    we scan css & javascript files for actual tests so we have the cleanest
+    modernizr file possible.
 \*----------------------------------------------------------------------------*/
 
-gulp.task('modernizr:prepare', function(cb) {
-    var modSettings = {
-        <% if (sameFolder) { %>
-        // Path to the build you're using for development.
-        "devFile" : config.paths.public.js + "lib/modernizr.development.js",
-
-        // Path to save out the built file.
-        "dest" : config.paths.public.js + "lib/modernizr.build.js",
-        <% } else { %>
-        // Path to the build you're using for development.
-        "devFile" : config.paths.source.js + "lib/modernizr.development.js",
-
-        // Path to save out the built file.
-        "dest" : config.paths.source.js + "lib/modernizr.build.js",
-        <% } %>
-
-        "classPrefix": config.modernizrCssPrefix,
-        "cssprefix": config.modernizrCssPrefix,
-
-        "options": [
-            "addTest",
-            "testProp",
-            "setClasses",
-            "prefixed",
-            "mq"
-        ],
-
-        // When crawl = true, this task will crawl all *.js, *.css, *.scss files, except files that are in node_modules/.
-        // You can override this by defining a "files" array below.
-        "files" : {
-            "src": [
-                config.paths.public.js + "**/*.js",
-                "!" + config.paths.public.js + "lib/modernizr.*.js",
-                config.paths.public.css + "**/*.css"
-            ]
-        }
-    };
-    modernizr(modSettings, function () {
-        cb();
-    });
-});
-
-
+/**
+ * Task: modernizr:dev
+ * Creates a development version with ALL the tests included.
+ */
 gulp.task('modernizr:dev', function(cb) {
     var modSettings = {
         // Empty, because this task is generating the dev build
@@ -278,7 +246,6 @@ gulp.task('modernizr:dev', function(cb) {
             "emoji",
             "eventlistener",
             "exiforientation",
-            "flash",
             "forcetouch",
             "fullscreen",
             "gamepads",
@@ -556,8 +523,66 @@ gulp.task('modernizr:dev', function(cb) {
 });
 
 
+/**
+ * Task: modernizr:prepare
+ * Scans the css & js files for actual used tests.
+ */
+gulp.task('modernizr:prepare', function(cb) {
+    var modSettings = {
+        <% if (sameFolder) { %>
+        // Path to the build you're using for development.
+        "devFile" : config.paths.public.js + "lib/modernizr.development.js",
 
-/*  Styles
+        // Path to save out the built file.
+        "dest" : config.paths.public.js + "lib/modernizr.build.js",
+        <% } else { %>
+        // Path to the build you're using for development.
+        "devFile" : config.paths.source.js + "lib/modernizr.development.js",
+
+        // Path to save out the built file.
+        "dest" : config.paths.source.js + "lib/modernizr.build.js",
+        <% } %>
+
+        "classPrefix": config.modernizrCssPrefix,
+        "cssprefix": config.modernizrCssPrefix,
+
+        "options": [
+            "addTest",
+            "testProp",
+            "setClasses",
+            "prefixed",
+            "mq"
+        ],
+
+        // When crawl = true, this task will crawl all *.js, *.css, *.scss files, except files that are in node_modules/.
+        // You can override this by defining a "files" array below.
+        <% if (sameFolder) { %>
+        "files" : {
+            "src": [
+                config.paths.public.js + "**/*.js",
+                "!" + config.paths.public.js + "lib/modernizr.*.js",
+                config.paths.public.css + "**/*.css"
+            ]
+        }
+        <% } else { %>
+        "files" : {
+            "src": [
+                config.paths.source.js + "**/*.js",
+                "!" + config.paths.source.js + "lib/modernizr.*.js",
+                config.paths.public.css + "**/*.css"
+            ]
+        }
+        <% } %>
+    };
+    modernizr(modSettings, function () {
+        cb();
+    });
+});
+
+
+
+/*  Task: styles
+    Tests for markup errors, compiles and autoprefixes the `scss` files
 \*----------------------------------------------------------------------------*/
 
 gulp.task('styles', function(cb){
@@ -586,7 +611,8 @@ gulp.task('styles', function(cb){
 
 
 
-/*  jsHint
+/*  Task: jshint
+    Checks our own javascript files for potential errors.
 \*----------------------------------------------------------------------------*/
 
 gulp.task('jshint', function() {
@@ -600,12 +626,10 @@ gulp.task('jshint', function() {
 
 
 
-/*  Runnable tasks
+/*  Task: connect
+    Fires up a development server using browserSync
 \*----------------------------------------------------------------------------*/
 
-/**
- * Connect
- */
 gulp.task('connect', function() {
     browserSync.init({
         server: {
@@ -635,6 +659,13 @@ gulp.task('connect', function() {
         }
     });
 });
+
+
+
+/*  Task: watch
+    Setup files watches to track changes/additions/deletions of files and take
+    action upon those changes
+\*----------------------------------------------------------------------------*/
 
 gulp.task('watch', function() {
     /**
@@ -681,6 +712,7 @@ gulp.task('watch', function() {
         config.paths.source.patterns + '**/*.mustache',
         config.paths.source.patterns + '**/*.json',
         config.paths.source.data + '**/*.json',
+        config.paths.source.data + '**/*.js',
         '!'+config.paths.source.data + 'data.json',
         config.paths.source.fonts + '**/*',
         config.paths.source.images + '**/*'
@@ -691,17 +723,61 @@ gulp.task('watch', function() {
 
 
 
+/*  Patternlab specific tasks
+\*----------------------------------------------------------------------------*/
+
+/**
+ * Task: merge-json
+ * Merges our separate json files into the `data.json` file patternlab needs to
+ * operate.
+ */
+gulp.task('merge-json', function(cb){
+    return gulp.src([
+            config.paths.source.data + '**/*.json',
+            '!' + config.paths.source.data + 'data.json',
+            '!' + config.paths.source.data + 'listitems.json'
+        ])
+        .pipe(merge('data.json'))
+        .pipe(gulp.dest(config.paths.source.data))
+    ;
+});
 
 
+/**
+ * Task: patternlab
+ * Builds the patternlab styleguide
+ */
+gulp.task('patternlab', function(cb){
+    pl.build(true);
+    cb();
+});
+
+
+/**
+ * Task: lab-pipe
+ * A small wrapper task to pipe patternlab specific stuff after eachother and
+ * then reload the browserSync frame
+ */
 gulp.task('lab-pipe', ['lab'], function(cb){
     cb();
     browserSync.reload();
 });
 
 
-gulp.task('prelab', ['pl-clean', 'merge-json']);
+/**
+ * Task: prelab
+ * Prepare stuff before patternlab builds
+ */
+gulp.task('prelab', [
+    'clean:pl',
+    'merge-json'
+]);
 
 
+/**
+ * Task: lab
+ * Sequence the prelab and patternlab functions
+ */
 gulp.task('lab', function(cb){
     runSequence (
         ['prelab'],
@@ -711,14 +787,29 @@ gulp.task('lab', function(cb){
 });
 
 
+
+/*  Task: bs-reload
+    A task to reload browserSync from other tasks
+\*----------------------------------------------------------------------------*/
+
 gulp.task('bs-reload', function(cb){
     cb();
     browserSync.reload();
 });
 
 
+
+
+
+/*----------------------------------------------------------------------------*\
+    External tasks
+    Tasks wich will be used from the command line. These tasks chain together
+    all other tasks mentioned in this file.
+\*----------------------------------------------------------------------------*/
+
 /**
- * Default task
+ * task: default
+ * Prepares the code one time
  */
 gulp.task('default', function(cb) {
     runSequence (
@@ -734,7 +825,8 @@ gulp.task('default', function(cb) {
 
 
 /**
- * Serve
+ * task: serve
+ * Prepares the code, fires up a development server and sets up watch tasks
  */
 gulp.task('serve', function(cb){
     runSequence(
@@ -746,7 +838,8 @@ gulp.task('serve', function(cb){
 
 
 /**
- * Prepare
+ * task: prepare
+ * Similar to `default` but used for deployments
  */
 gulp.task('prepare', function(cb){
     runSequence(

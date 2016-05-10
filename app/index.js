@@ -198,7 +198,8 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
         this.on('end', function() {
             this.installDependencies({
                 callback: function () {
-                    this.log(yosay('Your project is ready! Type "'+this.taskRunner+' serve" to start developing on your styleguide. Type "'+this.taskRunner+' prepare" once for a single compile.'));
+                    var log = chalk.red(this.projectName) + ' is ready! Type "'+chalk.blue(this.taskRunner + ' serve')+'" to start developing on your styleguide. Type "'+chalk.blue(this.taskRunner + ' prepare')+'" once for a single compile.';
+                    this.log(yosay(log));
                 }.bind(this)
             });
         });

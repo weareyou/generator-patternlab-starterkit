@@ -8,5 +8,5 @@
  */
 'use strict';
 
-// Jshint Modernizr reference
+// Jshint global
 /*global Modernizr */
