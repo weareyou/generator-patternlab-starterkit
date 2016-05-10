@@ -671,42 +671,58 @@ gulp.task('watch', function() {
     /**
      * Styles
      */
-    gulp.watch(config.paths.source.sass + '**/*.scss', ['styles']);
+    var stylesWatcher = gulp.watch(config.paths.source.sass + '**/*.scss', ['styles']);
+    stylesWatcher.on('change', function(event){
+        console.log('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...');
+    });
+
 
     /**
      * Javascripts
      */
-    gulp.watch([
+    var scriptsWatcher = gulp.watch([
         config.paths.source.js + '**/*.js',
         '!' + config.paths.source.js + 'lib/**/*.js'
     ], [
-        'jshint'<% if (!sameFolder) { %>,
+        'jshint',<% if (!sameFolder) { %>
         'clean:js',
-        'copy:js'<% } %>,
+        'copy:js',<% } %>
         'bs-reload'
     ]);
+    scriptsWatcher.on('change', function(event){
+        console.log('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...');
+    });
+
 
     /**
      * Images
      */
-    gulp.watch([
+    var imagesWatcher = gulp.watch([
         config.paths.source.images + '**/*'
     ], [
         <% if (!sameFolder) { %>'clean:images',
-        'copy:images'<% } %>,
+        'copy:images',<% } %>
         'bs-reload'
     ]);
+    imagesWatcher.on('change', function(event){
+        console.log('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...');
+    });
+
 
     /**
      * Fonts
      */
-    gulp.watch([
+    var fontsWatcher = gulp.watch([
         config.paths.source.fonts + '**/*'
     ], [
         <% if (!sameFolder) { %>'clean:fonts',
-        'copy:fonts'<% } %>,
+        'copy:fonts',<% } %>
         'bs-reload'
     ]);
+    fontsWatcher.on('change', function(event){
+        console.log('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...');
+    });
+
 
     var patternWatches = [
         config.paths.source.patterns + '**/*.mustache',
@@ -718,7 +734,10 @@ gulp.task('watch', function() {
         config.paths.source.images + '**/*'
     ];
 
-    gulp.watch(patternWatches, ['lab-pipe'], function () { browserSync.reload(); });
+    var patternWatcher = gulp.watch(patternWatches, ['lab-pipe'], function () { browserSync.reload(); });
+    patternWatcher.on('change', function(event){
+        console.log('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...');
+    });
 });
 
 
