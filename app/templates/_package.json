@@ -8,6 +8,7 @@
         "stylelint-config-standard": "~5.0.0",
         "postcss-scss": "~0.1.7",
         "autoprefixer": "~6.3.6",
+        "chalk": "~1.1.1",
         "node-sass": "~3.4.2"<% if (taskRunner === 'grunt') { %>,
         "grunt": "~0.4.5",
         "grunt-postcss": "~0.7.2",

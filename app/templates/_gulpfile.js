@@ -23,6 +23,7 @@ var jshint = require('gulp-jshint');
 var modernizr = require("customizr");
 var stylelint = require('stylelint');
 var syntaxScss = require("postcss-scss");
+var chalk = require("chalk");
 
 
 
@@ -363,7 +364,7 @@ gulp.task('watch', function() {
      */
     var stylesWatcher = gulp.watch(config.paths.source.sass + '**/*.scss', ['styles']);
     stylesWatcher.on('change', function(event){
-        console.log('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...');
+        console.log(chalk.blue('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...'));
     });
 
 
@@ -380,7 +381,7 @@ gulp.task('watch', function() {
         'bs-reload'
     ]);
     scriptsWatcher.on('change', function(event){
-        console.log('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...');
+        console.log(chalk.blue('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...'));
     });
 
 
@@ -395,7 +396,7 @@ gulp.task('watch', function() {
         'bs-reload'
     ]);
     imagesWatcher.on('change', function(event){
-        console.log('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...');
+        console.log(chalk.blue('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...'));
     });
 
 
@@ -410,7 +411,7 @@ gulp.task('watch', function() {
         'bs-reload'
     ]);
     fontsWatcher.on('change', function(event){
-        console.log('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...');
+        console.log(chalk.blue('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...'));
     });
 
 
@@ -426,7 +427,7 @@ gulp.task('watch', function() {
 
     var patternWatcher = gulp.watch(patternWatches, ['lab-pipe'], function () { browserSync.reload(); });
     patternWatcher.on('change', function(event){
-        console.log('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...');
+        console.log(chalk.blue('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...'));
     });
 });
 
