@@ -140,8 +140,11 @@ gulp.task('clean:pl', function(cb){
  * Cleans the public javascript folder
  */
 gulp.task('clean:js', function(cb){
-    del.sync([
-        config.paths.public.js + '*'
+    del([
+        config.paths.public.js + '*',
+        '!' + config.paths.public.js + 'lib'
+        '!' + config.paths.public.js + 'lib/modernizr.development.js',
+        '!' + config.paths.public.js + 'lib/modernizr.build.js'
     ], {force: true});
     cb();
 });
@@ -203,14 +206,8 @@ gulp.task('modernizr:dev', function(cb) {
         // Empty, because this task is generating the dev build
         "devFile" : false,
 
-        <% if (sameFolder) { %>
         // Path to save out the built file.
         "dest" : config.paths.public.js + "lib/modernizr.development.js",
-        <% } else { %>
-        // Path to save out the built file.
-        "dest" : config.paths.source.js + "lib/modernizr.development.js",
-        <% } %>
-
 
         "classPrefix": config.modernizrCssPrefix,
         "cssprefix": config.modernizrCssPrefix,
@@ -240,19 +237,11 @@ gulp.task('modernizr:dev', function(cb) {
  */
 gulp.task('modernizr:prepare', function(cb) {
     var modSettings = {
-        <% if (sameFolder) { %>
         // Path to the build you're using for development.
         "devFile" : config.paths.public.js + "lib/modernizr.development.js",
 
         // Path to save out the built file.
         "dest" : config.paths.public.js + "lib/modernizr.build.js",
-        <% } else { %>
-        // Path to the build you're using for development.
-        "devFile" : config.paths.source.js + "lib/modernizr.development.js",
-
-        // Path to save out the built file.
-        "dest" : config.paths.source.js + "lib/modernizr.build.js",
-        <% } %>
 
         "classPrefix": config.modernizrCssPrefix,
         "cssprefix": config.modernizrCssPrefix,
@@ -267,7 +256,6 @@ gulp.task('modernizr:prepare', function(cb) {
 
         // When crawl = true, this task will crawl all *.js, *.css, *.scss files, except files that are in node_modules/.
         // You can override this by defining a "files" array below.
-        <% if (sameFolder) { %>
         "files" : {
             "src": [
                 config.paths.public.js + "**/*.js",
@@ -275,15 +263,6 @@ gulp.task('modernizr:prepare', function(cb) {
                 config.paths.public.css + "**/*.css"
             ]
         }
-        <% } else { %>
-        "files" : {
-            "src": [
-                config.paths.source.js + "**/*.js",
-                "!" + config.paths.source.js + "lib/modernizr.*.js",
-                config.paths.public.css + "**/*.css"
-            ]
-        }
-        <% } %>
     };
     modernizr(modSettings, function () {
         cb();
@@ -546,9 +525,9 @@ gulp.task('default', function(cb) {
         <% if (!sameFolder) { %>['clean:js', 'clean:images', 'clean:fonts'],<% } %>
         ['bower', 'lab', 'copy:styleguide', 'copy:annotations', 'jshint'],
         'styles',
+        <% if (!sameFolder) { %>['copy:js', 'copy:images', 'copy:fonts'],<% } %>
         'modernizr:dev',
         'modernizr:prepare',
-        <% if (!sameFolder) { %>['copy:js', 'copy:images', 'copy:fonts'],<% } %>
         cb
     );
 });
