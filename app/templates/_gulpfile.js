@@ -1,5 +1,5 @@
 /**
- * Define a globals
+ * Define globals
  */
 global.__base = __dirname + '/';
 global.__config = config = require('./config.json');
@@ -780,7 +780,7 @@ gulp.task('prelab', [
  */
 gulp.task('lab', function(cb){
     runSequence (
-        ['prelab'],
+        ['prelab', 'copy:annotations'],
         'patternlab',
         cb
     );
