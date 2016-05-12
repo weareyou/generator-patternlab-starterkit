@@ -24,6 +24,36 @@ var modernizr = require("customizr");
 var stylelint = require('stylelint');
 var syntaxScss = require("postcss-scss");
 var chalk = require("chalk");
+var notify = require("gulp-notify");
+
+
+var handleError = function (error) {
+    var lineNumber = (error.lineNumber) ? 'LINE ' + error.lineNumber + ' -- ' : '';
+
+    notify({
+        title: 'Task Failed [' + error.plugin + ']',
+        message: lineNumber + 'See console.'
+    }).write(error);
+
+    // Inspect the error object
+    //console.log(error);
+
+    // Easy error reporting
+    //console.log(error.toString());
+
+    // Pretty error reporting
+    var report = '';
+
+    report += chalk.white.bgRed('TASK:') + ' [' + error.plugin + ']\n';
+    report += chalk.white.bgRed('ERROR:') + ' ' + error.message + '\n';
+    if (error.lineNumber) { report += chalk.red('LINE:') + ' ' + error.lineNumber + '\n'; }
+    if (error.fileName)   { report += chalk.red('FILE:') + ' ' + error.fileName + '\n'; }
+
+    console.error(report);
+
+    // Prevent the 'watch' task from stopping
+    this.emit('end');
+}
 
 
 
@@ -330,7 +360,7 @@ gulp.task('styles', function(cb){
             includePaths: [
                 config.paths.source.bower
             ]
-        }).on('error', sass.logError))
+        }).on('error', handleError))
         .pipe(postcss([
             autoprefixer({
                 browsers: config.browserlist
