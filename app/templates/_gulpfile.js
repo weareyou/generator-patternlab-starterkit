@@ -117,6 +117,23 @@ gulp.task('copy:fonts', function(cb){
     ;
     cb();
 });
+
+
+/**
+ * Task: copy:bower
+ * Copies the bower files to the public folder
+ */
+gulp.task('copy:bower', function(cb){
+    return gulp.src(
+            '**/*',
+            {
+                cwd: config.paths.source.bower
+            }
+        )
+        .pipe(gulp.dest(config.paths.public.bower))
+    ;
+    cb();
+});
 <% } %>
 
 
@@ -143,7 +160,7 @@ gulp.task('clean:pl', function(cb){
 gulp.task('clean:js', function(cb){
     del([
         config.paths.public.js + '*',
-        '!' + config.paths.public.js + 'lib'
+        '!' + config.paths.public.js + 'lib',
         '!' + config.paths.public.js + 'lib/modernizr.development.js',
         '!' + config.paths.public.js + 'lib/modernizr.build.js'
     ], {force: true});
@@ -173,6 +190,18 @@ gulp.task('clean:fonts', function(cb){
     ], {force: true});
     cb();
 });
+
+
+/**
+ * Task: clean:bower
+ * Cleans the public bower folder
+ */
+gulp.task('clean:bower', function(cb){
+    del.sync([
+        config.paths.public.bower + '*'
+    ], {force: true});
+    cb();
+});
 <% } %>
 
 
@@ -188,6 +217,19 @@ gulp.task('bower', function(cb){
             'bower install'
         ]))
     ;
+});
+
+gulp.task('bower-pipe', ['bower:sequence'], function(cb){
+    cb();
+    browserSync.reload();
+});
+
+gulp.task('bower:sequence', function(cb){
+    runSequence (
+        [<% if (!sameFolder) { %>'clean:bower', <% } %>'bower'],
+        <% if (!sameFolder) { %>'copy:bower',<% } %>
+        cb
+    );
 });
 
 
@@ -415,6 +457,19 @@ gulp.task('watch', function() {
     });
 
 
+    /**
+     * Bower
+     */
+    var bowerWatcher = gulp.watch([
+        'bower.json'
+    ], [
+        'bower-pipe'
+    ]);
+    bowerWatcher.on('change', function(event){
+        console.log(chalk.blue('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...'));
+    });
+
+
     var patternWatches = [
         config.paths.source.patterns + '**/*.mustache',
         config.paths.source.patterns + '**/*.json',
@@ -523,10 +578,10 @@ gulp.task('bs-reload', function(cb){
  */
 gulp.task('default', function(cb) {
     runSequence (
-        <% if (!sameFolder) { %>['clean:js', 'clean:images', 'clean:fonts'],<% } %>
+        <% if (!sameFolder) { %>['clean:js', 'clean:images', 'clean:fonts', 'clean:bower'],<% } %>
         ['bower', 'lab', 'copy:styleguide', 'copy:annotations', 'jshint'],
         'styles',
-        <% if (!sameFolder) { %>['copy:js', 'copy:images', 'copy:fonts'],<% } %>
+        <% if (!sameFolder) { %>['copy:js', 'copy:images', 'copy:fonts', 'copy:bower'],<% } %>
         'modernizr:dev',
         'modernizr:prepare',
         cb
