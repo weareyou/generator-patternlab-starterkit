@@ -36,6 +36,8 @@ var handleError = function (error) {
         message: lineNumber + 'See console.'
     }).write(error);
 
+    notify.logLevel(0)
+
     // Inspect the error object
     //console.log(error);
 
