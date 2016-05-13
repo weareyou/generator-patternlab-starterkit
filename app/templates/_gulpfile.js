@@ -25,6 +25,7 @@ var stylelint = require('stylelint');
 var syntaxScss = require("postcss-scss");
 var chalk = require("chalk");
 var notify = require("gulp-notify");
+var reporter = require("postcss-reporter");
 
 
 var handleError = function (error) {
@@ -351,10 +352,14 @@ gulp.task('modernizr:prepare', function(cb) {
 gulp.task('styles', function(cb){
     return gulp.src(config.paths.source.sass + '**/*.scss')
         .pipe(postcss([
-            stylelint()
+            stylelint(),
+            reporter({
+                clearMessages: true,
+                throwError: true
+            })
         ], {
             syntax: syntaxScss
-        }))
+        })).on('error', notify.onError({ message: 'Error:', title: "Stylehint error"}), notify.logLevel(0))
         .pipe(sourcemaps.init())
         .pipe(sass({
             includePaths: [
