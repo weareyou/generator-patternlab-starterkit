@@ -361,7 +361,7 @@ gulp.task('styles', function(cb){
             })
         ], {
             syntax: syntaxScss
-        })).on('error', notify.onError({ message: 'Error:', title: "Stylehint error"}), notify.logLevel(0))
+        })).on('error', notify.onError({ message: 'Error: <%%= error.message %>', title: "Stylehint error"}), notify.logLevel(0))
         .pipe(sourcemaps.init())
         .pipe(sass({
             includePaths: [
@@ -393,7 +393,7 @@ gulp.task('jshint', function() {
     .pipe(jshint())
     .pipe(jshint.reporter(require('jshint-stylish')))
     .pipe(jshint.reporter('fail'))
-    .on('error', notify.onError({ message: 'Error:', title: "JSHint error"}), notify.logLevel(0));
+    .on('error', notify.onError({ message: 'Error: <%%= error.message %>', title: "JSHint error"}), notify.logLevel(0));
 });
 
 
