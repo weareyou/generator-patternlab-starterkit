@@ -389,7 +389,9 @@ gulp.task('jshint', function() {
         '!' + config.paths.source.js + 'lib/**/*.js'
     ])
     .pipe(jshint())
-    .pipe(jshint.reporter(require('jshint-stylish')));
+    .pipe(jshint.reporter(require('jshint-stylish')))
+    .pipe(jshint.reporter('fail'))
+    .on('error', notify.onError({ message: 'Error:', title: "JSHint error"}), notify.logLevel(0));
 });
 
 
