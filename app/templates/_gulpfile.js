@@ -25,6 +25,7 @@ var stylelint = require('stylelint');
 var syntaxScss = require("postcss-scss");
 var chalk = require("chalk");
 var notify = require("gulp-notify");
+var reporter = require("postcss-reporter");
 
 
 var handleError = function (error) {
@@ -34,6 +35,8 @@ var handleError = function (error) {
         title: 'Task Failed [' + error.plugin + ']',
         message: lineNumber + 'See console.'
     }).write(error);
+
+    notify.logLevel(0)
 
     // Inspect the error object
     //console.log(error);
@@ -351,10 +354,14 @@ gulp.task('modernizr:prepare', function(cb) {
 gulp.task('styles', function(cb){
     return gulp.src(config.paths.source.sass + '**/*.scss')
         .pipe(postcss([
-            stylelint()
+            stylelint(),
+            reporter({
+                clearMessages: true,
+                throwError: true
+            })
         ], {
             syntax: syntaxScss
-        }))
+        })).on('error', notify.onError({ message: 'Error: <%%= error.message %>', title: "Stylehint error"}), notify.logLevel(0))
         .pipe(sourcemaps.init())
         .pipe(sass({
             includePaths: [
@@ -384,7 +391,9 @@ gulp.task('jshint', function() {
         '!' + config.paths.source.js + 'lib/**/*.js'
     ])
     .pipe(jshint())
-    .pipe(jshint.reporter(require('jshint-stylish')));
+    .pipe(jshint.reporter(require('jshint-stylish')))
+    .pipe(jshint.reporter('fail'))
+    .on('error', notify.onError({ message: 'Error: <%%= error.message %>', title: "JSHint error"}), notify.logLevel(0));
 });
 
 
