@@ -61,7 +61,7 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
                         value: 'grunt'
                     },
                     {
-                        name: 'Gulp',
+                        name: 'Gulp(Experimental)',
                         value: 'gulp'
                     }
                 ]
