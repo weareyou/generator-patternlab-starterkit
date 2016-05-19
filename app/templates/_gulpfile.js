@@ -21,11 +21,10 @@ var browserSync = require('browser-sync').create();
 var del = del = require('del');
 var jshint = require('gulp-jshint');
 var modernizr = require("customizr");
-var stylelint = require('stylelint');
+var stylelint = require('gulp-stylelint');
 var syntaxScss = require("postcss-scss");
 var chalk = require("chalk");
 var notify = require("gulp-notify");
-var reporter = require("postcss-reporter");
 
 
 var handleError = function (error) {
@@ -351,21 +350,18 @@ gulp.task('modernizr:prepare', function(cb) {
 
 gulp.task('styles', function(cb){
     return gulp.src(config.paths.source.sass + '**/*.scss')
-        .pipe(postcss([
-            stylelint(),
-            reporter({
-                clearMessages: true,
-                throwError: true
-            })
-        ], {
-            syntax: syntaxScss
-        })).on('error', handleError)
-        .pipe(sourcemaps.init())
-        .pipe(sass({
-            includePaths: [
-                config.paths.source.bower
-            ]
-        }).on('error', handleError))
+    .pipe(stylelint({
+        reporters: [
+            { formatter: 'string', console: true }
+        ],
+        syntax: 'scss'
+    })).on('error', handleError)
+    .pipe(sourcemaps.init())
+    .pipe(sass({
+        includePaths: [
+            config.paths.source.bower
+        ]
+    }).on('error', handleError))
         .pipe(postcss([
             autoprefixer({
                 browsers: config.browserlist
