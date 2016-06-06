@@ -25,6 +25,7 @@ var stylelint = require('gulp-stylelint');
 var syntaxScss = require("postcss-scss");
 var chalk = require("chalk");
 var notify = require("gulp-notify");
+var plumber = require('gulp-plumber');
 
 
 var handleError = function (error) {
@@ -437,7 +438,7 @@ gulp.task('watch', function() {
     /**
      * Styles
      */
-    var stylesWatcher = gulp.watch(config.paths.source.sass + '**/*.scss', ['styles']);
+    var stylesWatcher = gulp.watch('**/*.scss', {cwd: config.paths.source.sass}, ['styles']);
     stylesWatcher.on('change', function(event){
         console.log(chalk.blue('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...'));
     });
@@ -447,9 +448,9 @@ gulp.task('watch', function() {
      * Javascripts
      */
     var scriptsWatcher = gulp.watch([
-        config.paths.source.js + '**/*.js',
+        '**/*.js',
         '!' + config.paths.source.js + 'lib/**/*.js'
-    ], [
+    ], {cwd: config.paths.source.js}, [
         'jshint',<% if (!sameFolder) { %>
         'clean:js',
         'copy:js',<% } %>
@@ -464,8 +465,8 @@ gulp.task('watch', function() {
      * Images
      */
     var imagesWatcher = gulp.watch([
-        config.paths.source.images + '**/*'
-    ], [
+        '**/*'
+    ], { cwd: config.paths.source.images }, [
         <% if (!sameFolder) { %>'clean:images',
         'copy:images',<% } %>
         'bs-reload'
@@ -479,8 +480,8 @@ gulp.task('watch', function() {
      * Fonts
      */
     var fontsWatcher = gulp.watch([
-        config.paths.source.fonts + '**/*'
-    ], [
+        '**/*'
+    ], { cwd: config.paths.source.fonts }, [
         <% if (!sameFolder) { %>'clean:fonts',
         'copy:fonts',<% } %>
         'bs-reload'
@@ -504,16 +505,16 @@ gulp.task('watch', function() {
 
 
     var patternWatches = [
-        config.paths.source.patterns + '**/*.mustache',
-        config.paths.source.patterns + '**/*.json',
-        config.paths.source.data + '**/*.json',
-        config.paths.source.data + '**/*.js',
-        '!'+config.paths.source.data + 'data.json',
-        config.paths.source.fonts + '**/*',
-        config.paths.source.images + '**/*'
+        config.paths.source.patterns.replace(config.paths.source.root, '') + '**/*.mustache',
+        config.paths.source.patterns.replace(config.paths.source.root, '') + '**/*.json',
+        config.paths.source.data.replace(config.paths.source.root, '') + '**/*.json',
+        config.paths.source.data.replace(config.paths.source.root, '') + '**/*.js',
+        '!'+config.paths.source.data.replace(config.paths.source.root, '') + 'data.json',
+        config.paths.source.fonts.replace(config.paths.source.root, '') + '**/*',
+        config.paths.source.images.replace(config.paths.source.root, '') + '**/*'
     ];
 
-    var patternWatcher = gulp.watch(patternWatches, ['lab-pipe'], function () { browserSync.reload(); });
+    var patternWatcher = gulp.watch(patternWatches, {cwd:config.paths.source.root}, ['lab-pipe'], function () { browserSync.reload(); });
     patternWatcher.on('change', function(event){
         console.log(chalk.blue('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...'));
     });
@@ -535,6 +536,7 @@ gulp.task('merge-json', function(cb){
             '!' + config.paths.source.data + 'data.json',
             '!' + config.paths.source.data + 'listitems.json'
         ])
+        .pipe(plumber({errorHandler: notify.onError(handleError) }))
         .pipe(merge('data.json'))
         .pipe(gulp.dest(config.paths.source.data))
     ;
