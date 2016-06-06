@@ -7,13 +7,11 @@
 
     <link rel="stylesheet" href="../../css/style.css?{{ cacheBuster }}" media="all" />
 
-<% if (includeModernizr) { %>
     <!-- Development modernizr: DO NOT COPY TO PRODUCTION -->
     <script src="../../js/lib/modernizr.development.js?{{ cacheBuster }}"></script>
     <!-- INSTEAD, USE THIS IN PRODUCTION CODE
     <script src="../../js/lib/modernizr.build.js?{{ cacheBuster }}"></script>
     -->
-<% } %>
 
     <!-- Patternlab code: DO NOT MODIFY OR COPY TO PRODUCTION -->
     {% pattern-lab-head %}

@@ -4,9 +4,9 @@ default:
     - jshint
     - sass
     - postcss
-    - copy<% if (includeModernizr) { %>
+    - copy
     - 'modernizr:dev'
-    - 'modernizr:prepare'<% } %>
+    - 'modernizr:prepare'
     - merge-json
     - patternlab
 

@@ -52,6 +52,21 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
                 ]
             },
             {
+                type: 'list',
+                message: 'Do you want to have grunt or gulp for task running',
+                name: 'taskRunner',
+                choices: [
+                    {
+                        name: 'Grunt',
+                        value: 'grunt'
+                    },
+                    {
+                        name: 'Gulp(Experimental)',
+                        value: 'gulp'
+                    }
+                ]
+            },
+            {
                 type: 'checkbox',
                 message: 'Do you want to install some handy defaults?',
                 name: 'features',
@@ -63,11 +78,6 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
                     {
                         name: 'jQuery (~2.1.1)',
                         value: 'includeJquery'
-                    },
-                    {
-                        name: 'Modernizr/Grunt-Modernizr (v3.x.x)',
-                        value: 'includeModernizr',
-                        checked: true
                     },
                     {
                         name: 'Blocss (~6.0)',
@@ -92,9 +102,9 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             this.pathPublic = props.pathPublic;
             this.connectPath = '/' + this.pathPublic;
             this.copyGitignore = props.copyGitignore;
+            this.taskRunner = props.taskRunner;
             this.includeAngular = hasFeature('includeAngular');
             this.includeJquery = hasFeature('includeJquery');
-            this.includeModernizr = hasFeature('includeModernizr');
             this.includeBlocss = hasFeature('includeBlocss');
             this.projectType = props.projectType;
             this.sameFolder = false;
@@ -131,34 +141,31 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
         this.copy('_bower.json', 'bower.json');
         this.copy('_.bowerrc', '.bowerrc');
 
-        this.template('_Gruntfile.js', 'Gruntfile.js');
-
         if (this.copyGitignore) {
             this.template('_.gitignore', '.gitignore');
         }
 
-        this.mkdir('grunt');
-        this.copy('grunt/_aliases.yaml', 'grunt/aliases.yaml');
-        this.copy('grunt/_sass.js', 'grunt/sass.js');
-        this.template('grunt/_clean.js', 'grunt/clean.js');
-        this.template('grunt/_copy.js', 'grunt/copy.js');
-
-        this.copy('grunt/_postcss.js', 'grunt/postcss.js');
-        this.copy('_.stylelintrc', '.stylelintrc');
-        this.copy('grunt/_jshint.js', 'grunt/jshint.js');
-        this.copy('_.jshintrc', '.jshintrc');
-        this.copy('grunt/_notify_hooks.js', 'grunt/notify_hooks.js');
-
-        this.copy('grunt/_exec.js', 'grunt/exec.js');
-        this.template('grunt/_watch.js', 'grunt/watch.js');
-
-        if (this.includeModernizr) {
+        if (this.taskRunner === 'grunt') {
+            this.template('_Gruntfile.js', 'Gruntfile.js');
+            this.mkdir('grunt');
+            this.copy('grunt/_aliases.yaml', 'grunt/aliases.yaml');
+            this.copy('grunt/_sass.js', 'grunt/sass.js');
+            this.template('grunt/_clean.js', 'grunt/clean.js');
+            this.template('grunt/_copy.js', 'grunt/copy.js');
+            this.copy('grunt/_postcss.js', 'grunt/postcss.js');
+            this.copy('grunt/_jshint.js', 'grunt/jshint.js');
+            this.copy('grunt/_notify_hooks.js', 'grunt/notify_hooks.js');
+            this.copy('grunt/_exec.js', 'grunt/exec.js');
+            this.template('grunt/_watch.js', 'grunt/watch.js');
+            this.copy('grunt/_browserSync.js', 'grunt/browserSync.js');
+            this.copy('grunt/_merge-json.js', 'grunt/merge-json.js');
             this.copy('grunt/_modernizr.js', 'grunt/modernizr.js');
+        } else if (this.taskRunner === 'gulp') {
+            this.template('_gulpfile.js', 'gulpfile.js');
         }
 
-        // BrowserSync
-        this.copy('grunt/_browserSync.js', 'grunt/browserSync.js');
-        this.copy('grunt/_merge-json.js', 'grunt/merge-json.js');
+        this.copy('_.stylelintrc', '.stylelintrc');
+        this.copy('_.jshintrc', '.jshintrc');
 
         done();
     },
@@ -191,7 +198,8 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
         this.on('end', function() {
             this.installDependencies({
                 callback: function () {
-                    this.log(yosay('Your project is ready! Type "grunt serve" to start developing on your styleguide. Type "grunt" once for a single compile.'));
+                    var log = chalk.red(this.projectName) + ' is ready! Type "'+chalk.blue(this.taskRunner + ' serve')+'" to start developing on your styleguide. Type "'+chalk.blue(this.taskRunner + ' prepare')+'" once for a single compile.';
+                    this.log(yosay(log));
                 }.bind(this)
             });
         });
