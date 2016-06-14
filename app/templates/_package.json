@@ -5,7 +5,8 @@
     "devDependencies": {
         "patternlab-node": "~1.2.0",
         "jshint-stylish": "^2.1.0",
-        "stylelint-config-standard": "~5.0.0",
+        "stylelint": "~6.6.0",
+        "stylelint-config-standard": "~9.0.0",
         "postcss-scss": "~0.1.7",
         "autoprefixer": "~6.3.6",
         "chalk": "~1.1.1",
