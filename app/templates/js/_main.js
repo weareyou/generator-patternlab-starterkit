@@ -8,7 +8,5 @@
  */
 'use strict';
 
-<% if (includeModernizr) { %>
-// Jshint Modernizr reference
+// Jshint global
 /*global Modernizr */
-<% } %>
