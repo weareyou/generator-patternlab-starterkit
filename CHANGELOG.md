@@ -1,5 +1,9 @@
 == HEAD
 
+== 1.2.0 (June 24, 2016)
+
+* Added gulp to the scaffolding choices
+
 == 1.1.2 (April 18, 2016)
 
 * Updated readme
