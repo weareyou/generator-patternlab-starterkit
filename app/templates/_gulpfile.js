@@ -10,7 +10,6 @@ global.__config = config = require('./config.json');
  */
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
-var merge = require('gulp-merge-json');
 var shell = require('gulp-shell');
 var pl = require('patternlab-node')(config);
 var sourcemaps = require('gulp-sourcemaps');
@@ -18,14 +17,16 @@ var sass = require('gulp-sass');
 var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
 var browserSync = require('browser-sync').create();
-var del = del = require('del');
 var jshint = require('gulp-jshint');
 var modernizr = require("customizr");
 var stylelint = require('gulp-stylelint');
-var syntaxScss = require("postcss-scss");
 var chalk = require("chalk");
 var notify = require("gulp-notify");
-var plumber = require('gulp-plumber');
+var path = require('path');
+
+function paths() {
+    return config.paths;
+}
 
 
 var handleError = function (error) {
@@ -71,15 +72,23 @@ var handleError = function (error) {
  * Task: copy:styleguide
  * Copies the patternlab styleguide to the public folder
  */
-gulp.task('copy:styleguide', function(cb){
-    return gulp.src(
-            ['**/*'],
-            {
-                cwd: config.paths.source.styleguide
-            }
-        )
-        .pipe(gulp.dest(config.paths.public.styleguide))
-    ;
+gulp.task('copy:styleguide', function(){
+    return gulp.src(path.resolve(paths().source.styleguide, '**/!(*.css)'))
+        .pipe(gulp.dest(path.resolve(paths().public.root)))
+        .pipe(browserSync.stream());
+});
+
+/**
+ * Styleguide Copy and flatten css
+ */
+gulp.task('copy:styleguide-css', function(){
+    return gulp.src(path.resolve(paths().source.styleguide, '**/*.css'))
+        .pipe(gulp.dest(function(file){
+            //flatten anything inside the styleguide into a single output dir per http://stackoverflow.com/a/34317320/1790362
+            file.path = path.join(file.base, path.basename(file.path));
+            return path.resolve(path.join(paths().public.styleguide, 'css'));
+        }))
+        .pipe(browserSync.stream());
 });
 
 
@@ -91,149 +100,12 @@ gulp.task('copy:annotations', function(cb){
     return gulp.src(
             'annotations.js',
             {
-                cwd: config.paths.source.data
+                cwd: config.paths.source.annotations
             }
         )
-        .pipe(gulp.dest(config.paths.public.data))
+        .pipe(gulp.dest(config.paths.public.annotations))
     ;
 });
-<% if (!sameFolder) { %>
-
-/**
- * Task: copy:js
- * Copies the javascript files to the public folder
- */
-gulp.task('copy:js', function(cb){
-    return gulp.src(
-            '**/*.js',
-            {
-                cwd: config.paths.source.js
-            }
-        )
-        .pipe(gulp.dest(config.paths.public.js))
-    ;
-    cb();
-});
-
-
-/**
- * Task: copy:images
- * Copies the image files to the public folder
- */
-gulp.task('copy:images', function(cb){
-    return gulp.src(
-            '**/*',
-            {
-                cwd: config.paths.source.images
-            }
-        )
-        .pipe(gulp.dest(config.paths.public.images))
-    ;
-    cb();
-});
-
-
-/**
- * Task: copy:fonts
- * Copies the font files to the public folder
- */
-gulp.task('copy:fonts', function(cb){
-    return gulp.src(
-            '**/*',
-            {
-                cwd: config.paths.source.fonts
-            }
-        )
-        .pipe(gulp.dest(config.paths.public.fonts))
-    ;
-    cb();
-});
-
-
-/**
- * Task: copy:bower
- * Copies the bower files to the public folder
- */
-gulp.task('copy:bower', function(cb){
-    return gulp.src(
-            '**/*',
-            {
-                cwd: config.paths.source.bower
-            }
-        )
-        .pipe(gulp.dest(config.paths.public.bower))
-    ;
-    cb();
-});
-<% } %>
-
-
-
-/*  Clean
-\*----------------------------------------------------------------------------*/
-
-/**
- * Task: clean:pl
- * Cleans up the public pattern folder so there will be no remnants of the
- * previous build
- */
-gulp.task('clean:pl', function(cb){
-    del.sync([config.paths.public.patterns + '*'], {force: true});
-    cb();
-});
-<% if (!sameFolder) { %>
-
-
-/**
- * Task: clean:js
- * Cleans the public javascript folder
- */
-gulp.task('clean:js', function(cb){
-    del([
-        config.paths.public.js + '*',
-        '!' + config.paths.public.js + 'lib',
-        '!' + config.paths.public.js + 'lib/modernizr.development.js',
-        '!' + config.paths.public.js + 'lib/modernizr.build.js'
-    ], {force: true});
-    cb();
-});
-
-
-/**
- * Task: clean:images
- * Cleans the public images folder
- */
-gulp.task('clean:images', function(cb){
-    del.sync([
-        config.paths.public.images + '*'
-    ], {force: true});
-    cb();
-});
-
-
-/**
- * Task: clean:fonts
- * Cleans the public fonts folder
- */
-gulp.task('clean:fonts', function(cb){
-    del.sync([
-        config.paths.public.fonts + '*'
-    ], {force: true});
-    cb();
-});
-
-
-/**
- * Task: clean:bower
- * Cleans the public bower folder
- */
-gulp.task('clean:bower', function(cb){
-    del.sync([
-        config.paths.public.bower + '*'
-    ], {force: true});
-    cb();
-});
-<% } %>
 
 
 
@@ -257,8 +129,7 @@ gulp.task('bower-pipe', ['bower:sequence'], function(cb){
 
 gulp.task('bower:sequence', function(cb){
     runSequence (
-        [<% if (!sameFolder) { %>'clean:bower', <% } %>'bower'],
-        <% if (!sameFolder) { %>'copy:bower',<% } %>
+        ['bower'],
         cb
     );
 });
@@ -434,6 +305,16 @@ gulp.task('connect', function() {
     action upon those changes
 \*----------------------------------------------------------------------------*/
 
+function getSupportedTemplateExtensions() {
+    var engines = require('./node_modules/patternlab-node/core/lib/pattern_engines');
+    return engines.getSupportedFileExtensions();
+}
+function getTemplateWatches() {
+    return getSupportedTemplateExtensions().map(function (dotExtension) {
+        return path.resolve(paths().source.patterns, '**/*' + dotExtension);
+    });
+}
+
 gulp.task('watch', function() {
     /**
      * Styles
@@ -449,11 +330,10 @@ gulp.task('watch', function() {
      */
     var scriptsWatcher = gulp.watch([
         '**/*.js',
+        '**/*.jsx',
         '!' + config.paths.source.js + 'lib/**/*.js'
     ], {cwd: config.paths.source.js}, [
-        'jshint',<% if (!sameFolder) { %>
-        'clean:js',
-        'copy:js',<% } %>
+        'lint',
         'bs-reload'
     ]);
     scriptsWatcher.on('change', function(event){
@@ -467,8 +347,7 @@ gulp.task('watch', function() {
     var imagesWatcher = gulp.watch([
         '**/*'
     ], { cwd: config.paths.source.images }, [
-        <% if (!sameFolder) { %>'clean:images',
-        'copy:images',<% } %>
+
         'bs-reload'
     ]);
     imagesWatcher.on('change', function(event){
@@ -482,8 +361,7 @@ gulp.task('watch', function() {
     var fontsWatcher = gulp.watch([
         '**/*'
     ], { cwd: config.paths.source.fonts }, [
-        <% if (!sameFolder) { %>'clean:fonts',
-        'copy:fonts',<% } %>
+
         'bs-reload'
     ]);
     fontsWatcher.on('change', function(event){
@@ -503,15 +381,16 @@ gulp.task('watch', function() {
         console.log(chalk.blue('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...'));
     });
 
-
     var patternWatches = [
         config.paths.source.patterns.replace(config.paths.source.root, '') + '**/*.mustache',
+        config.paths.source.patterns.replace(config.paths.source.root, '') + '**/*.md',
         config.paths.source.patterns.replace(config.paths.source.root, '') + '**/*.json',
         config.paths.source.data.replace(config.paths.source.root, '') + '**/*.json',
-        config.paths.source.data.replace(config.paths.source.root, '') + '**/*.js',
         '!'+config.paths.source.data.replace(config.paths.source.root, '') + 'data.json',
         config.paths.source.fonts.replace(config.paths.source.root, '') + '**/*',
-        config.paths.source.images.replace(config.paths.source.root, '') + '**/*'
+        config.paths.source.images.replace(config.paths.source.root, '') + '**/*',
+        config.paths.source.meta.replace(config.paths.source.root, '') + '*',
+        config.paths.source.annotations.replace(config.paths.source.root, '') + '*'
     ];
 
     var patternWatcher = gulp.watch(patternWatches, {cwd:config.paths.source.root}, ['lab-pipe'], function () { browserSync.reload(); });
@@ -525,31 +404,16 @@ gulp.task('watch', function() {
 /*  Patternlab specific tasks
 \*----------------------------------------------------------------------------*/
 
-/**
- * Task: merge-json
- * Merges our separate json files into the `data.json` file patternlab needs to
- * operate.
- */
-gulp.task('merge-json', function(cb){
-    return gulp.src([
-            config.paths.source.data + '**/*.json',
-            '!' + config.paths.source.data + 'data.json',
-            '!' + config.paths.source.data + 'listitems.json'
-        ])
-        .pipe(plumber({errorHandler: notify.onError(handleError) }))
-        .pipe(merge('data.json'))
-        .pipe(gulp.dest(config.paths.source.data))
-    ;
-});
-
+function getConfiguredCleanOption() {
+    return config.cleanPublic;
+}
 
 /**
  * Task: patternlab
  * Builds the patternlab styleguide
  */
 gulp.task('patternlab', function(cb){
-    pl.build(true);
-    cb();
+    pl.build(cb, getConfiguredCleanOption());
 });
 
 
@@ -565,22 +429,11 @@ gulp.task('lab-pipe', ['lab'], function(cb){
 
 
 /**
- * Task: prelab
- * Prepare stuff before patternlab builds
- */
-gulp.task('prelab', [
-    'clean:pl',
-    'merge-json'
-]);
-
-
-/**
  * Task: lab
  * Sequence the prelab and patternlab functions
  */
 gulp.task('lab', function(cb){
     runSequence (
-        ['prelab', 'copy:annotations'],
         'patternlab',
         cb
     );
@@ -613,10 +466,8 @@ gulp.task('bs-reload', function(cb){
  */
 gulp.task('default', function(cb) {
     runSequence (
-        <% if (!sameFolder) { %>['clean:js', 'clean:images', 'clean:fonts', 'clean:bower'],<% } %>
-        ['bower', 'lab', 'copy:styleguide', 'copy:annotations', 'jshint'],
+        ['bower', 'lab', 'copy:styleguide', 'copy:styleguide-css', 'copy:annotations', 'jshint'],
         'styles',
-        <% if (!sameFolder) { %>['copy:js', 'copy:images', 'copy:fonts', 'copy:bower'],<% } %>
         'modernizr:dev',
         'modernizr:prepare',
         cb
