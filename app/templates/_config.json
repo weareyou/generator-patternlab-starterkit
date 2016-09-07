@@ -1,30 +1,30 @@
 {
     "paths" : {
         "source" : {
-            "root": "./<%= pathSource %>/",
-            "patterns" : "./<%= pathSource %>/_patterns/",
-            "data" : "./<%= pathSource %>/_data/",
-            "meta" : "./<%= pathSource %>/_meta/",
-            "annotations" : "./<%= pathSource %>/_annotations/",
+            "root": "./<%= path %>/",
+            "patterns" : "./<%= path %>/_patterns/",
+            "data" : "./<%= path %>/_data/",
+            "meta" : "./<%= path %>/_meta/",
+            "annotations" : "./<%= path %>/_annotations/",
             "styleguide" : "./node_modules/styleguidekit-assets-default/dist/",
             "patternlabFiles" : "./node_modules/styleguidekit-mustache-default/views/",
-            "js" : "./<%= pathSource %>/js/",
-            "images" : "./<%= pathSource %>/images/",
-            "fonts" : "./<%= pathSource %>/fonts/",
-            "sass" : "./<%= pathSource %>/_sass/",
-            "bower" : "./<%= pathSource %>/bower_components/"
+            "js" : "./<%= path %>/js/",
+            "images" : "./<%= path %>/images/",
+            "fonts" : "./<%= path %>/fonts/",
+            "sass" : "./<%= path %>/_sass/",
+            "bower" : "./<%= path %>/bower_components/"
         },
         "public" : {
-            "root" : "./<%= pathPublic %>/",
-            "patterns" : "./<%= pathPublic %>/patterns/",
-            "data" : "./<%= pathPublic %>/styleguide/data/",
-            "annotations" : "./<%= pathPublic %>/annotations/",
-            "styleguide" : "./<%= pathPublic %>/styleguide/",
-            "js" : "./<%= pathPublic %>/js/",
-            "images" : "./<%= pathPublic %>/images/",
-            "fonts" : "./<%= pathPublic %>/fonts/",
-            "css" : "./<%= pathPublic %>/css/",
-            "bower" : "./<%= pathPublic %>/bower_components/"
+            "root" : "./<%= path %>/",
+            "patterns" : "./<%= path %>/patterns/",
+            "data" : "./<%= path %>/styleguide/data/",
+            "annotations" : "./<%= path %>/annotations/",
+            "styleguide" : "./<%= path %>/styleguide/",
+            "js" : "./<%= path %>/js/",
+            "images" : "./<%= path %>/images/",
+            "fonts" : "./<%= path %>/fonts/",
+            "css" : "./<%= path %>/css/",
+            "bower" : "./<%= path %>/bower_components/"
         }
     },
     "styleGuideExcludes": [

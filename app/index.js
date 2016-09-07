@@ -26,14 +26,8 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             },
             {
                 type: 'input',
-                name: 'pathSource',
-                message: 'Where do you want the source folder to be?',
-                default: 'source'
-            },
-            {
-                type: 'input',
-                name: 'pathPublic',
-                message: 'Where do you want the public folder to be?',
+                name: 'path',
+                message: 'Where do you want the patternlab folder to be generated?',
                 default: 'public'
             },
             {
@@ -48,21 +42,6 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
                     {
                         name: 'No',
                         value: false
-                    }
-                ]
-            },
-            {
-                type: 'list',
-                message: 'Do you want to have grunt or gulp for task running',
-                name: 'taskRunner',
-                choices: [
-                    {
-                        name: 'Grunt',
-                        value: 'grunt'
-                    },
-                    {
-                        name: 'Gulp(Experimental)',
-                        value: 'gulp'
                     }
                 ]
             },
@@ -98,16 +77,14 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             this.currentYear = new Date().getFullYear();
 
             this.projectName = props.projectName;
-            this.pathSource = props.pathSource;
+            this.path = props.path;
             this.pathPublic = props.pathPublic;
-            this.connectPath = '/' + this.pathPublic;
+            this.connectPath = '/' + props.path;
             this.copyGitignore = props.copyGitignore;
-            this.taskRunner = props.taskRunner;
             this.includeAngular = hasFeature('includeAngular');
             this.includeJquery = hasFeature('includeJquery');
             this.includeBlocss = hasFeature('includeBlocss');
             this.projectType = props.projectType;
-            this.sameFolder = false;
 
             this.dependencies = {};
 
@@ -121,10 +98,6 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
 
             if ( this.includeBlocss ) {
                 this.dependencies["blocss"] = "~6.0";
-            }
-
-            if ( this.pathSource === this.pathPublic ) {
-                this.sameFolder = true;
             }
 
             cb();
@@ -145,24 +118,7 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             this.template('_.gitignore', '.gitignore');
         }
 
-        if (this.taskRunner === 'grunt') {
-            this.template('_Gruntfile.js', 'Gruntfile.js');
-            this.mkdir('grunt');
-            this.copy('grunt/_aliases.yaml', 'grunt/aliases.yaml');
-            this.copy('grunt/_sass.js', 'grunt/sass.js');
-            this.template('grunt/_clean.js', 'grunt/clean.js');
-            this.template('grunt/_copy.js', 'grunt/copy.js');
-            this.copy('grunt/_postcss.js', 'grunt/postcss.js');
-            this.copy('grunt/_jshint.js', 'grunt/jshint.js');
-            this.copy('grunt/_notify_hooks.js', 'grunt/notify_hooks.js');
-            this.copy('grunt/_exec.js', 'grunt/exec.js');
-            this.template('grunt/_watch.js', 'grunt/watch.js');
-            this.copy('grunt/_browserSync.js', 'grunt/browserSync.js');
-            this.copy('grunt/_merge-json.js', 'grunt/merge-json.js');
-            this.copy('grunt/_modernizr.js', 'grunt/modernizr.js');
-        } else if (this.taskRunner === 'gulp') {
-            this.template('_gulpfile.js', 'gulpfile.js');
-        }
+        this.template('_gulpfile.js', 'gulpfile.js');
 
         this.copy('_.stylelintrc', '.stylelintrc');
         this.copy('_.jshintrc', '.jshintrc');
@@ -173,11 +129,8 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
     copyingPatternFiles: function(){
         var done = this.async();
 
-        this.mkdir(this.pathPublic);
-        this.copy('_.gitkeep', this.pathPublic + '/.gitkeep');
-
         // Copy predefined templates to source folder
-        this.directory('_labtemplates', this.pathSource);
+        this.directory('_labtemplates', this.path);
 
         done();
     },
@@ -185,11 +138,11 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
     copyingJsFiles: function() {
         var done = this.async();
 
-        this.mkdir(this.pathSource + '/js');
-        this.mkdir(this.pathSource + '/js/lib');
-        this.mkdir(this.pathSource + '/js/app');
-        this.copy('_.gitkeep', this.pathSource + '/js/lib/.gitkeep');
-        this.copy('js/_main.js', this.pathSource + '/js/app/main.js');
+        this.mkdir(this.path + '/js');
+        this.mkdir(this.path + '/js/lib');
+        this.mkdir(this.path + '/js/app');
+        this.copy('_.gitkeep', this.path + '/js/lib/.gitkeep');
+        this.copy('js/_main.js', this.path + '/js/app/main.js');
 
         done();
     },
@@ -198,7 +151,7 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
         this.on('end', function() {
             this.installDependencies({
                 callback: function () {
-                    var log = chalk.red(this.projectName) + ' is ready! Type "'+chalk.blue(this.taskRunner + ' serve')+'" to start developing on your styleguide. Type "'+chalk.blue(this.taskRunner + ' prepare')+'" once for a single compile.';
+                    var log = chalk.red(this.projectName) + ' is ready! Type "'+chalk.blue('gulp serve')+'" to start developing on your styleguide. Type "'+chalk.blue('gulp prepare')+'" once for a single compile.';
                     this.log(yosay(log));
                 }.bind(this)
             });
