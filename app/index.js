@@ -26,7 +26,7 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             },
             {
                 type: 'input',
-                name: 'path',
+                name: 'scaffoldPath',
                 message: 'Where do you want the patternlab folder to be generated?',
                 default: 'public'
             },
@@ -51,15 +51,12 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
                 name: 'features',
                 choices: [
                     {
-                        name: 'Angular (~1.3.2)',
-                        value: 'includeAngular'
+                        name: 'ECMAScript 2015, http://git.io/es6features',
+                        value: 'includeBabel',
+                        checked: true
                     },
                     {
-                        name: 'jQuery (~2.1.1)',
-                        value: 'includeJquery'
-                    },
-                    {
-                        name: 'Blocss (~6.0)',
+                        name: 'Blocss (~6.0), a small but powerfull css framework designed specially for serious developers',
                         value: 'includeBlocss',
                         checked: true
                     }
@@ -77,23 +74,20 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             this.currentYear = new Date().getFullYear();
 
             this.projectName = props.projectName;
-            this.path = props.path;
-            this.pathPublic = props.pathPublic;
-            this.connectPath = '/' + props.path;
+            this.scaffoldPath = props.scaffoldPath;
+            this.connectPath = '/' + this.scaffoldPath;
             this.copyGitignore = props.copyGitignore;
-            this.includeAngular = hasFeature('includeAngular');
-            this.includeJquery = hasFeature('includeJquery');
             this.includeBlocss = hasFeature('includeBlocss');
+            this.includeBabel = hasFeature('includeBabel');
             this.projectType = props.projectType;
 
             this.dependencies = {};
 
-            if ( this.includeAngular ) {
-                this.dependencies["angularjs"] = "~1.3.2";
-            }
+            this.sourceJsFolder = '/js';
+            this.publicJsFolder = '/js';
 
-            if ( this.includeJquery ) {
-                this.dependencies["jquery"] = "~2.1.1";
+            if (this.includeBabel) {
+                this.sourceJsFolder = '/_js';
             }
 
             if ( this.includeBlocss ) {
@@ -109,10 +103,10 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
     copyingDependencyFiles: function() {
         var done = this.async();
 
-        this.copy('_package.json', 'package.json');
-        this.copy('_config.json', 'config.json');
-        this.copy('_bower.json', 'bower.json');
-        this.copy('_.bowerrc', '.bowerrc');
+        this.template('_package.json', 'package.json');
+        this.template('_config.json', 'config.json');
+        this.template('_bower.json', 'bower.json');
+        this.template('_.bowerrc', '.bowerrc');
 
         if (this.copyGitignore) {
             this.template('_.gitignore', '.gitignore');
@@ -120,8 +114,8 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
 
         this.template('_gulpfile.js', 'gulpfile.js');
 
-        this.copy('_.stylelintrc', '.stylelintrc');
-        this.copy('_.jshintrc', '.jshintrc');
+        this.template('_.stylelintrc', '.stylelintrc');
+        this.template('_.eslintrc', '.eslintrc');
 
         done();
     },
@@ -130,19 +124,23 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
         var done = this.async();
 
         // Copy predefined templates to source folder
-        this.directory('_labtemplates', this.path);
+        this.directory('_labtemplates', this.scaffoldPath);
 
         done();
     },
 
     copyingJsFiles: function() {
         var done = this.async();
+        this.mkdir(this.scaffoldPath + this.sourceJsFolder);
 
-        this.mkdir(this.path + '/js');
-        this.mkdir(this.path + '/js/lib');
-        this.mkdir(this.path + '/js/app');
-        this.copy('_.gitkeep', this.path + '/js/lib/.gitkeep');
-        this.copy('js/_main.js', this.path + '/js/app/main.js');
+        if (this.includeBabel) {
+            this.mkdir(this.scaffoldPath + this.publicJsFolder);
+        }
+
+        this.mkdir(this.scaffoldPath + this.sourceJsFolder + '/lib');
+        this.mkdir(this.scaffoldPath + this.sourceJsFolder + '/app');
+        this.copy('_.gitkeep', this.scaffoldPath + this.sourceJsFolder + '/lib/.gitkeep');
+        this.copy('js/_main.js', this.scaffoldPath + this.sourceJsFolder + '/app/main.js');
 
         done();
     },

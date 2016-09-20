@@ -17,7 +17,8 @@ var sass = require('gulp-sass');
 var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
 var browserSync = require('browser-sync').create();
-var jshint = require('gulp-jshint');
+var eslint = require('gulp-eslint');
+<% if (includeBabel) { %>var babel = require('gulp-babel');<% } %>
 var modernizr = require("customizr");
 var stylelint = require('gulp-stylelint');
 var chalk = require("chalk");
@@ -106,6 +107,18 @@ gulp.task('copy:annotations', function(cb){
         .pipe(gulp.dest(config.paths.public.annotations))
     ;
 });
+
+<% if (includeBabel) { %>
+/**
+ * Task: copy:javascript
+ * Copies the lib javascript to the destination folder
+ */
+gulp.task('copy:javascript', function(cb){
+    return gulp.src(path.resolve(paths().source.js, 'lib/**/*.js'))
+        .pipe(gulp.dest(path.resolve(paths().public.js, 'lib/')))
+    ;
+});
+<% } %>
 
 
 
@@ -247,19 +260,25 @@ gulp.task('styles', function(cb){
 
 
 
-/*  Task: jshint
+/*  Task: javascript
     Checks our own javascript files for potential errors.
 \*----------------------------------------------------------------------------*/
 
-gulp.task('jshint', function() {
-  return gulp.src([
-        config.paths.source.js + '**/*.js',
-        '!' + config.paths.source.js + 'lib/**/*.js'
-    ])
-    .pipe(jshint())
-    .pipe(jshint.reporter(require('jshint-stylish')))
-    .pipe(jshint.reporter('fail'))
-    .on('error', handleError);
+gulp.task('javascript:dev', function() {
+    return gulp.src([
+            config.paths.source.js + '**/*.js',
+            '!' + config.paths.source.js + 'lib/**/*.js'
+        ])
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError())
+        .on('error', handleError)
+        .on('warning', handleError)
+        <% if (includeBabel) { %>
+        .pipe(babel({ presets: ['es2015'] }))
+        .pipe(gulp.dest(config.paths.public.js))
+        <% } %>
+    ;
 });
 
 
@@ -329,11 +348,11 @@ gulp.task('watch', function() {
      * Javascripts
      */
     var scriptsWatcher = gulp.watch([
-        '**/*.js',
-        '**/*.jsx',
-        '!' + config.paths.source.js + 'lib/**/*.js'
+        '**/*.js'<% if (!includeBabel) { %>,
+        '!' + config.paths.source.js + 'lib/**/*.js'<% } %>
     ], {cwd: config.paths.source.js}, [
-        'lint',
+        'javascript:dev'<% if (includeBabel) { %>,
+        'copy:javascript'<% } %>,
         'bs-reload'
     ]);
     scriptsWatcher.on('change', function(event){
@@ -466,7 +485,7 @@ gulp.task('bs-reload', function(cb){
  */
 gulp.task('default', function(cb) {
     runSequence (
-        ['bower', 'lab', 'copy:styleguide', 'copy:styleguide-css', 'copy:annotations', 'jshint'],
+        ['bower', 'lab', 'copy:styleguide', 'copy:styleguide-css', 'copy:annotations', 'javascript:dev'<% if (includeBabel) { %>, 'copy:javascript'<% } %>],
         'styles',
         'modernizr:dev',
         'modernizr:prepare',
