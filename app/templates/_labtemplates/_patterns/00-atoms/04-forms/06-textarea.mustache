@@ -1,0 +1,16 @@
+{{#textarea}}
+<textarea
+    class="input-text  input-text--textarea  js--form-input  {{textarea.modifier}}"
+    id="{{textarea.id}}"
+    name="{{textarea.name}}"
+    {{#textarea.placeholder}}
+    placeholder="{{textarea.placeholder}}"
+    {{/textarea.placeholder}}
+    {{#textarea.isRequired}}
+    required
+    {{/textarea.isRequired}}
+    {{#textarea.isReadonly}}
+    readonly="readonly"
+    {{/textarea.isReadonly}}
+>{{textarea.value}}</textarea>
+{{/textarea}}

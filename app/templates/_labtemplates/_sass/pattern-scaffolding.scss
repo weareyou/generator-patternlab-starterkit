@@ -1,0 +1,109 @@
+@charset "UTF-8";
+/*----------------------------------------------------------------------------*\
+    $PATTERN-SCAFFOLDING
+    This stylesheet is for styles you want to include only when displaying demo
+    styles for animations, color swatches, etc.
+    These styles will not be your production CSS.
+\*----------------------------------------------------------------------------*/
+
+#sg-patterns {
+    box-sizing: border-box !important;
+    max-width: 100%;
+    padding: 0 0.5em;
+}
+
+.demo-animate {
+    background: #dddddd;
+    padding: 1em;
+    margin-bottom: 1em;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.sg-colors {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none !important;
+    padding: 0 !important;
+}
+
+.sg-colors li {
+    flex: auto;
+    padding: 0.3em;
+    margin: 0 0.5em 0.5em 0;
+    min-width: 5em;
+    max-width: 14em;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.sg-swatch {
+    display: block;
+    height: 4em;
+    margin-bottom: 0.3em;
+    border-radius: 5px;
+    border: 1px solid #dddddd;
+}
+
+.sg-label {
+    font-size: 90%;
+    line-height: 1;
+}
+
+
+
+/*  States
+\*----------------------------------------------------------------------------*/
+
+// .sg-pattern-state {
+//     &.sample {
+//         &::before {
+//             color: blue;
+//         }
+//     }
+// }
+
+
+
+/*  Graybox
+    Easy layout creation
+\*----------------------------------------------------------------------------*/
+
+.graybox {
+    font-size: 1rem;
+    line-height: 2;
+    font-family: sans-serif;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+
+    a {
+        color: white;
+        text-decoration: underline;
+    }
+}
+
+.graybox--small {
+    line-height: 4;
+}
+
+.graybox--medium {
+    line-height: 6;
+}
+
+.graybox--large {
+    line-height: 8;
+}
+
+.graybox--huge {
+    line-height: 10;
+}
+
+.graybox--gigantic {
+    line-height: 12;
+}
+
+
+

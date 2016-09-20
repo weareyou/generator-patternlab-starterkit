@@ -10,17 +10,16 @@ node_modules/
 .idea
 
 #Pl specific
-<%= pathPublic %>/index.html
-<%= pathPublic %>/styleguide.html
-<%= pathPublic %>/styleguide/html/styleguide.html
-<%= pathPublic %>/styleguide/css/*.css
-<%= pathPublic %>/js/lib/modernizr.*
-<%= pathPublic %>/css/*<% if (!sameFolder) { %>
-<%= pathPublic %>/fonts/*
-<%= pathPublic %>/js/*
-<%= pathPublic %>/images/*<% }%>
-<%= pathPublic %>/patterns/*
-<%= pathPublic %>/data/*
-<%= pathSource %>/_data/data.json
-<%= pathSource %>/css/style.css.map
+<%= scaffoldPath %>/index.html
+<%= scaffoldPath %>/styleguide/*
+<%= scaffoldPath %>/styleguide/html/styleguide.html
+<%= scaffoldPath %>/styleguide/css/*.css
+<%= scaffoldPath %><%= sourceJsFolder %>/lib/modernizr.*
+<%= scaffoldPath %><%= sourceJsFolder %>/patternlab-*
+<% if (includeBabel) { %><%= scaffoldPath %><%= publicJsFolder %>/*<% } %>
+<%= scaffoldPath %>/css/*
+<%= scaffoldPath %>/patterns/*
+<%= scaffoldPath %>/data/*
+<%= scaffoldPath %>/css/style.css.map
+<%= scaffoldPath %>/annotations/*
 patternlab.json

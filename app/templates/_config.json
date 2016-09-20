@@ -1,65 +1,73 @@
 {
     "paths" : {
         "source" : {
-            "root": "./<%= pathSource %>/",
-            "patterns" : "./<%= pathSource %>/_patterns/",
-            "data" : "./<%= pathSource %>/_data/",
-            "styleguide" : "./node_modules/patternlab-node/core/styleguide/",
-            "patternlabFiles" : "./node_modules/patternlab-node/core/",
-            "js" : "./<%= pathSource %>/js/",
-            "images" : "./<%= pathSource %>/images/",
-            "fonts" : "./<%= pathSource %>/fonts/",
-            "sass" : "./<%= pathSource %>/_sass/",
-            "bower" : "./<%= pathSource %>/bower_components/"
+            "root": "./<%= scaffoldPath %>/",
+            "patterns" : "./<%= scaffoldPath %>/_patterns/",
+            "data" : "./<%= scaffoldPath %>/_data/",
+            "meta" : "./<%= scaffoldPath %>/_meta/",
+            "annotations" : "./<%= scaffoldPath %>/_annotations/",
+            "styleguide" : "./node_modules/styleguidekit-assets-default/dist/",
+            "patternlabFiles" : "./node_modules/styleguidekit-mustache-default/views/",
+            "js" : "./<%= scaffoldPath %><%= sourceJsFolder %>/",
+            "images" : "./<%= scaffoldPath %>/images/",
+            "fonts" : "./<%= scaffoldPath %>/fonts/",
+            "sass" : "./<%= scaffoldPath %>/_sass/",
+            "bower" : "./<%= scaffoldPath %>/bower_components/"
         },
         "public" : {
-            "root" : "./<%= pathPublic %>/",
-            "patterns" : "./<%= pathPublic %>/patterns/",
-            "data" : "./<%= pathPublic %>/data/",
-            "styleguide" : "./<%= pathPublic %>/styleguide/",
-            "js" : "./<%= pathPublic %>/js/",
-            "images" : "./<%= pathPublic %>/images/",
-            "fonts" : "./<%= pathPublic %>/fonts/",
-            "css" : "./<%= pathPublic %>/css/",
-            "bower" : "./<%= pathPublic %>/bower_components/"
+            "root" : "./<%= scaffoldPath %>/",
+            "patterns" : "./<%= scaffoldPath %>/patterns/",
+            "data" : "./<%= scaffoldPath %>/styleguide/data/",
+            "annotations" : "./<%= scaffoldPath %>/annotations/",
+            "styleguide" : "./<%= scaffoldPath %>/styleguide/",
+            "js" : "./<%= scaffoldPath %><%= publicJsFolder %>/",
+            "images" : "./<%= scaffoldPath %>/images/",
+            "fonts" : "./<%= scaffoldPath %>/fonts/",
+            "css" : "./<%= scaffoldPath %>/css/",
+            "bower" : "./<%= scaffoldPath %>/bower_components/"
         }
     },
     "styleGuideExcludes": [
         "templates",
         "pages"
     ],
+    "defaultPattern": "all",
+    "defaultShowPatternInfo": false,
+    "cleanPublic": true,
+    "patternExtension": "mustache",
     "ignored-extensions" : ["scss", "DS_Store", "less"],
     "ignored-directories" : ["scss"],
-    "contentSyncPort" : 8002,
-    "navSyncPort" : 8003,
     "debug": false,
-    "cacheBust": true,
-    "ishControlsVisible": {
-        "s": true,
-        "m": true,
-        "l": true,
-        "full": true,
-        "random": true,
-        "disco": true,
+    "ishControlsHide": {
+        "s": false,
+        "m": false,
+        "l": false,
+        "full": false,
+        "random": false,
+        "disco": false,
         "hay": true,
         "mqs": false,
-        "find": true,
-        "views-all": true,
-        "views-annotations": true,
-        "views-code": true,
-        "views-new": true,
-        "tools-all": true,
-        "tools-follow": false,
-        "tools-reload": false,
-        "tools-shortcuts": true,
-        "tools-docs": true
+        "find": false,
+        "views-all": false,
+        "views-annotations": false,
+        "views-code": false,
+        "views-new": false,
+        "tools-all": false,
+        "tools-docs": false
     },
-    "patternStates": {
-        "homepage-emergency" : "inprogress"
-    },
-    "patternExportKeys": [],
+    "ishMinimum": "240",
+    "ishMaximum": "2600",
+    "patternStateCascade": ["inprogress", "inreview", "complete"],
+    "patternStates": {},
+    "patternExportPatternPartials": [],
     "patternExportDirectory": "./pattern_exports/",
-    "baseurl" : "",
+    "cacheBust": true,
+    "starterkitSubDir": "dist",
+    "outputFileSuffixes": {
+        "rendered": ""
+    },
+
+
     "browserlist": [
         "last 2 versions",
         "Firefox ESR"
