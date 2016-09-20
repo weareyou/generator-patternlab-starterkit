@@ -51,15 +51,7 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
                 name: 'features',
                 choices: [
                     {
-                        name: 'Angular (~1.3.2)',
-                        value: 'includeAngular'
-                    },
-                    {
-                        name: 'jQuery (~2.1.1)',
-                        value: 'includeJquery'
-                    },
-                    {
-                        name: 'Blocss (~6.0)',
+                        name: 'Blocss (~6.0), a small but powerfull css framework designed specially for serious developers',
                         value: 'includeBlocss',
                         checked: true
                     }
@@ -81,20 +73,10 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
             this.pathPublic = props.pathPublic;
             this.connectPath = '/' + props.path;
             this.copyGitignore = props.copyGitignore;
-            this.includeAngular = hasFeature('includeAngular');
-            this.includeJquery = hasFeature('includeJquery');
             this.includeBlocss = hasFeature('includeBlocss');
             this.projectType = props.projectType;
 
             this.dependencies = {};
-
-            if ( this.includeAngular ) {
-                this.dependencies["angularjs"] = "~1.3.2";
-            }
-
-            if ( this.includeJquery ) {
-                this.dependencies["jquery"] = "~2.1.1";
-            }
 
             if ( this.includeBlocss ) {
                 this.dependencies["blocss"] = "~6.0";
