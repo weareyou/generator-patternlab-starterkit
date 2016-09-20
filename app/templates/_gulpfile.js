@@ -17,7 +17,7 @@ var sass = require('gulp-sass');
 var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
 var browserSync = require('browser-sync').create();
-// var jshint = require('gulp-jshint');
+var eslint = require('gulp-eslint');
 <% if (includeBabel) { %>var babel = require('gulp-babel');<% } %>
 var modernizr = require("customizr");
 var stylelint = require('gulp-stylelint');
@@ -269,6 +269,11 @@ gulp.task('javascript:dev', function() {
             config.paths.source.js + '**/*.js',
             '!' + config.paths.source.js + 'lib/**/*.js'
         ])
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError())
+        .on('error', handleError)
+        .on('warning', handleError)
         <% if (includeBabel) { %>
         .pipe(babel({ presets: ['es2015'] }))
         .pipe(gulp.dest(config.paths.public.js))
@@ -343,8 +348,7 @@ gulp.task('watch', function() {
      * Javascripts
      */
     var scriptsWatcher = gulp.watch([
-        '**/*.js',
-        '**/*.jsx'<% if (!includeBabel) { %>,
+        '**/*.js'<% if (!includeBabel) { %>,
         '!' + config.paths.source.js + 'lib/**/*.js'<% } %>
     ], {cwd: config.paths.source.js}, [
         'javascript:dev'<% if (includeBabel) { %>,

@@ -115,7 +115,7 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
         this.template('_gulpfile.js', 'gulpfile.js');
 
         this.template('_.stylelintrc', '.stylelintrc');
-        this.template('_.jshintrc', '.jshintrc');
+        this.template('_.eslintrc', '.eslintrc');
 
         done();
     },

@@ -1,0 +1,26 @@
+{
+  "extends": "eslint:recommended",
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "jquery": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "quotes": ["error", "single"],
+    "camelcase": ["error", {properties: "always"}],
+    "indent": ["warn", 4],
+    "no-console": ["warn", { allow: ["warn", "error"] }],
+    "eqeqeq": "error",
+    "curly": "error",
+    "no-trailing-spaces": "error",
+    "no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
+    "semi": ["error", "always"]
+  }
+}
+
