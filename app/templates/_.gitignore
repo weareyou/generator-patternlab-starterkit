@@ -18,6 +18,7 @@ node_modules/
 <%= scaffoldPath %><%= sourceJsFolder %>/patternlab-*
 <% if (includeBabel) { %><%= scaffoldPath %><%= publicJsFolder %>/*<% } %>
 <%= scaffoldPath %>/css/*
+<%= scaffoldPath %>/svg/dist/*
 <%= scaffoldPath %>/patterns/*
 <%= scaffoldPath %>/data/*
 <%= scaffoldPath %>/css/style.css.map

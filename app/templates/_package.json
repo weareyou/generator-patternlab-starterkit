@@ -22,6 +22,8 @@
         "customizr": "https://github.com/Modernizr/customizr.git#5de20c60f68fe6e422fc3177c977f0344eebee54",
         "gulp-stylelint": "~2.0.2",
         "gulp-notify": "~2.2.0",
+        "gulp-svgmin": "^1.2.2",
+        "gulp-svgstore": "^6.0.0",
         "eslint": "^3.2.2",
         "gulp-eslint": "^3.0.1"<% if (includeBabel) { %>,
         "gulp-babel": "~6.1.2",

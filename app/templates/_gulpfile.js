@@ -25,6 +25,9 @@ var chalk = require("chalk");
 var notify = require("gulp-notify");
 var path = require('path');
 
+var svgstore = require('gulp-svgstore');
+var svgmin = require('gulp-svgmin');
+
 function paths() {
     return config.paths;
 }
@@ -283,6 +286,21 @@ gulp.task('javascript:dev', function() {
 
 
 
+/*  Task: svg
+    Builds, minifies and writes a folder with svg’s into one file and an atom
+\*----------------------------------------------------------------------------*/
+
+gulp.task('svg', function () {
+    return gulp
+        .src(config.paths.source.svg + 'src/*.svg')
+        .pipe(svgmin())
+        .pipe(svgstore())
+        .pipe(gulp.dest(config.paths.source.svg + 'dist'))
+    ;
+});
+
+
+
 /*  Task: connect
     Fires up a development server using browserSync
 \*----------------------------------------------------------------------------*/
@@ -370,6 +388,20 @@ gulp.task('watch', function() {
         'bs-reload'
     ]);
     imagesWatcher.on('change', function(event){
+        console.log(chalk.blue('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...'));
+    });
+
+
+    /**
+     * SVG
+     */
+    var svgWatcher = gulp.watch([
+        '*.svg'
+    ], { cwd: config.paths.source.svg + 'source/' }, [
+        'svg',
+        'bs-reload'
+    ]);
+    svgWatcher.on('change', function(event){
         console.log(chalk.blue('File ' + event.path.replace(__base, '') + ' was ' + event.type + ', running tasks...'));
     });
 
@@ -485,6 +517,7 @@ gulp.task('bs-reload', function(cb){
  */
 gulp.task('default', function(cb) {
     runSequence (
+        'svg',
         ['bower', 'lab', 'copy:styleguide', 'copy:styleguide-css', 'copy:annotations', 'javascript:dev'<% if (includeBabel) { %>, 'copy:javascript'<% } %>],
         'styles',
         'modernizr:dev',

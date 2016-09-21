@@ -10,6 +10,7 @@
             "patternlabFiles" : "./node_modules/styleguidekit-mustache-default/views/",
             "js" : "./<%= scaffoldPath %><%= sourceJsFolder %>/",
             "images" : "./<%= scaffoldPath %>/images/",
+            "svg" : "./<%= scaffoldPath %>/svg/",
             "fonts" : "./<%= scaffoldPath %>/fonts/",
             "sass" : "./<%= scaffoldPath %>/_sass/",
             "bower" : "./<%= scaffoldPath %>/bower_components/"
@@ -22,6 +23,7 @@
             "styleguide" : "./<%= scaffoldPath %>/styleguide/",
             "js" : "./<%= scaffoldPath %><%= publicJsFolder %>/",
             "images" : "./<%= scaffoldPath %>/images/",
+            "svg" : "./<%= scaffoldPath %>/svg/",
             "fonts" : "./<%= scaffoldPath %>/fonts/",
             "css" : "./<%= scaffoldPath %>/css/",
             "bower" : "./<%= scaffoldPath %>/bower_components/"
