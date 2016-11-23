@@ -1,49 +1,27 @@
 {
   "name": "generator-patternlab-starterkit",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "Yeoman patternlab starterkit generator",
-  "license": "MIT",
   "main": "app/index.js",
+  "scripts": {
+    "test": "test"
+  },
   "repository": {
     "type": "git",
-    "url": "git://github.com/colours/generator-patternlab-starterkit"
+    "url": "git+https://bramsmulders@github.com/colours/generator-patternlab-starterkit.git"
   },
-  "author": {
-    "name": "Bram Smulders",
-    "email": "bram@bramsmulders.com",
-    "url": "http://bramsmulders.com"
-  },
-  "engines": {
-    "node": ">=0.10.0",
-    "npm": ">=1.2.10"
-  },
-  "scripts": {
-    "test": "mocha"
-  },
-  "files": [
-    "app"
-  ],
   "keywords": [
     "yeoman-generator",
     "patternlab",
-    "Blocss",
-    "Styleguide"
+    "styleguide"
   ],
   "dependencies": {
-    "chalk": "^0.5.1",
-    "cheerio": "^0.17.0",
-    "yeoman-generator": "~0.17.3",
-    "yosay": "~1.0.0"
+    "yeoman-generator": "^0.24.1"
   },
-  "devDependencies": {
-    "mocha": "*"
-  },
-  "peerDependencies": {
-    "yo": ">=1.2.0"
-  },
-  "readmeFilename": "README.md",
+  "author": "Bram Smulders",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/colours/generator-patternlab-starterkit/issues/"
+    "url": "https://github.com/colours/generator-patternlab-starterkit/issues"
   },
-  "homepage": "https://github.com/colours/generator-patternlab-starterkit/"
+  "homepage": "https://github.com/colours/generator-patternlab-starterkit#readme"
 }
