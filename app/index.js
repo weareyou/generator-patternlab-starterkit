@@ -36,9 +36,20 @@ module.exports = generators.Base.extend({
     },
 
     copyDependencyFiles: function () {
+        /**
+         * Copy projects package.json
+         */
+        this._copyTemplate(
+            this.templatePath('_package.json'),
+            this.destinationPath('package.json')
+        );
+    },
+
+
+    _copyTemplate: function (templatePath, destinationPath) {
         this.fs.copyTpl(
-            this.templatePath('package.json'),
-            this.destinationPath('package.json'),
+            templatePath,
+            destinationPath,
             {
                 _: lodash,
                 answers: this.answers
