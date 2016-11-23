@@ -349,7 +349,7 @@ gulp.task('watch', function() {
      */
     var scriptsWatcher = gulp.watch([
         '**/*.js'<% if (!includeBabel) { %>,
-        '!' + config.paths.source.js + 'lib/**/*.js'<% } %>
+        '!lib/**/*.js'<% } %>
     ], {cwd: config.paths.source.js}, [
         'javascript:dev'<% if (includeBabel) { %>,
         'copy:javascript'<% } %>,
