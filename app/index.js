@@ -2,6 +2,8 @@
 
 const generators = require('yeoman-generator');
 const yosay = require('yosay');
+const util = require('util');
+const lodash = require('lodash');
 
 module.exports = generators.Base.extend({
 
@@ -14,7 +16,7 @@ module.exports = generators.Base.extend({
         return this.prompt([
             {
                 type    : 'input',
-                name    : 'projectname',
+                name    : 'projectName',
                 message : 'What is the name of your project?',
                 default : 'Patternlab Starterkit' // Default to current folder name
             }, {
@@ -28,9 +30,19 @@ module.exports = generators.Base.extend({
                 message : 'Do you want to copy gitignore?'
             }
         ]).then(function (answers) {
-            this.log('projectname', answers.projectname);
-            this.log('scaffoldPath', answers.projectname);
-            this.log('gitignore', answers.gitignore);
+            // Logs the answers into the answers object
+            this.answers = answers;
         }.bind(this));
+    },
+
+    copyDependencyFiles: function () {
+        this.fs.copyTpl(
+            this.templatePath('package.json'),
+            this.destinationPath('package.json'),
+            {
+                _: lodash,
+                answers: this.answers
+            }
+        );
     }
 });

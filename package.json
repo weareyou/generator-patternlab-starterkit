@@ -17,7 +17,8 @@
   ],
   "dependencies": {
     "yeoman-generator": "^0.24.1",
-    "yosay": "^1.2.1"
+    "yosay": "^1.2.1",
+    "lodash": "^4.17.2"
   },
   "author": "Bram Smulders",
   "license": "MIT",
