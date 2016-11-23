@@ -3,7 +3,7 @@
     "description": "<%= projectName %> project files",
     "version": "1.0.0",
     "devDependencies": {
-        "patternlab-node": "~2.5.1",
+        "patternlab-node": "~2.6.2",
         "styleguidekit-assets-default": "^3.0.0",
         "styleguidekit-mustache-default": "^3.0.0",
         "stylelint": "~6.6.0",
