@@ -43,6 +43,16 @@ module.exports = generators.Base.extend({
             this.templatePath('_package.json'),
             this.destinationPath('package.json')
         );
+
+        /**
+         * Copy projects gitignore only if the user selects it
+         */
+        if (this.answers.gitignore) {
+            this._copyTemplate(
+                this.templatePath('_.gitignore'),
+                this.destinationPath('.gitignore')
+            );
+        }
     },
 
 
