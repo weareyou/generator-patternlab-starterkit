@@ -45,6 +45,14 @@ module.exports = generators.Base.extend({
         );
 
         /**
+         * Copy projects .editorconfig
+         */
+        this._copyTemplate(
+            this.templatePath('_.editorconfig'),
+            this.destinationPath('.editorconfig')
+        );
+
+        /**
          * Copy projects gitignore only if the user selects it
          */
         if (this.answers.gitignore) {
