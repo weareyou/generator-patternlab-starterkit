@@ -54,21 +54,32 @@ module.exports = class extends Generator {
     }
 
 
-    installDependecies () {
-        return this.installDependencies({
+    setupDependencies () {
+        // var done = this.async();
+        this.installDependencies({
             npm: true,
-            bower: false
+            bower: false,
+            callback: function () {
+
+                var done = function () {
+                    this._finalise();
+                }.bind(this);
+
+                this.spawnCommand('gulp', [
+                    'patternlab:loadstarterkit',
+                    '--kit=' + this.answers.starterkit
+                ]).on('close', done);
+
+            }.bind(this)
         });
     }
 
-
-    end () {
-        var done = this.async();
-        this.spawnCommand('gulp', [
-            'patternlab:loadstarterkit',
-            '--kit=' + this.answers.starterkit
-        ]).on('close', done);
+    _finalise () {
+        this.log(yosay(this.answers.projectName + ' is ready! Type "npm run serve" to start development server. Type "npm run watch" to watch & compile changed files. Type "npm run prepare" to compile once.'));
     }
+
+
+    end () {}
 
 
     /**
