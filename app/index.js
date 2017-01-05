@@ -28,9 +28,13 @@ module.exports = class extends Generator {
                 message : 'Where do you want the patternlab folder to be generated?',
                 default : 'public'
             }, {
-                type    : 'confirm',
-                name    : 'gitignore',
-                message : 'Do you want to copy gitignore?'
+                type    : 'list',
+                name    : 'starterkit',
+                message : 'Which starterkit do you want to use?',
+                choices: [
+                    'starterkit-mustache-demo',
+                    'starterkit-colours-mustache'
+                ]
             }
         ]).then(function (answers) {
             // Logs the answers into the answers object
@@ -62,7 +66,7 @@ module.exports = class extends Generator {
         var done = this.async();
         this.spawnCommand('gulp', [
             'patternlab:loadstarterkit',
-            '--kit=starterkit-mustache-demo'
+            '--kit=' + this.answers.starterkit
         ]).on('close', done);
     }
 
