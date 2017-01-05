@@ -51,10 +51,10 @@ module.exports = generators.Base.extend({
         var root = path.join(this.sourceRoot(), source);
         var files = glob.sync('**', { dot: true, cwd: root });
 
-        console.log(files);
-
+        // Loop over files
         for (var i = 0; i < files.length; i++) {
             var f = files[i];
+            // Check if file is actually a file
             if (fs.lstatSync(root + '/' + f).isFile()) {
                 var src = path.join(root, f);
                 var dest;
