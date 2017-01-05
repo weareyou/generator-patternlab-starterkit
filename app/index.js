@@ -4,6 +4,9 @@ const generators = require('yeoman-generator');
 const yosay = require('yosay');
 const util = require('util');
 const lodash = require('lodash');
+const path = require('path');
+const fs = require('fs');
+const glob = require('glob');
 
 module.exports = generators.Base.extend({
 
@@ -36,34 +39,43 @@ module.exports = generators.Base.extend({
     },
 
     copyDependencyFiles: function () {
-        /**
-         * Copy projects package.json
-         */
-        this._copyTemplate(
-            this.templatePath('_package.json'),
-            this.destinationPath('package.json')
-        );
+        // Process _root folder and its contents
+        this._processDirectory('_root', this.destinationPath(''));
+    },
 
-        /**
-         * Copy projects .editorconfig
-         */
-        this._copyTemplate(
-            this.templatePath('_.editorconfig'),
-            this.destinationPath('.editorconfig')
-        );
 
-        /**
-         * Copy projects gitignore only if the user selects it
-         */
-        if (this.answers.gitignore) {
-            this._copyTemplate(
-                this.templatePath('_.gitignore'),
-                this.destinationPath('.gitignore')
-            );
+    /**
+     * Processes a directory and passes template files to _copyTemplate
+     */
+    _processDirectory: function(source, destination) {
+        var root = path.join(this.sourceRoot(), source);
+        var files = glob.sync('**', { dot: true, cwd: root });
+
+        console.log(files);
+
+        for (var i = 0; i < files.length; i++) {
+            var f = files[i];
+            if (fs.lstatSync(root + '/' + f).isFile()) {
+                var src = path.join(root, f);
+                var dest;
+                if (path.basename(f).indexOf('_') === 0) {
+                    dest = path.join(destination,
+                        path.dirname(f),
+                        path.basename(f).replace(/^_/, '')
+                    );
+                    this._copyTemplate(src, dest);
+                } else {
+                    dest = path.join(destination, f);
+                    this.copy(src, dest);
+                }
+            }
         }
     },
 
 
+    /**
+     * Copies and parses templates to their destinations
+     */
     _copyTemplate: function (templatePath, destinationPath) {
         this.fs.copyTpl(
             templatePath,
