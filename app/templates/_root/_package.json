@@ -2,6 +2,11 @@
   "name": "<%= _.kebabCase(answers.projectName) %>",
   "version": "0.0.0",
   "description": "<%= answers.projectName %> project files",
+  "scripts": {
+    "serve": "gulp patternlab:serve",
+    "watch": "gulp patternlab:watch",
+    "prepare": "gulp patternlab:build"
+  },
   "dependencies": {
     "browser-sync": "^2.0.0",
     "gulp": "gulpjs/gulp#4.0",
