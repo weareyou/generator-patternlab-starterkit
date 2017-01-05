@@ -1,6 +1,6 @@
 'use strict';
 
-const generators = require('yeoman-generator');
+const Generator = require('yeoman-generator');
 const yosay = require('yosay');
 const util = require('util');
 const lodash = require('lodash');
@@ -8,12 +8,12 @@ const path = require('path');
 const fs = require('fs');
 const glob = require('glob');
 
-module.exports = generators.Base.extend({
+module.exports = class extends Generator {
 
     /**
      * Promts the user with some questions about the project
      */
-    prompting: function () {
+    prompting () {
         this.log(yosay('Welcome to the Patternlab starterkit generator!'));
 
         return this.prompt([
@@ -36,18 +36,41 @@ module.exports = generators.Base.extend({
             // Logs the answers into the answers object
             this.answers = answers;
         }.bind(this));
-    },
+    }
 
-    copyDependencyFiles: function () {
+
+    copyDependencyFiles () {
+        var done = this.async();
         // Process _root folder and its contents
-        this._processDirectory('_root', this.destinationPath(''));
-    },
+        this._processDirectory(
+            '_root',
+            this.destinationPath(''),
+            done()
+        );
+    }
+
+
+    installDependecies () {
+        return this.installDependencies({
+            npm: true,
+            bower: false
+        });
+    }
+
+
+    end () {
+        var done = this.async();
+        this.spawnCommand('gulp', [
+            'patternlab:loadstarterkit',
+            '--kit=starterkit-mustache-demo'
+        ]).on('close', done);
+    }
 
 
     /**
      * Processes a directory and passes template files to _copyTemplate
      */
-    _processDirectory: function(source, destination) {
+    _processDirectory (source, destination, callback) {
         var root = path.join(this.sourceRoot(), source);
         var files = glob.sync('**', { dot: true, cwd: root });
 
@@ -70,13 +93,15 @@ module.exports = generators.Base.extend({
                 }
             }
         }
-    },
+
+        callback();
+    }
 
 
     /**
      * Copies and parses templates to their destinations
      */
-    _copyTemplate: function (templatePath, destinationPath) {
+    _copyTemplate (templatePath, destinationPath) {
         this.fs.copyTpl(
             templatePath,
             destinationPath,
@@ -86,4 +111,4 @@ module.exports = generators.Base.extend({
             }
         );
     }
-});
+};

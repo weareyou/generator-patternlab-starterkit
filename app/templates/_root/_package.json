@@ -2,5 +2,13 @@
   "name": "<%= _.kebabCase(answers.projectName) %>",
   "version": "0.0.0",
   "description": "<%= answers.projectName %> project files",
-  "dependencies": {}
+  "dependencies": {
+    "browser-sync": "^2.0.0",
+    "gulp": "gulpjs/gulp#4.0",
+    "minimist": "^1.2.0",
+    "patternlab-node": "^2.0.0",
+    "styleguidekit-assets-default": "^3.0.0",
+    "styleguidekit-mustache-default": "^3.0.0",
+    "starterkit-mustache-demo": "^4.0.0"
+  }
 }
