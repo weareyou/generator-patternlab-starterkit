@@ -15,6 +15,6 @@
     "styleguidekit-assets-default": "^3.0.0",
     "styleguidekit-mustache-default": "^3.0.0"<% if (answers.starterkit === 'starterkit-mustache-demo') { %>,
     "starterkit-mustache-demo": "^4.0.0"<% } else if (answers.starterkit === 'starterkit-colours-mustache') { %>,
-    "starterkit-colours-mustache": "^1.0.0"<% } %>
+    "starterkit-colours-mustache": "~0.0.1"<% } %>
   }
 }
