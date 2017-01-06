@@ -23,11 +23,6 @@ module.exports = class extends Generator {
                 message : 'What is the name of your project?',
                 default : 'Patternlab Starterkit' // Default to current folder name
             }, {
-                type    : 'input',
-                name    : 'scaffoldPath',
-                message : 'Where do you want the patternlab folder to be generated?',
-                default : 'public'
-            }, {
                 type    : 'list',
                 name    : 'starterkit',
                 message : 'Which starterkit do you want to use?',
@@ -35,10 +30,33 @@ module.exports = class extends Generator {
                     'starterkit-mustache-demo',
                     'starterkit-colours-mustache'
                 ]
+            }, {
+                type    : 'input',
+                name    : 'publicPath',
+                message : 'Where do you want the public folder to be generated?',
+                default : 'public'
+            }, {
+                when    : function (response) {
+                    return (response.starterkit === 'starterkit-mustache-demo');
+                },
+                type    : 'input',
+                name    : 'sourcePath',
+                message : 'Where do you want the source folder to be generated?',
+                default : 'source'
             }
         ]).then(function (answers) {
             // Logs the answers into the answers object
             this.answers = answers;
+            if (this.answers.starterkit.includes('colours')) {
+                this.answers.sourcePath = this.answers.publicPath;
+                this.answers.sameFolder = true;
+            }
+
+            if (this.answers.sourcePath === this.answers.publicPath) {
+                this.answers.sameFolder = true;
+            } else {
+                this.answers.sameFolder = false;
+            }
         }.bind(this));
     }
 

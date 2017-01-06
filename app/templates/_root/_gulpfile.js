@@ -19,7 +19,7 @@ function resolvePath(pathInput) {
 /*  Copy tasks
     Stream assets from source to destination
 \*----------------------------------------------------------------------------*/
-
+<% if (!answers.sameFolder) { %>
 // JS copy
 gulp.task('pl-copy:js', function(){
     return gulp.src('**/*.js', {cwd: resolvePath(paths().source.js)} )
@@ -50,6 +50,8 @@ gulp.task('pl-copy:css', function(){
         .pipe(gulp.dest(resolvePath(paths().public.css)))
         .pipe(browserSync.stream());
 });
+
+<% } %>
 
 // Styleguide Copy everything but css
 gulp.task('pl-copy:styleguide', function(){
@@ -92,12 +94,12 @@ function build(done) {
 }
 
 gulp.task('pl-assets', gulp.series(
-    gulp.parallel(
+    gulp.parallel(<% if (!answers.sameFolder) { %>
         'pl-copy:js',
         'pl-copy:img',
         'pl-copy:favicon',
         'pl-copy:font',
-        'pl-copy:css',
+        'pl-copy:css',<% } %>
         'pl-copy:styleguide',
         'pl-copy:styleguide-css'
     ),
@@ -165,7 +167,7 @@ function reloadCSS() {
 }
 
 function watch() {
-    gulp.watch(resolvePath(paths().source.css) + '/**/*.css', { awaitWriteFinish: true }).on('change', gulp.series('pl-copy:css', reloadCSS));
+    gulp.watch(resolvePath(paths().source.css) + '/**/*.css', { awaitWriteFinish: true }).on('change', <% if (!answers.sameFolder) { %>gulp.series('pl-copy:css', reloadCSS)<% } else { %>reloadCSS<% } %>);
     gulp.watch(resolvePath(paths().source.styleguide) + '/**/*.*', { awaitWriteFinish: true }).on('change', gulp.series('pl-copy:styleguide', 'pl-copy:styleguide-css', reloadCSS));
 
     var patternWatches = [
