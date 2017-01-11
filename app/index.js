@@ -64,13 +64,13 @@ module.exports = class extends Generator {
     copyDependencyFiles () {
         var done = this.async();
         // Process _root folder and its contents
+        var rootFolder = path.join(this.sourceRoot(), '_root');
         this._processDirectory(
-            '_root',
+            rootFolder,
             this.destinationPath(''),
             done()
         );
     }
-
 
     setupDependencies () {
         // var done = this.async();
@@ -78,18 +78,21 @@ module.exports = class extends Generator {
             npm: true,
             bower: false,
             callback: function () {
-
-                var done = function () {
-                    this._finalise();
-                }.bind(this);
-
-                this.spawnCommand('gulp', [
-                    'patternlab:loadstarterkit',
-                    '--kit=' + this.answers.starterkit
-                ]).on('close', done);
-
+                this._setupStarterkit();
             }.bind(this)
         });
+    }
+
+    _setupStarterkit () {
+        var self = this;
+        var done = function () {
+            self._finalise()
+        };
+        this._processDirectory(
+            this.destinationPath('node_modules/' + this.answers.starterkit + '/dist'),
+            this.destinationPath(this.answers.sourcePath),
+            done
+        );
     }
 
     _finalise () {
@@ -97,22 +100,21 @@ module.exports = class extends Generator {
     }
 
 
-    end () {}
+    // end () {}
 
 
     /**
      * Processes a directory and passes template files to _copyTemplate
      */
     _processDirectory (source, destination, callback) {
-        var root = path.join(this.sourceRoot(), source);
-        var files = glob.sync('**', { dot: true, cwd: root });
+        var files = glob.sync('**', { dot: true, cwd: source });
 
         // Loop over files
         for (var i = 0; i < files.length; i++) {
             var f = files[i];
             // Check if file is actually a file
-            if (fs.lstatSync(root + '/' + f).isFile()) {
-                var src = path.join(root, f);
+            if (fs.lstatSync(source + '/' + f).isFile()) {
+                var src = path.join(source, f);
                 var dest;
                 if (path.basename(f).indexOf('_') === 0) {
                     dest = path.join(destination,
@@ -122,7 +124,7 @@ module.exports = class extends Generator {
                     this._copyTemplate(src, dest);
                 } else {
                     dest = path.join(destination, f);
-                    this.copy(src, dest);
+                    this.fs.copy(src, dest);
                 }
             }
         }

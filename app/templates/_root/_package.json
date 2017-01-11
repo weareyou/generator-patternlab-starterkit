@@ -4,8 +4,7 @@
   "description": "<%= answers.projectName %> project files",
   "scripts": {
     "serve": "gulp patternlab:serve",
-    "watch": "gulp patternlab:watch",
-    "prepare": "gulp patternlab:build"
+    "watch": "gulp patternlab:watch"
   },
   "dependencies": {
     "browser-sync": "^2.0.0",
