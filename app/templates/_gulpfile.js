@@ -276,6 +276,7 @@ gulp.task('javascript:dev', function() {
         .on('warning', handleError)
         <% if (includeBabel) { %>
         .pipe(babel({ presets: ['es2015'] }))
+        .on('error', handleError)
         .pipe(gulp.dest(config.paths.public.js))
         <% } %>
     ;
