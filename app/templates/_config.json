@@ -34,6 +34,7 @@
     "defaultPattern": "all",
     "defaultShowPatternInfo": false,
     "cleanPublic": true,
+    "cleanOutputHtml": false,
     "patternExtension": "mustache",
     "ignored-extensions" : ["scss", "DS_Store", "less"],
     "ignored-directories" : ["scss"],

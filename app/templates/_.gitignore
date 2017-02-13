@@ -22,4 +22,5 @@ node_modules/
 <%= scaffoldPath %>/data/*
 <%= scaffoldPath %>/css/style.css.map
 <%= scaffoldPath %>/annotations/*
+<%= scaffoldPath %>/dependencyGraph.json
 patternlab.json
