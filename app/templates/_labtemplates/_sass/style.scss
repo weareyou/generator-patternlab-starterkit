@@ -1,39 +1,63 @@
-@charset "UTF-8";
-/*----------------------------------------------------------------------------*\
-    $DESCRIPTION
-    Styles, extends a CSS Framework and defines all imports
-\*----------------------------------------------------------------------------*/
+/*! Colours */
 
-@import "vars";
-<% if (includeBlocss) { %>@import "blocss/lib/starterkit";<% } %>
+/*  =========================================================================
+    Style
+    Styles, extends Blocss CSS Framework and defines all imports
+    ========================================================================= */
 
+/*  Settings
+    ========================================================================= */
 
-
-/*  Atoms
-    These are basic tags, such as form labels, inputs or buttons. They also
-    include more abstract elements like color palettes, fonts, and animations.
-\*----------------------------------------------------------------------------*/
-
-@import "atoms/colors";
-@import "atoms/typography";
-@import "atoms/list.clean";
-@import "atoms/input.control";
-@import "atoms/input.select";
+@import "settings/vars";
+@import "blocss/lib/settings/defaults";
 
 
 
-/*  Molecules
-    Molecules are groups of elements that function together as a unit. (for
-    example a search form molecule)
-\*----------------------------------------------------------------------------*/
+/*  Tools
+    ========================================================================= */
+
+@import "blocss/lib/tools/functions";
+@import "blocss/lib/tools/mixins.rem";
+@import "blocss/lib/tools/mixins.media-query";
+@import "blocss/lib/tools/mixins.font-size";
+
+
+
+/*  Generic
+    ========================================================================= */
+
+@import "blocss/lib/generic/normalize";
+@import "blocss/lib/generic/reset";
+@import "blocss/lib/generic/vertical-rhythm";
+
+
+
+/*  Objects
+    ========================================================================= */
+
+@import "blocss/lib/objects/list-clean";
+@import "blocss/lib/objects/layout";
+@import "blocss/lib/objects/flexembed";
+
+
+
+/*  Components
+    ========================================================================= */
 
 // @import "";
 
 
 
-/*  Organisms
-    Organisms are groups of molecules (and possibly atoms) joined together to
-    form distinct section of an interface. (for example a masthead organism)
-\*----------------------------------------------------------------------------*/
+/*  Theme
+    ========================================================================= */
 
-// @import "";
+@import "theme/colors";
+
+
+
+/*  Utilities
+    ========================================================================= */
+
+@import "blocss/lib/utilities/visually-hidden";
+@import "blocss/lib/utilities/module";
+@import "blocss/lib/utilities/fractions";
