@@ -2,6 +2,14 @@
   "name": "<%= _.slugify(projectName) %>",
   "description": "<%= projectName %> project files",
   "version": "1.0.0",
+  "browserslist": [
+    "last 2 versions",
+    "Firefox ESR"
+  ],
+  "scripts": {
+    "start": "gulp serve",
+    "build": "gulp prepare"
+  },
   "devDependencies": {
     "autoprefixer": "^6.3.6",
     "babel-preset-env": "^1.5.2",

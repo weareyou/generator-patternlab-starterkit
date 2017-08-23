@@ -1,6 +1,6 @@
 {
   "name": "generator-patternlab-starterkit",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Yeoman patternlab starterkit generator",
   "license": "MIT",
   "main": "app/index.js",

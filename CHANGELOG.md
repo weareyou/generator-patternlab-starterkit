@@ -1,5 +1,10 @@
 == HEAD
 
+== 1.5.0 (August 23, 2017)
+
+* Update dependencies
+* Adhere to latest standards such as, SVG, es6, etc.
+
 == 1.4.0 (November 23, 2016)
 
 * Update to PL-node 2.6.1
