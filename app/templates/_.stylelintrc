@@ -1,11 +1,13 @@
 {
-    "extends": "stylelint-config-standard",
-    "rules": {
-        "comment-empty-line-before": null,
-        "comment-whitespace-inside": null,
-        "color-hex-length": "long",
-        "max-empty-lines": 5,
-        "no-missing-eof-newline": null,
-        "indentation": 4
-    }
+  "extends": "stylelint-config-blocss",
+  "plugins": [
+    "stylelint-scss"
+  ],
+  "ignoreFiles": [],
+  "rules": {
+    "scss/at-extend-no-missing-placeholder": true,
+    "scss/dollar-variable-colon-space-before": "never",
+    "scss/partial-no-import": true,
+    "scss/selector-no-redundant-nesting-selector": true
+  }
 }

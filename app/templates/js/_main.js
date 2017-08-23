@@ -1,11 +1,5 @@
-/*----------------------------------------------------------------------------*\
-        Place any project specific javascript here
-\*----------------------------------------------------------------------------*/
+const foo = 'bar';
 
-/**
- * Use strict as per:
- * http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/
- */
-'use strict';
+const baz = () => foo;
 
-// Jshint globals
+baz();

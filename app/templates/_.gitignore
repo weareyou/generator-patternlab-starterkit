@@ -16,10 +16,12 @@ node_modules/
 <%= scaffoldPath %>/styleguide/css/*.css
 <%= scaffoldPath %><%= sourceJsFolder %>/lib/modernizr.*
 <%= scaffoldPath %><%= sourceJsFolder %>/patternlab-*
-<% if (includeBabel) { %><%= scaffoldPath %><%= publicJsFolder %>/*<% } %>
+<%= scaffoldPath %><%= publicJsFolder %>/*
 <%= scaffoldPath %>/css/*
 <%= scaffoldPath %>/patterns/*
 <%= scaffoldPath %>/data/*
+<%= scaffoldPath %>/images/svg/*
 <%= scaffoldPath %>/css/style.css.map
 <%= scaffoldPath %>/annotations/*
+<%= scaffoldPath %>/dependencyGraph.json
 patternlab.json
