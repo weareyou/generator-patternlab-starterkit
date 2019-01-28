@@ -1,5 +1,12 @@
 == HEAD
 
+== 1.6.0 (Februari ??, 2019)
+
+* Update dependencies
+* Update to Gulp 4
+* Add Webpack to bundle and transpile es6
+* Change sass compiler to dart-sass
+
 == 1.5.0 (August 23, 2017)
 
 * Update dependencies

@@ -1,6 +1,6 @@
 {
   "name": "generator-patternlab-starterkit",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Yeoman patternlab starterkit generator",
   "license": "MIT",
   "main": "app/index.js",
@@ -9,9 +9,9 @@
     "url": "git://github.com/colours/generator-patternlab-starterkit"
   },
   "author": {
-    "name": "Bram Smulders",
-    "email": "bram@bramsmulders.com",
-    "url": "http://bramsmulders.com"
+    "name": "Joris Hulsbosch",
+    "email": "joris@portfolioris.nl",
+    "url": "http://www.portfolioris.nl"
   },
   "engines": {
     "node": ">=0.10.0",
@@ -26,20 +26,20 @@
   "keywords": [
     "yeoman-generator",
     "patternlab",
-    "Blocss",
+    "Supple",
     "Styleguide"
   ],
   "dependencies": {
-    "chalk": "^0.5.1",
-    "cheerio": "^0.17.0",
-    "yeoman-generator": "~0.17.3",
-    "yosay": "~1.0.0"
+    "chalk": "^2.4.2",
+    "cheerio": "^1.0.0-rc.2",
+    "yeoman-generator": "^3.2.0",
+    "yosay": "^2.0.2"
   },
   "devDependencies": {
     "mocha": "*"
   },
   "peerDependencies": {
-    "yo": ">=1.2.0"
+    "yo": "^2.0.5"
   },
   "readmeFilename": "README.md",
   "bugs": {

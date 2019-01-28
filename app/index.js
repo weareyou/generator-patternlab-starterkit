@@ -6,13 +6,13 @@ var yosay = require('yosay');
 var chalk = require('chalk');
 
 
-var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
+module.exports = class extends yeoman {
 
-  initializing: function() {
+  initializing () {
     this.pkg = require('../package.json');
-  },
+  }
 
-  prompting: function() {
+  prompting () {
     var cb = this.async();
 
     this.log(yosay('Welcome to the Patternlab starterkit generator!'));
@@ -65,9 +65,9 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
 
     }.bind(this));
 
-  },
+  }
 
-  copyingDependencyFiles: function() {
+  copyingDependencyFiles() {
     var done = this.async();
 
     this.template('_package.json', 'package.json');
@@ -85,18 +85,18 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
     this.template('_.eslintrc', '.eslintrc');
 
     done();
-  },
+  }
 
-  copyingPatternFiles: function(){
+  copyingPatternFiles(){
     var done = this.async();
 
     // Copy predefined templates to source folder
     this.directory('_labtemplates', this.scaffoldPath);
 
     done();
-  },
+  }
 
-  copyingJsFiles: function() {
+  copyingJsFiles() {
     var done = this.async();
     this.mkdir(this.scaffoldPath + this.sourceJsFolder);
     this.mkdir(this.scaffoldPath + this.publicJsFolder);
@@ -107,9 +107,9 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
     this.copy('js/_main.js', this.scaffoldPath + this.sourceJsFolder + '/app/main.js');
 
     done();
-  },
+  }
 
-  installingDependencies: function () {
+  installingDependencies() {
     this.on('end', function() {
       this.installDependencies({
         bower: false,
@@ -120,4 +120,4 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
       });
     });
   }
-});
+};
