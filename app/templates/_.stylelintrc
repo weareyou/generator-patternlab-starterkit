@@ -1,13 +1,13 @@
 {
-  "extends": "stylelint-config-blocss",
+  "extends": "stylelint-config-standard",
   "plugins": [
     "stylelint-scss"
   ],
-  "ignoreFiles": [],
   "rules": {
-    "scss/at-extend-no-missing-placeholder": true,
-    "scss/dollar-variable-colon-space-before": "never",
-    "scss/partial-no-import": true,
-    "scss/selector-no-redundant-nesting-selector": true
+    "max-empty-lines": 3,
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": null,
+    "declaration-empty-line-before": "never",
+    "at-rule-empty-line-before": null
   }
 }
