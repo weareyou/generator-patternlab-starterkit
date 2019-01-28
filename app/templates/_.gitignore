@@ -1,13 +1,5 @@
 #The usual
-.DS_Store
-config.ini
-latest-change.txt
-*.map
-*-ck.js
-*.sass-cache/
-bower_components/
 node_modules/
-.idea
 
 #Pl specific
 <%= scaffoldPath %>/index.html

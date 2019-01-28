@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html class="{{ htmlClass }}">
+<html class="{{ htmlClass }}" lang="{{ htmlLang }}">
 <head>
-    <title>{{ title }}</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width" />
+  <meta charset="UTF-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="../../css/style.css?{{ cacheBuster }}" media="all" />
+  {{! Inform CSS that JS is enabled }}
+  <script>
+    document.documentElement.classList.add('has-js');
+  </script>
 
-    <!-- Development modernizr: DO NOT COPY TO PRODUCTION -->
-    <script src="../../js/lib/modernizr.development.js?{{ cacheBuster }}"></script>
-    <!-- INSTEAD, USE THIS IN PRODUCTION CODE
-    <script src="../../js/lib/modernizr.build.js?{{ cacheBuster }}"></script>
-    -->
+  <link rel="stylesheet" href="../../css/style.css?{{ cacheBuster }}" media="all" />
 
-    <!-- Patternlab code: DO NOT MODIFY OR COPY TO PRODUCTION -->
-    <link rel="stylesheet" href="../../css/pattern-scaffolding.css?{{ cacheBuster }}" media="all" />
-    {{{ patternLabHead }}}
-    <!-- /Patternlab code: DO NOT MODIFY OR COPY TO PRODUCTION -->
+  <!-- Patternlab code: DO NOT MODIFY OR COPY TO PRODUCTION -->
+  <link rel="stylesheet" href="../../css/pattern-scaffolding.css?{{ cacheBuster }}" media="all" />
+  {{{ patternLabHead }}}
+  <!-- /Patternlab code: DO NOT MODIFY OR COPY TO PRODUCTION -->
 </head>
 <body class="{{ bodyClass }}">

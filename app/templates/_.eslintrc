@@ -1,20 +1,17 @@
 {
-  "extends": "airbnb",
+  "extends": "airbnb-base",
   "env": {
     "browser": true,
     "node": true
   },
   "rules": {
-    "func-names": [
+    "linebreak-style": ["error", "windows"]
+    "no-multiple-empty-lines": [
       "error",
-      "never"
-    ],
-    "import/no-extraneous-dependencies": "off",
-    "import/no-unresolved": "off",
-    "import/extensions": "off",
-    "import/first": "off",
-    "linebreak-style": "off",
-    "max-len": "off",
-    "new-cap": "off"
+      {
+        "max": 3,
+        "maxEOF": 1
+      }
+    ]
   }
 }

@@ -9,9 +9,7 @@
       "styleguide" : "./node_modules/styleguidekit-assets-default/dist/",
       "patternlabFiles" : "./node_modules/styleguidekit-mustache-default/views/",
       "js" : "./<%= scaffoldPath %><%= sourceJsFolder %>/",
-      "svg" : "./<%= scaffoldPath %>/svg/",
-      "images" : "./<%= scaffoldPath %>/images/",
-      "fonts" : "./<%= scaffoldPath %>/fonts/",
+      "svg" : "./<%= scaffoldPath %>/svg/src/",
       "sass" : "./<%= scaffoldPath %>/_sass/",
       "assets" : "./<%= scaffoldPath %>/assets/",
       "nodeModules": "./node_modules"
@@ -23,9 +21,7 @@
       "annotations" : "./<%= scaffoldPath %>/annotations/",
       "styleguide" : "./<%= scaffoldPath %>/styleguide/",
       "js" : "./<%= scaffoldPath %><%= publicJsFolder %>/",
-      "svg" : "./<%= scaffoldPath %>/images/svg/",
-      "images" : "./<%= scaffoldPath %>/images/",
-      "fonts" : "./<%= scaffoldPath %>/fonts/",
+      "svg" : "./<%= scaffoldPath %>/svg/",
       "assets" : "./<%= scaffoldPath %>/assets/",
       "css" : "./<%= scaffoldPath %>/css/"
     }
