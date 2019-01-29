@@ -114,7 +114,7 @@ const stylesProdTask = () => (
  \*----------------------------------------------------------------------------*/
 
 const javascriptDevTask = (cb) => {
-  src(`${config.paths.source.js}bootstrap.js`)
+  src(`${config.paths.source.js}bundle.js`)
     .pipe(plumber({
       errorHandler: (err) => {
         notify.onError({
@@ -153,7 +153,7 @@ const javascriptDevTask = (cb) => {
 
 
 const javascriptProdTask = (cb) => {
-  src(`${config.paths.source.js}bootstrap.js`)
+  src(`${config.paths.source.js}bundle.js`)
     .pipe(plumber())
     .pipe(webpackStream({
       mode: 'production',

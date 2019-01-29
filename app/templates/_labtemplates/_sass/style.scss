@@ -2,42 +2,48 @@
 
 /*  =========================================================================
     Style
-    Styles, extends Blocss CSS Framework and defines all imports
+    Styles, extends Supple CSS Framework and defines all imports
     ========================================================================= */
 
 /*  Settings
     ========================================================================= */
 
 @import "settings/vars";
-@import "blocss/lib/settings/defaults";
+@import "~supple/lib/settings/defaults";
+@import "~supple/lib/settings/responsive";
 
 
 
 /*  Tools
     ========================================================================= */
 
-@import "blocss/lib/tools/functions";
-@import "blocss/lib/tools/mixins.rem";
-@import "blocss/lib/tools/mixins.media-query";
-@import "blocss/lib/tools/mixins.font-size";
+@import "~sass-mq/mq";
+@import "~supple/lib/tools/functions";
+@import "~supple/lib/tools/mixins";
 
 
 
 /*  Generic
     ========================================================================= */
 
-@import "blocss/lib/generic/normalize";
-@import "blocss/lib/generic/reset";
-@import "blocss/lib/generic/vertical-rhythm";
+@import-normalize;
+@import "~supple/lib/generic/reset";
+
+
+
+/*  Elements
+    ========================================================================= */
+
+@import "~supple/lib/elements/headings";
 
 
 
 /*  Objects
     ========================================================================= */
 
-@import "blocss/lib/objects/list-clean";
-@import "blocss/lib/objects/layout";
-@import "blocss/lib/objects/flexembed";
+@import "~supple/lib/objects/list-clean";
+@import "~supple/lib/objects/layout";
+@import "~supple/lib/objects/flexembed";
 
 
 
@@ -58,6 +64,8 @@
 /*  Utilities
     ========================================================================= */
 
-@import "blocss/lib/utilities/visually-hidden";
-@import "blocss/lib/utilities/module";
-@import "blocss/lib/utilities/fractions";
+@import "~supple/lib/utilities/fractions";
+@import "~supple/lib/utilities/module";
+@import "~supple/lib/utilities/visually-hidden";
+@import "~supple/lib/utilities/hidden";
+@import "~supple/lib/utilities/spacing";

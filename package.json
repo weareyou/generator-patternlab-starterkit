@@ -30,16 +30,16 @@
     "Styleguide"
   ],
   "dependencies": {
-    "chalk": "^2.4.2",
-    "cheerio": "^1.0.0-rc.2",
-    "yeoman-generator": "^3.2.0",
-    "yosay": "^2.0.2"
+    "chalk": "^0.5.1",
+    "cheerio": "^0.17.0",
+    "yeoman-generator": "~0.17.3",
+    "yosay": "~1.0.0"
   },
   "devDependencies": {
     "mocha": "*"
   },
   "peerDependencies": {
-    "yo": "^2.0.5"
+    "yo": ">=1.2.0"
   },
   "readmeFilename": "README.md",
   "bugs": {

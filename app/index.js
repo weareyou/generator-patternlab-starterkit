@@ -6,13 +6,13 @@ var yosay = require('yosay');
 var chalk = require('chalk');
 
 
-module.exports = class extends yeoman {
+var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
 
-  initializing () {
+  initializing: function() {
     this.pkg = require('../package.json');
-  }
+  },
 
-  prompting () {
+  prompting: function() {
     var cb = this.async();
 
     this.log(yosay('Welcome to the Patternlab starterkit generator!'));
@@ -65,59 +65,56 @@ module.exports = class extends yeoman {
 
     }.bind(this));
 
-  }
+  },
 
-  copyingDependencyFiles() {
+  copyingDependencyFiles: function() {
     var done = this.async();
 
-    this.template('_package.json', 'package.json');
-    this.template('_config.json', 'config.json');
-    this.template('_.editorconfig', '.editorconfig');
     this.template('_.babelrc', '.babelrc');
+    this.template('_.editorconfig', '.editorconfig');
+    this.template('_.eslintrc', '.eslintrc');
+    this.template('_.stylelintrc', '.stylelintrc');
+    this.template('_config.json', 'config.json');
+    this.template('_package.json', 'package.json');
+    this.template('_gulpfile.babel.js', 'gulpfile.babel.js');
+    this.template('_postcss.config.js', 'postcss.config.js');
 
     if (this.copyGitignore) {
       this.template('_.gitignore', '.gitignore');
     }
 
-    this.template('_gulpfile.js', 'gulpfile.js');
-
-    this.template('_.stylelintrc', '.stylelintrc');
-    this.template('_.eslintrc', '.eslintrc');
-
     done();
-  }
+  },
 
-  copyingPatternFiles(){
+  copyingPatternFiles: function(){
     var done = this.async();
 
     // Copy predefined templates to source folder
     this.directory('_labtemplates', this.scaffoldPath);
 
     done();
-  }
+  },
 
-  copyingJsFiles() {
+  copyingJsFiles: function() {
     var done = this.async();
-    this.mkdir(this.scaffoldPath + this.sourceJsFolder);
+    // this.mkdir(this.scaffoldPath + this.sourceJsFolder);
     this.mkdir(this.scaffoldPath + this.publicJsFolder);
 
-    this.mkdir(this.scaffoldPath + this.sourceJsFolder + '/lib');
-    this.mkdir(this.scaffoldPath + this.sourceJsFolder + '/app');
-    this.copy('_.gitkeep', this.scaffoldPath + this.sourceJsFolder + '/lib/.gitkeep');
-    this.copy('js/_main.js', this.scaffoldPath + this.sourceJsFolder + '/app/main.js');
+    // this.mkdir(this.scaffoldPath + this.sourceJsFolder + '/modules');
+    this.copy('js/_bundle.js', this.scaffoldPath + this.sourceJsFolder + '/bundle.js');
 
     done();
-  }
+  },
 
-  installingDependencies() {
+  installingDependencies: function () {
     this.on('end', function() {
       this.installDependencies({
         bower: false,
         callback: function () {
-          var log = chalk.red(this.projectName) + ' is ready! Type "'+chalk.blue('gulp serve')+'" to start developing on your styleguide. Type "'+chalk.blue('gulp prepare')+'" once for a single compile.';
+          var log = chalk.red(this.projectName) + ' is ready! Type "'+chalk.blue('gulp serve')+'" to start developing on your styleguide. Type "'+chalk.blue('gulp build')+'" once for a single compile. Type "'+chalk.blue('gulp prepare')+'" to generate production-ready optimized JS & CSS bundles.';
           this.log(yosay(log));
         }.bind(this)
       });
     });
   }
-};
+});
