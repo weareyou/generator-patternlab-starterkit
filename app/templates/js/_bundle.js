@@ -1,4 +1,4 @@
-/* global dependencies */
+/* your global dependencies */
 // import 'lazysizes';
 
 /* your modules */
