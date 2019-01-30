@@ -5,7 +5,7 @@
     "node": true
   },
   "rules": {
-    "linebreak-style": ["error", "windows"]
+    "linebreak-style": ["error", "windows"],
     "no-multiple-empty-lines": [
       "error",
       {
