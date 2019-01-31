@@ -115,16 +115,9 @@ const stylesProdTask = () => (
 
 const javascriptDevTask = (cb) => {
   src(`${config.paths.source.js}bundle.js`)
-    .pipe(plumber({
-      errorHandler: (err) => {
-        notify.onError({
-          title: `Gulp error in ${err.plugin}`,
-          message: err.message,
-        })(err);
-        browserSync.notify(`${err.plugin}: ${err.message}`, 10000);
-      },
-    }))
+    .pipe(plumber())
     .pipe(webpackStream({
+      watch: true,
       mode: 'development',
       devtool: 'source-map',
       output: {
@@ -146,7 +139,19 @@ const javascriptDevTask = (cb) => {
           },
         ],
       },
-    }), webpack)
+    }, webpack, (err, stats) => {
+      // log errors and warnings
+      if (stats.hasErrors() || stats.hasWarnings()) {
+        console.log(stats.toString({ colors: true }));
+        const info = stats.toJson();
+        browserSync.notify(`Script error: ${info.errors}`, 10000);
+      }
+
+      // if there are no errors, reload
+      if (!stats.hasErrors()) {
+        bsReloadTask(cb);
+      }
+    }))
     .pipe(dest(config.paths.public.js));
   cb();
 };
@@ -257,7 +262,8 @@ const watchTask = (cb) => {
   /**
    * Javascripts
    */
-  watch(`${config.paths.source.js}**/*.js`, series(javascriptDevTask, bsReloadTask));
+  // omitted, Webpack is watching files itself
+  // watch(`${config.paths.source.js}**/*.js`, series(javascriptDevTask, bsReloadTask));
 
   /**
    * SVG
