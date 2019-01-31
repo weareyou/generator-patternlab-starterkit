@@ -1,7 +1,7 @@
-# generator-patternlab-starterkit - v1.5.0
+# generator-patternlab-starterkit - v1.6.0
 
 > A [Yeoman](http://yeoman.io) generator for [Pattern Lab](http://patternlab.io/), a static site generator based on Brad Frost's [Atomic Design](http://bradfrostweb.com/blog/post/atomic-web-design/) methodologies.
-> Scaffolds out a new Pattern Lab site, along with a few other optional workflow bells and whistles (Sass, Autoprefixer, Babel) and front-end dependencies ( [Supple](https://github.com/supple-css/supple) etc.).
+> Scaffolds out a new Pattern Lab site, along with a few other optional workflow bells and whistles (Sass, Autoprefixer, Babel) and front-end dependencies ([Supple](https://github.com/supple-css/supple) etc.).
 
 
 <a name="prerequisites"></a>

@@ -1,6 +1,6 @@
 == HEAD
 
-== 1.6.0 (Februari ??, 2019)
+== 1.6.0 (Februari 31, 2019)
 
 * Update dependencies
 * Update to Gulp 4
