@@ -325,8 +325,8 @@ exports.serve = series(
  * task: prepare
  * Build production JS & CSS bundles
  */
-exports.prepare = parallel(
+exports.prepare = series(
+  defaultTask,
   javascriptProdTask,
-  svgstoreTask,
   stylesProdTask,
 );
