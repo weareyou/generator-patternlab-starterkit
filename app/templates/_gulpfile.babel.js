@@ -113,34 +113,41 @@ const stylesProdTask = () => (
  Checks our own javascript files for potential errors.
  \*----------------------------------------------------------------------------*/
 
-const javascriptDevTask = (cb) => {
-  src(`${config.paths.source.js}bundle.js`)
-    .pipe(plumber())
-    .pipe(webpackStream({
-      watch: true,
-      mode: 'development',
-      devtool: 'source-map',
-      output: {
-        filename: 'bundle.js',
-      },
-      module: {
-        rules: [
+const webpackConfig = ({
+  mode = 'development',
+  watchFiles = false,
+}) => ({
+  watch: watchFiles, // watch = true on gulp serve
+  mode, // development or production
+  devtool: 'source-map',
+  output: {
+    filename: mode === 'development' ? 'bundle.js' : 'bundle.min.js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: [
           {
-            test: /\.js$/,
-            exclude: /(node_modules)/,
-            use: [
-              {
-                loader: 'babel-loader',
-              },
-              {
-                loader: 'eslint-loader',
-              },
-            ],
+            loader: 'babel-loader',
+          },
+          {
+            loader: 'eslint-loader',
           },
         ],
       },
-    }, webpack, (err, stats) => {
-      // log errors and warnings
+    ],
+  },
+});
+
+
+const jsDevTask = (cb) => {
+  src(`${config.paths.source.js}bundle.js`)
+    .pipe(webpackStream(webpackConfig({
+      watchFiles: true,
+    }), webpack, (err, stats) => {
+      // callback: log errors and warnings
       if (stats.hasErrors() || stats.hasWarnings()) {
         console.log(stats.toString({ colors: true }));
         const info = stats.toJson();
@@ -149,44 +156,31 @@ const javascriptDevTask = (cb) => {
 
       // if there are no errors, reload
       if (!stats.hasErrors()) {
-        bsReloadTask(cb);
+        return bsReloadTask(cb);
       }
+      cb();
     }))
     .pipe(dest(config.paths.public.js));
-  cb();
 };
 
-
-const javascriptProdTask = (cb) => {
-  src(`${config.paths.source.js}bundle.js`)
-    .pipe(plumber())
-    .pipe(webpackStream({
-      mode: 'production',
-      output: {
-        filename: 'bundle.min.js',
-      },
-      module: {
-        rules: [
-          {
-            test: /\.js$/,
-            exclude: /(node_modules)/,
-            use: [
-              {
-                loader: 'babel-loader',
-              },
-            ],
-          },
-        ],
-      },
-    }), webpack)
+const jsPlTask = (cb) => {
+  src(`${config.paths.source.js}bootstrap.js`)
+    .pipe(webpackStream(webpackConfig({}), webpack, () => cb()))
     .pipe(dest(config.paths.public.js));
-  cb();
+};
+
+const jsProdTask = (cb) => {
+  src(`${config.paths.source.js}bundle.js`)
+    .pipe(webpackStream(webpackConfig({
+      mode: 'production',
+    }), webpack, () => cb()))
+    .pipe(dest(config.paths.public.js));
 };
 
 /*  Task: svg
  ========================================================================= */
 
-const svgstoreTask = () => (
+const svgSpriteTask = () => (
   src('**/*.svg', { cwd: config.paths.source.svg })
     .pipe(svgSprite({
       mode: {
@@ -234,7 +228,7 @@ const patternlabTask = (cb) => {
  * Task: fullPatternlab
  * Builds the full patternlab styleguide
  */
-const fullPatternlabTask = (cb) => {
+const allPatternsTask = (cb) => {
   pl.build(cb, true);
 };
 
@@ -262,13 +256,12 @@ const watchTask = (cb) => {
   /**
    * Javascripts
    */
-  // omitted, Webpack is watching files itself
-  // watch(`${config.paths.source.js}**/*.js`, series(javascriptDevTask, bsReloadTask));
+  // omitted, Webpack is watching files itself, which is faster
 
   /**
    * SVG
    */
-  watch(`${config.paths.source.svg}**/*.svg`, series(svgstoreTask, bsReloadTask));
+  watch(`${config.paths.source.svg}**/*.svg`, series(svgSpriteTask, bsReloadTask));
 
   /**
    * Patterns
@@ -281,7 +274,7 @@ const watchTask = (cb) => {
   /**
    * Data
    */
-  watch(config.paths.source.data, series(fullPatternlabTask, bsReloadTask));
+  watch(config.paths.source.data, series(allPatternsTask, bsReloadTask));
 
   cb();
 };
@@ -294,28 +287,17 @@ const watchTask = (cb) => {
  \*----------------------------------------------------------------------------*/
 
 /**
- * task: default
- * Prepares the code one time
- */
-const defaultTask = parallel(
-  fullPatternlabTask,
-  copyStyleguideTask,
-  copyStyleguideCssTask,
-  copyAnnotationsTask,
-  javascriptDevTask,
-  svgstoreTask,
-  stylesDevTask,
-);
-
-exports.build = defaultTask;
-
-
-/**
  * task: serve
  * Prepares the code, fires up a development server and sets up watch tasks
  */
 exports.serve = series(
-  defaultTask,
+  allPatternsTask,
+  copyStyleguideTask,
+  copyStyleguideCssTask,
+  copyAnnotationsTask,
+  svgSpriteTask,
+  stylesDevTask,
+  jsDevTask,
   watchTask,
   connectTask,
 );
@@ -326,7 +308,13 @@ exports.serve = series(
  * Build production JS & CSS bundles
  */
 exports.prepare = series(
-  defaultTask,
-  javascriptProdTask,
+  allPatternsTask,
+  copyStyleguideTask,
+  copyStyleguideCssTask,
+  copyAnnotationsTask,
+  svgSpriteTask,
+  stylesDevTask,
   stylesProdTask,
+  jsPlTask,
+  jsProdTask,
 );

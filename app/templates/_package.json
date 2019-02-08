@@ -8,7 +8,6 @@
   ],
   "scripts": {
     "serve": "gulp serve",
-    "build": "gulp build",
     "prepare": "gulp prepare"
   },
   "devDependencies": {
