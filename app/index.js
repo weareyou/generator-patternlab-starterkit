@@ -92,6 +92,9 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
     // Copy predefined templates to source folder
     this.directory('_labtemplates', this.scaffoldPath);
 
+    // Copy webpack config files to source folder
+    this.directory('_config', 'config');
+
     done();
   },
 
@@ -99,7 +102,8 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
     var done = this.async();
 
     this.mkdir(this.scaffoldPath + this.publicJsFolder);
-    this.copy('js/_bundle.js', this.scaffoldPath + this.sourceJsFolder + '/bundle.js');
+    this.copy('js/_entry.js', this.scaffoldPath + this.sourceJsFolder + '/entry.js');
+    this.copy('js/_entry.legacy.js', this.scaffoldPath + this.sourceJsFolder + '/entry.legacy.js');
 
     done();
   },

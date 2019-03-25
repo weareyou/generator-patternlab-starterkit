@@ -18,6 +18,9 @@ import patternlabNode from 'patternlab-node';
 import svgSprite from 'gulp-svg-sprite';
 
 import config from './config';
+import webpackConfigDev from './config/webpack.dev';
+import webpackConfigES5 from './config/webpack.es5';
+import webpackConfigES6 from './config/webpack.es6';
 
 
 /*----------------------------------------------------------------------------*\
@@ -57,6 +60,15 @@ const copyStyleguideCssTask = () => (
 const copyAnnotationsTask = () => (
   src(`${config.paths.source.annotations}annotations.js`)
     .pipe(dest(config.paths.public.annotations))
+);
+
+
+/**
+ * Task copy:assets
+ */
+const copyAssetsTask = () => (
+  src(`${config.paths.source.assets}**/*`)
+    .pipe(dest(config.paths.public.assets))
 );
 
 
@@ -113,41 +125,11 @@ const stylesProdTask = () => (
  Checks our own javascript files for potential errors.
  \*----------------------------------------------------------------------------*/
 
-const webpackConfig = ({
-  mode = 'development',
-  watchFiles = false,
-}) => ({
-  watch: watchFiles, // watch = true on gulp serve
-  mode, // development or production
-  devtool: 'source-map',
-  output: {
-    filename: mode === 'development' ? 'bundle.js' : 'bundle.min.js',
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        use: [
-          {
-            loader: 'babel-loader',
-          },
-          {
-            loader: 'eslint-loader',
-          },
-        ],
-      },
-    ],
-  },
-});
-
-
-const jsDevTask = (cb) => {
-  src(`${config.paths.source.js}bundle.js`)
-    .pipe(webpackStream(webpackConfig({
-      watchFiles: true,
-    }), webpack, (err, stats) => {
-      // callback: log errors and warnings
+const javascriptDevTask = (cb) => {
+  src(`${config.paths.source.js}**/*.js`)
+    .pipe(plumber())
+    .pipe(webpackStream(webpackConfigDev, webpack, (err, stats) => {
+      // log errors and warnings
       if (stats.hasErrors() || stats.hasWarnings()) {
         console.log(stats.toString({ colors: true }));
         const info = stats.toJson();
@@ -156,26 +138,37 @@ const jsDevTask = (cb) => {
 
       // if there are no errors, reload
       if (!stats.hasErrors()) {
-        return bsReloadTask(cb);
+        bsReloadTask(cb);
       }
-      cb();
     }))
     .pipe(dest(config.paths.public.js));
+  cb();
 };
 
-const jsPlTask = (cb) => {
-  src(`${config.paths.source.js}bootstrap.js`)
-    .pipe(webpackStream(webpackConfig({}), webpack, () => cb()))
+const javascriptES6Task = (cb) => {
+  src(`${config.paths.source.js}**/*.js`)
+    .pipe(plumber())
+    .pipe(webpackStream(webpackConfigES6, webpack, () => cb()))
     .pipe(dest(config.paths.public.js));
 };
 
-const jsProdTask = (cb) => {
-  src(`${config.paths.source.js}bundle.js`)
-    .pipe(webpackStream(webpackConfig({
-      mode: 'production',
-    }), webpack, () => cb()))
+exports.es6 = javascriptES6Task;
+
+const javascriptES5Task = (cb) => {
+  src(`${config.paths.source.js}**/*.js`)
+    .pipe(plumber())
+    .pipe(webpackStream(webpackConfigES5, webpack, () => cb()))
     .pipe(dest(config.paths.public.js));
 };
+
+exports.es5 = javascriptES5Task;
+
+const javascriptProdTask = parallel(
+  javascriptES5Task,
+  javascriptES6Task,
+);
+
+
 
 /*  Task: svg
  ========================================================================= */
@@ -228,7 +221,7 @@ const patternlabTask = (cb) => {
  * Task: fullPatternlab
  * Builds the full patternlab styleguide
  */
-const allPatternsTask = (cb) => {
+const fullPatternlabTask = (cb) => {
   pl.build(cb, true);
 };
 
@@ -274,7 +267,12 @@ const watchTask = (cb) => {
   /**
    * Data
    */
-  watch(config.paths.source.data, series(allPatternsTask, bsReloadTask));
+  watch(config.paths.source.data, series(fullPatternlabTask, bsReloadTask));
+
+  /**
+   * Assets (enable if your assets public path differs from the source)
+   */
+  // watch(config.paths.source.assets, series(copyAssetsTask, bsReloadTask));
 
   cb();
 };
@@ -287,17 +285,29 @@ const watchTask = (cb) => {
  \*----------------------------------------------------------------------------*/
 
 /**
+ * task: default
+ * Prepares the code one time
+ */
+const defaultTask = parallel(
+  fullPatternlabTask,
+  copyStyleguideTask,
+  copyStyleguideCssTask,
+  copyAnnotationsTask,
+  copyAssetsTask,
+  svgSpriteTask,
+);
+
+exports.build = defaultTask;
+
+
+/**
  * task: serve
  * Prepares the code, fires up a development server and sets up watch tasks
  */
 exports.serve = series(
-  allPatternsTask,
-  copyStyleguideTask,
-  copyStyleguideCssTask,
-  copyAnnotationsTask,
-  svgSpriteTask,
+  defaultTask,
+  javascriptDevTask,
   stylesDevTask,
-  jsDevTask,
   watchTask,
   connectTask,
 );
@@ -307,14 +317,8 @@ exports.serve = series(
  * task: prepare
  * Build production JS & CSS bundles
  */
-exports.prepare = series(
-  allPatternsTask,
-  copyStyleguideTask,
-  copyStyleguideCssTask,
-  copyAnnotationsTask,
-  svgSpriteTask,
-  stylesDevTask,
+exports.prepare = parallel(
+  defaultTask,
+  javascriptProdTask,
   stylesProdTask,
-  jsPlTask,
-  jsProdTask,
 );

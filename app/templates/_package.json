@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.1",
     "@babel/register": "^7.0.0",
     "autoprefixer": "^9.3.5",
@@ -42,7 +43,9 @@
     "stylelint-config-standard": "^18.2.0",
     "stylelint-scss": "^3.5.1",
     "supple": "^2.1.0",
+    "svgxuse": "^1.2.6",
     "webpack": "^4.29.0",
+    "webpack-merge": "^4.2.1",
     "webpack-stream": "^5.2.1"
   }
 }
