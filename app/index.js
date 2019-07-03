@@ -113,7 +113,7 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
       this.installDependencies({
         bower: false,
         callback: function () {
-          var log = chalk.red(this.projectName) + ' is ready! Type "'+chalk.blue('gulp serve')+'" to start developing on your styleguide. Type "'+chalk.blue('gulp build')+'" once for a single compile. Type "'+chalk.blue('gulp prepare')+'" to generate production-ready optimized JS & CSS bundles.';
+          var log = chalk.red(this.projectName) + ' is ready! Type "'+chalk.blue('npm run start')+'" to start developing on your styleguide. Type "'+chalk.blue('npm run build')+'" to generate production-ready optimized JS & CSS bundles.';
           this.log(yosay(log));
         }.bind(this)
       });

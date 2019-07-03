@@ -297,9 +297,6 @@ const defaultTask = parallel(
   svgSpriteTask,
 );
 
-exports.build = defaultTask;
-
-
 /**
  * task: serve
  * Prepares the code, fires up a development server and sets up watch tasks
@@ -314,10 +311,10 @@ exports.serve = series(
 
 
 /**
- * task: prepare
+ * task: build
  * Build production JS & CSS bundles
  */
-exports.prepare = parallel(
+exports.build = parallel(
   defaultTask,
   javascriptProdTask,
   stylesProdTask,

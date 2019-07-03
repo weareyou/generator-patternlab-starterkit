@@ -7,8 +7,9 @@
     "Firefox ESR"
   ],
   "scripts": {
-    "serve": "gulp serve",
-    "prepare": "gulp prepare"
+    "start": "gulp serve",
+    "build": "gulp build",
+    "postinstall": "npm run build"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
