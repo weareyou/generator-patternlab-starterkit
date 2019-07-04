@@ -8,7 +8,7 @@
 ## Prerequisites
 Make sure Node and npm are installed. A great guide can be found here: [https://docs.npmjs.com/getting-started/installing-node](https://docs.npmjs.com/getting-started/installing-node)
 
-- Install Yeoman, Gulp-cli `npm install -g yo gulp-cli` (one-time global install) or update: `npm update -g yo gulp-cli`.
+- Install Yeoman `npm install -g yo` (one-time global install) or update: `npm update -g yo`.
 - Install this generator with `npm install -g generator-patternlab-starterkit` (one-time global install) or update: `npm update -g generator-patternlab-starterkit`.
 
 ## Installation
@@ -20,14 +20,11 @@ Please make sure your system meets the [prerequisites](#prerequisites)
 
 ## Getting Started
 ### Front-end developing
-Run `npm run serve` from the commandline. This creates all patterns, the styleguide, and the pattern lab site by BrowserSync which serves the files to you.
+Run `npm run start` from the commandline. This creates all patterns, the styleguide, and the pattern lab site by BrowserSync which serves the files to you.
 
 
 ### Deployments
 For a single compile of all code, you can run `npm run build`. This will compile the front-end one single time.
-
-To compile production-ready CSS & JS, run `npm run prepare`.
-
 
 
 ## Featureset
@@ -39,6 +36,10 @@ generator-patternlab-starterkit has some important additions compared to pattern
 [Dart Sass](https://sass-lang.com/dart-sass) is the primary implementation of Sass, which means it gets new features before any other implementation. It's fast, easy to install, and it compiles to pure JavaScript which makes it easy to integrate into modern web development workflows.
 
 
+### Supple CSS
+[Supple CSS](https://github.com/supple-css/supple) is a small but powerfull (S)CSS framework designed specially with the latest browsers in mind. The framework is made with an eye on the future. It uses custom properties for configuration and utilises new CSS webstandards.
+
+
 ### PostCSS
 
 [PostCSS](https://postcss.org/) is installed by default, and plugins are configured in `postcss.config.js`. You can add more PostCSS plugins here. [Autoprefixer](https://github.com/postcss/autoprefixer) makes sure that all our CSS can be written prefix-free while the prefixes are added later on based on the supported browsers. You can add/remove supported browsers by changing the `browserlist` property in `config.json`. [PostCSS Normalize](https://github.com/csstools/postcss-normalize/blob/master/README.md) lets you use the parts of normalize.css you need from your browserslist.
@@ -48,6 +49,9 @@ generator-patternlab-starterkit has some important additions compared to pattern
 
 ### ESLint
 [ESLint](http://eslint.org/) is a tool that helps to detect errors and potential problems in your JavaScript code. By default we have some default checks in `.eslintrc`, you can alter them per project.
+
+### Conditioner
+[Conditioner.js](https://github.com/rikschennink/conditioner): Frizz free, context-aware, JavaScript modules
 
 
 ## Contributing
