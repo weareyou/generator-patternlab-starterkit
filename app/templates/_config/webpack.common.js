@@ -7,6 +7,7 @@ module.exports = {
   devtool: 'source-map',
   output: {
     path: resolve(config.paths.public.js),
+    publicPath: `/${config.paths.public.js}`,
     filename: 'bundle.es6.js',
   },
 };

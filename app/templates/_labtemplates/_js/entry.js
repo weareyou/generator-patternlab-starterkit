@@ -1,5 +1,10 @@
 /* your global dependencies */
 // import 'lazysizes';
 
-/* your modules */
-// import './modules/your-module';
+/**
+ * Utilities
+ */
+import './utilities/conditioner';
+
+/* your components */
+// import './components/your-module';

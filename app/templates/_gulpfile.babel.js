@@ -192,10 +192,11 @@ const svgSpriteTask = () => (
 
 const connectTask = () => {
   browserSync.init({
-    server: config.paths.public.root,
+    server: './',
+    startPath: `${config.paths.public.root}index.html`,
     snippetOptions: {
       // Ignore all HTML files within the templates folder
-      blacklist: ['/index.html', '/', '/?*'],
+      blacklist: [`${config.paths.public.root}index.html`, config.paths.public.root, `${config.paths.public.root}index.html/?*`],
     },
   });
 };
