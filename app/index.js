@@ -102,9 +102,8 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
     var done = this.async();
 
     this.mkdir(this.scaffoldPath + this.publicJsFolder);
-    this.copy('js/_entry.js', this.scaffoldPath + this.sourceJsFolder + '/entry.js');
-    this.copy('js/_entry.legacy.js', this.scaffoldPath + this.sourceJsFolder + '/entry.legacy.js');
-
+    // this.copy('js/_entry.js', this.scaffoldPath + this.sourceJsFolder + '/entry.js');
+    // this.copy('js/_entry.legacy.js', this.scaffoldPath + this.sourceJsFolder + '/entry.legacy.js');
     done();
   },
 
