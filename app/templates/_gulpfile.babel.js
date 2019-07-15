@@ -99,6 +99,7 @@ const stylesDevTask = () => (
     .pipe(sourcemaps.init())
     .pipe(sass({
       importer: tildeImporter,
+      precision: 8,
     }))
     .pipe(postcss())
     .pipe(sourcemaps.write('.'))
@@ -111,6 +112,7 @@ const stylesProdTask = () => (
     .pipe(plumber())
     .pipe(sass({
       importer: tildeImporter, // enable imports from /node_modules/ using tilde character
+      precision: 8,
     }))
     .pipe(postcss()) // default postcss.config.js
     .pipe(postcss([ // extra: minification
