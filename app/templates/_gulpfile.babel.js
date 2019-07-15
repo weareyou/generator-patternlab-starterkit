@@ -24,11 +24,11 @@ import webpackConfigES6 from './config/webpack.es6';
 
 
 /*----------------------------------------------------------------------------*\
- Internal Tasks
- \*----------------------------------------------------------------------------*/
+    Internal Tasks
+\*----------------------------------------------------------------------------*/
 
 /*  Copy
- \*----------------------------------------------------------------------------*/
+\*----------------------------------------------------------------------------*/
 
 /**
  * Task: copy:styleguide
@@ -72,9 +72,10 @@ const copyAssetsTask = () => (
 );
 
 
+
 /*  Task: styles
- Tests for markup errors, compiles and autoprefixes the `scss` files
- \*----------------------------------------------------------------------------*/
+    Tests for markup errors, compiles and autoprefixes the `scss` files
+\*----------------------------------------------------------------------------*/
 
 const stylesDevTask = () => (
   src(`${config.paths.source.sass}**/*.scss`)
@@ -123,9 +124,10 @@ const stylesProdTask = () => (
 );
 
 
+
 /*  Task: javascript
- Checks our own javascript files for potential errors.
- \*----------------------------------------------------------------------------*/
+    Checks our own javascript files for potential errors.
+\*----------------------------------------------------------------------------*/
 
 const javascriptDevTask = (cb) => {
   src(`${config.paths.source.js}**/*.js`)
@@ -173,7 +175,7 @@ const javascriptProdTask = parallel(
 
 
 /*  Task: svg
- ========================================================================= */
+\*----------------------------------------------------------------------------*/
 
 const svgSpriteTask = () => (
   src('**/*.svg', { cwd: config.paths.source.svg })
@@ -188,9 +190,10 @@ const svgSpriteTask = () => (
 );
 
 
+
 /*  Task: connect
- Fires up a development server using browserSync
- \*----------------------------------------------------------------------------*/
+    Fires up a development server using browserSync
+\*----------------------------------------------------------------------------*/
 
 const connectTask = () => {
   browserSync.init({
@@ -204,8 +207,9 @@ const connectTask = () => {
 };
 
 
+
 /*  Patternlab specific tasks
- \*----------------------------------------------------------------------------*/
+\*----------------------------------------------------------------------------*/
 
 // create patternlab instance
 const pl = patternlabNode(config);
@@ -229,30 +233,28 @@ const fullPatternlabTask = (cb) => {
 };
 
 
-/*  Task: watch
- Setup files watches to track changes/additions/deletions of files and take
- action upon those changes
- \*----------------------------------------------------------------------------*/
 
 /*  Task: bs-reload
- A task to reload browserSync from other tasks
- \*----------------------------------------------------------------------------*/
+    A task to reload browserSync from other tasks
+\*----------------------------------------------------------------------------*/
+
 const bsReloadTask = (cb) => {
   browserSync.reload();
   cb();
 };
 
 
+
+/*  Task: watch
+    Setup files watches to track changes/additions/deletions of files and take
+    action upon those changes
+\*----------------------------------------------------------------------------*/
+
 const watchTask = (cb) => {
   /**
    * Styles
    */
   watch(`${config.paths.source.sass}**/*.scss`, series(stylesDevTask));
-
-  /**
-   * Javascripts
-   */
-  // omitted, Webpack is watching files itself, which is faster
 
   /**
    * SVG
@@ -282,10 +284,10 @@ const watchTask = (cb) => {
 
 
 /* ----------------------------------------------------------------------------*\
- External tasks
- Tasks which will be used from the command line. These tasks chain together
- all other tasks mentioned in this file.
- \*----------------------------------------------------------------------------*/
+    External tasks
+    Tasks which will be used from the command line. These tasks chain together
+    all other tasks mentioned in this file.
+\*----------------------------------------------------------------------------*/
 
 /**
  * task: default
