@@ -3,7 +3,7 @@
 # top-most EditorConfig file
 root = true
 
-# Unix-style newlines with a newline ending every file, indent style spaces and 4 spaces per tab
+# Unix-style newlines with a newline ending every file, indent style spaces and 2 spaces per tab
 [*]
 charset = utf-8
 end_of_line = lf

@@ -1,7 +1,7 @@
-# generator-patternlab-starterkit - v1.6.0
+# generator-patternlab-starterkit - v1.7.0
 
 > A [Yeoman](http://yeoman.io) generator for [Pattern Lab](http://patternlab.io/), a static site generator based on Brad Frost's [Atomic Design](http://bradfrostweb.com/blog/post/atomic-web-design/) methodologies.
-> Scaffolds out a new Pattern Lab site, along with a few other optional workflow bells and whistles (Sass, Autoprefixer, Babel) and front-end dependencies ([Supple](https://github.com/supple-css/supple) etc.).
+> Scaffolds out a new Pattern Lab site, along with a few other optional workflow bells and whistles (Sass, Autoprefixer, Babel, Bundle splitting, modern+legacy JS output) and front-end dependencies ([Supple](https://github.com/supple-css/supple), ConditionerJS, etc.).
 
 
 <a name="prerequisites"></a>
@@ -41,18 +41,15 @@ generator-patternlab-starterkit has some important additions compared to pattern
 
 
 ### PostCSS
-
-[PostCSS](https://postcss.org/) is installed by default, and plugins are configured in `postcss.config.js`. You can add more PostCSS plugins here. [Autoprefixer](https://github.com/postcss/autoprefixer) makes sure that all our CSS can be written prefix-free while the prefixes are added later on based on the supported browsers. You can add/remove supported browsers by changing the `browserlist` property in `config.json`. [PostCSS Normalize](https://github.com/csstools/postcss-normalize/blob/master/README.md) lets you use the parts of normalize.css you need from your browserslist.
+[PostCSS](https://postcss.org/) is installed by default, and plugins are configured in `postcss.config.js`. You can add more PostCSS plugins here. [Autoprefixer](https://github.com/postcss/autoprefixer) makes sure that all our CSS can be written prefix-free while the prefixes are added later on based on the supported browsers. You can add/remove supported browsers by changing the `browserlist` property in `package.json`. [PostCSS Normalize](https://github.com/csstools/postcss-normalize/blob/master/README.md) lets you use the parts of normalize.css you need from your browserslist.
 
 [Stylelint](https://github.com/stylelint/stylelint) is used to enforce some kind of code style throughout the project. By default we have some default checks in `.stylelintrc`, you can alter them per project.
-
 
 ### ESLint
 [ESLint](http://eslint.org/) is a tool that helps to detect errors and potential problems in your JavaScript code. By default we have some default checks in `.eslintrc`, you can alter them per project.
 
 ### Conditioner
 [Conditioner.js](https://github.com/rikschennink/conditioner): Frizz free, context-aware, JavaScript modules
-
 
 ## Contributing
 If you have any ideas or additions for this project please refer to the [contributing guide](CONTRIBUTING.md)

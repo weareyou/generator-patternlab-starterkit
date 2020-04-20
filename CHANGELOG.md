@@ -1,5 +1,11 @@
 == HEAD
 
+== 1.7.0 (April, 2020)
+
+* Update dependencies
+* Upgrade Patternlab
+* Remove Gulpfile transpiling
+
 == 1.6.0 (Februari 31, 2019)
 
 * Update dependencies
