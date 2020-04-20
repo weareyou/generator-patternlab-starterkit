@@ -27,7 +27,7 @@
       "data" : "./<%= scaffoldPath %>/styleguide/data/",
       "annotations" : "./<%= scaffoldPath %>/annotations/",
       "styleguide" : "./<%= scaffoldPath %>/styleguide/",
-      "js" : "./<%= scaffoldPath %><%= publicJsFolder %>/",
+      "js" : "./<%= scaffoldPath %>/<%= publicJsFolder %>/",
       "svg" : "./<%= scaffoldPath %>/svg/",
       "assets" : "./<%= scaffoldPath %>/assets/",
       "css" : "./<%= scaffoldPath %>/css/"

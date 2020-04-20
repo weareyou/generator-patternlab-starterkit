@@ -8,7 +8,7 @@ node_modules/
 <%= scaffoldPath %>/styleguide/css/*.css
 <%= scaffoldPath %><%= sourceJsFolder %>/lib/modernizr.*
 <%= scaffoldPath %><%= sourceJsFolder %>/patternlab-*
-<%= scaffoldPath %><%= publicJsFolder %>/*
+<%= scaffoldPath %>/<%= publicJsFolder %>/*
 <%= scaffoldPath %>/css/*
 <%= scaffoldPath %>/patterns/*
 <%= scaffoldPath %>/data/*

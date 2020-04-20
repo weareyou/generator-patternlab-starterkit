@@ -1,20 +1,14 @@
-'use strict';
-var util = require('util');
-var path = require('path');
-var yeoman = require('yeoman-generator');
-var yosay = require('yosay');
-var chalk = require('chalk');
+const Generator = require('yeoman-generator');
+const yosay = require('yosay');
+const chalk = require('chalk');
+const slugify = require('slugify');
 
-
-var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
-
-  initializing: function() {
+module.exports = class extends Generator {
+  initializing() {
     this.pkg = require('../package.json');
-  },
+  }
 
-  prompting: function() {
-    var cb = this.async();
-
+  async prompting() {
     this.log(yosay('Welcome to the Patternlab starterkit generator!'));
 
     var prompts = [
@@ -22,69 +16,40 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
         type: 'input',
         name: 'projectName',
         message: 'What is the name of your project?',
-        default: 'Patternlab Starterkit'
+        default: this.appname
       },
       {
         type: 'input',
         name: 'scaffoldPath',
         message: 'Where do you want the patternlab folder to be generated?',
         default: 'public'
-      },
-      {
-        type: 'list',
-        message: 'Do you want to copy gitignore? If you already have a gitignore choose "No"',
-        name: 'copyGitignore',
-        choices: [
-          {
-            name: 'Yes',
-            value: true
-          },
-          {
-            name: 'No',
-            value: false
-          }
-        ]
       }
     ];
 
-    this.prompt(prompts, function(props) {
-      this.currentYear = new Date().getFullYear();
+    this.answers = await this.prompt(prompts);
+    this.sourceJsFolder = '/_js';
+    this.publicJsFolder = 'js';
+  }
 
-      this.projectName = props.projectName;
-      this.scaffoldPath = props.scaffoldPath;
-      this.connectPath = '/' + this.scaffoldPath;
-      this.copyGitignore = props.copyGitignore;
-      this.projectType = props.projectType;
+  copyingDependencyFiles() {
+    this.fs.copyTpl(
+      this.templatePath('?(.*|*.*|config/**/*)'),
+      this.destinationPath('.'),
+      {
+        ...this.answers,
+        projectSlug: slugify(this.answers.projectName),
+        sourceJsFolder: this.sourceJsFolder,
+        publicJsFolder: this.publicJsFolder,
+      }
+    );
 
-      this.dependencies = {};
+    this.fs.copyTpl(
+      this.templatePath('_labtemplates'),
+      this.destinationPath(this.answers.scaffoldPath),
+    )
+  }
 
-      this.sourceJsFolder = '/_js';
-      this.publicJsFolder = '/js';
-
-      cb();
-
-    }.bind(this));
-
-  },
-
-  copyingDependencyFiles: function() {
-    var done = this.async();
-
-    this.template('_.babelrc', '.babelrc');
-    this.template('_.editorconfig', '.editorconfig');
-    this.template('_.eslintrc', '.eslintrc');
-    this.template('_.stylelintrc', '.stylelintrc');
-    this.template('_config.json', 'config.json');
-    this.template('_package.json', 'package.json');
-    this.template('_gulpfile.babel.js', 'gulpfile.babel.js');
-    this.template('_postcss.config.js', 'postcss.config.js');
-
-    if (this.copyGitignore) {
-      this.template('_.gitignore', '.gitignore');
-    }
-
-    done();
-  },
+  /*
 
   copyingPatternFiles: function(){
     var done = this.async();
@@ -118,4 +83,6 @@ var PatternlabGenerator = module.exports = yeoman.generators.Base.extend({
       });
     });
   }
-});
+
+   */
+};

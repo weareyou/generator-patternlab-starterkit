@@ -1,5 +1,5 @@
 {
-  "name": "<%= _.slugify(projectName) %>",
+  "name": "<%= projectSlug %>",
   "description": "<%= projectName %> project files",
   "version": "1.0.0",
   "browserslist": [

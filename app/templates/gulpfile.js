@@ -1,26 +1,26 @@
-import {
+const {
   series, parallel, src, dest, watch,
-} from 'gulp';
-import path from 'path';
-import rename from 'gulp-rename';
-import browserSync from 'browser-sync';
-import webpack from 'webpack';
-import webpackStream from 'webpack-stream';
-import notify from 'gulp-notify';
-import plumber from 'gulp-plumber';
-import sass from 'gulp-dart-sass';
-import tildeImporter from 'node-sass-tilde-importer';
-import stylelint from 'gulp-stylelint';
-import postcss from 'gulp-postcss';
-import cssnano from 'cssnano';
-import sourcemaps from 'gulp-sourcemaps';
-import patternlabNode from 'patternlab-node';
-import svgSprite from 'gulp-svg-sprite';
+} = require('gulp');
+const path = require('path');
+const rename = require('gulp-rename');
+const browserSync = require('browser-sync');
+const webpack = require('webpack');
+const webpackStream = require('webpack-stream');
+const notify = require('gulp-notify');
+const plumber = require('gulp-plumber');
+const sass = require('gulp-dart-sass');
+const tildeImporter = require('node-sass-tilde-importer');
+const stylelint = require('gulp-stylelint');
+const postcss = require('gulp-postcss');
+const cssnano = require('cssnano');
+const sourcemaps = require('gulp-sourcemaps');
+const patternlabNode = require('patternlab-node');
+const svgSprite = require('gulp-svg-sprite');
 
-import config from './config';
-import webpackConfigDev from './config/webpack.dev';
-import webpackConfigES5 from './config/webpack.es5';
-import webpackConfigES6 from './config/webpack.es6';
+const config = require('./config');
+const webpackConfigDev = require('./config/webpack.dev');
+const webpackConfigES5 = require('./config/webpack.es5');
+const webpackConfigES6 = require('./config/webpack.es6');
 
 
 /*----------------------------------------------------------------------------*\
