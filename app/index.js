@@ -58,12 +58,12 @@ module.exports = class extends Generator {
     )
   }
 
-  npmInstall() {
+  install() {
     this.npmInstall();
   }
 
   done() {
-    const log = `${chalk.red(this.projectName)} is ready! Type "${chalk.blue('npm run serve')}" to start developing on your styleguide. Type "${chalk.blue('npm run build')}" to generate production-ready optimized JS & CSS bundles.`;
+    const log = `${chalk.red(this.answers.projectName)} is ready! Type "${chalk.blue('npm run serve')}" to start developing on your styleguide. Type "${chalk.blue('npm run build')}" to generate production-ready optimized JS & CSS bundles.`;
     this.log(yosay(log));
   }
 

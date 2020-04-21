@@ -11,18 +11,18 @@ import * as conditioner from 'conditioner-core';
  */
 conditioner.addPlugin({
   // converts module aliases to paths
-  moduleSetName: name => `${name}.js`,
+  moduleSetName: (name) => `${name}.js`,
   // get the module constructor
-  moduleGetConstructor: module => module.default,
+  moduleGetConstructor: (module) => module.default,
   // override the import
-  moduleImport: name => import(
+  moduleImport: (name) => import(
     /* https://webpack.js.org/api/module-methods/#import- */
     /* set to "eager" to create a single chunk for all modules */
     /* set to "lazy" to create a separate chunk for each module */
     /* webpackChunkName: "[request]" */
     /* webpackMode: "lazy" */
     '../modules/' + name // eslint-disable-line
-    ),
+  ),
 });
 
 /**
