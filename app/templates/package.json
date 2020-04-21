@@ -6,7 +6,7 @@
     "defaults"
   ],
   "scripts": {
-    "start": "gulp serve",
+    "serve": "gulp serve",
     "build": "gulp build",
     "dev": "gulp dev",
     "postinstall": "npm run build"
@@ -25,7 +25,7 @@
     "@babel/preset-env": "^7.9.5",
     "@pattern-lab/core": "^5.7.0",
     "@pattern-lab/engine-mustache": "^5.0.0",
-    "@pattern-lab/uikit-workshop": "^5.7.2",
+    "@pattern-lab/uikit-bare": "0.0.1",
     "autoprefixer": "^9.7.6",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",

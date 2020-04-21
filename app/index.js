@@ -11,7 +11,7 @@ module.exports = class extends Generator {
   async prompting() {
     this.log(yosay('Welcome to the Patternlab starterkit generator!'));
 
-    var prompts = [
+    const prompts = [
       {
         type: 'input',
         name: 'projectName',
@@ -20,15 +20,25 @@ module.exports = class extends Generator {
       },
       {
         type: 'input',
-        name: 'scaffoldPath',
+        name: 'sourcePath',
+        message: 'Where do you want your source files to be located?',
+        default: 'src'
+      },
+      {
+        type: 'input',
+        name: 'publicPath',
         message: 'Where do you want the patternlab folder to be generated?',
         default: 'public'
+      },
+      {
+        type: 'input',
+        name: 'distPath',
+        message: 'Where do you want your production bundles to be generated?',
+        default: 'dist'
       }
     ];
 
     this.answers = await this.prompt(prompts);
-    this.sourceJsFolder = '/_js';
-    this.publicJsFolder = 'js';
   }
 
   copyingDependencyFiles() {
@@ -38,15 +48,23 @@ module.exports = class extends Generator {
       {
         ...this.answers,
         projectSlug: slugify(this.answers.projectName),
-        sourceJsFolder: this.sourceJsFolder,
-        publicJsFolder: this.publicJsFolder,
       }
     );
 
     this.fs.copyTpl(
       this.templatePath('_labtemplates'),
-      this.destinationPath(this.answers.scaffoldPath),
+      this.destinationPath(this.answers.sourcePath),
+      { ...this.answers }
     )
+  }
+
+  npmInstall() {
+    this.npmInstall();
+  }
+
+  done() {
+    const log = `${chalk.red(this.projectName)} is ready! Type "${chalk.blue('npm run serve')}" to start developing on your styleguide. Type "${chalk.blue('npm run build')}" to generate production-ready optimized JS & CSS bundles.`;
+    this.log(yosay(log));
   }
 
   /*

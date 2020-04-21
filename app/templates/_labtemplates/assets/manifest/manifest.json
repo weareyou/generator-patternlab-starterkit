@@ -1,6 +1,6 @@
 {
-  "name": "Pattern Lab",
-  "short_name": "PL",
+  "name": "<%= projectName %>",
+  "short_name": "<%= projectName %>",
   "start_url": "/",
   "background_color": "#ff0000",
   "theme_color": "#ffffff",

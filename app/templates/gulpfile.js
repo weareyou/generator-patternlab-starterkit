@@ -2,10 +2,10 @@ const {
   series, parallel, src, dest, watch,
 } = require('gulp');
 const path = require('path');
-const rename = require('gulp-rename');
 const browserSync = require('browser-sync');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
+const eslint = require('gulp-eslint');
 const notify = require('gulp-notify');
 const plumber = require('gulp-plumber');
 const sass = require('gulp-dart-sass');
@@ -14,10 +14,10 @@ const stylelint = require('gulp-stylelint');
 const postcss = require('gulp-postcss');
 const cssnano = require('cssnano');
 const sourcemaps = require('gulp-sourcemaps');
-const patternlabNode = require('patternlab-node');
+const patternlabNode = require('@pattern-lab/core');
 const svgSprite = require('gulp-svg-sprite');
 
-const config = require('./config');
+const config = require('./patternlab-config.json');
 const webpackConfigDev = require('./config/webpack.dev');
 const webpackConfigES5 = require('./config/webpack.es5');
 const webpackConfigES6 = require('./config/webpack.es6');
@@ -67,8 +67,22 @@ const copyAnnotationsTask = () => (
  * Task copy:assets
  */
 const copyAssetsTask = () => (
-  src(`${config.paths.source.assets}**/*`)
+  src(`${config.paths.assets.assets}**/*`)
     .pipe(dest(config.paths.public.assets))
+);
+
+
+/**
+ * Task copy:buildFiles
+ */
+const copyBuildTask = () => (
+  src([
+    `${config.paths.public.assets}**/*`,
+    `${config.paths.public.svg}**/*`,
+    `${config.paths.public.js}**/*`,
+    `${config.paths.public.css}**/*`,
+  ], { base: config.paths.public.root }) // this keeps the directory structure
+    .pipe(dest(config.paths.build.root))
 );
 
 
@@ -78,7 +92,7 @@ const copyAssetsTask = () => (
 \*----------------------------------------------------------------------------*/
 
 const stylesDevTask = () => (
-  src(`${config.paths.source.sass}**/*.scss`)
+  src(`${config.paths.assets.sass}**/*.scss`)
     .pipe(plumber({
       errorHandler: (err) => {
         notify.onError({
@@ -109,7 +123,7 @@ const stylesDevTask = () => (
 );
 
 const stylesProdTask = () => (
-  src(`${config.paths.source.sass}**/*.scss`)
+  src(`${config.paths.assets.sass}**/*.scss`)
     .pipe(plumber())
     .pipe(sass({
       importer: tildeImporter, // enable imports from /node_modules/ using tilde character
@@ -119,7 +133,6 @@ const stylesProdTask = () => (
     .pipe(postcss([ // extra: minification
       cssnano(),
     ]))
-    .pipe(rename({ suffix: '.min' })) // rename to [filename].min.css
     .pipe(dest(config.paths.public.css))
 );
 
@@ -129,8 +142,19 @@ const stylesProdTask = () => (
     Checks our own javascript files for potential errors.
 \*----------------------------------------------------------------------------*/
 
+// Lint scripts
+const javascriptLintTask = (cb) => {
+  src(`${config.paths.assets.js}**/*.js`)
+    .pipe(plumber())
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+  cb();
+};
+
+
 const javascriptDevTask = (cb) => {
-  src(`${config.paths.source.js}**/*.js`)
+  src(`${config.paths.assets.js}**/*.js`)
     .pipe(plumber())
     .pipe(webpackStream(webpackConfigDev, webpack, (err, stats) => {
       // log errors and warnings
@@ -139,7 +163,6 @@ const javascriptDevTask = (cb) => {
         const info = stats.toJson();
         browserSync.notify(`Script error: ${info.errors}`, 10000);
       }
-
       // if there are no errors, reload
       if (!stats.hasErrors()) {
         bsReloadTask(cb);
@@ -150,22 +173,18 @@ const javascriptDevTask = (cb) => {
 };
 
 const javascriptES6Task = (cb) => {
-  src(`${config.paths.source.js}**/*.js`)
+  src(`${config.paths.assets.js}**/*.js`)
     .pipe(plumber())
     .pipe(webpackStream(webpackConfigES6, webpack, () => cb()))
     .pipe(dest(config.paths.public.js));
 };
 
-exports.es6 = javascriptES6Task;
-
 const javascriptES5Task = (cb) => {
-  src(`${config.paths.source.js}**/*.js`)
+  src(`${config.paths.assets.js}**/*.js`)
     .pipe(plumber())
     .pipe(webpackStream(webpackConfigES5, webpack, () => cb()))
     .pipe(dest(config.paths.public.js));
 };
-
-exports.es5 = javascriptES5Task;
 
 const javascriptProdTask = parallel(
   javascriptES5Task,
@@ -178,7 +197,7 @@ const javascriptProdTask = parallel(
 \*----------------------------------------------------------------------------*/
 
 const svgSpriteTask = () => (
-  src('**/*.svg', { cwd: config.paths.source.svg })
+  src('**/*.svg', { cwd: config.paths.assets.svg })
     .pipe(svgSprite({
       mode: {
         symbol: {
@@ -197,8 +216,8 @@ const svgSpriteTask = () => (
 
 const connectTask = () => {
   browserSync.init({
-    server: './',
-    startPath: `${config.paths.public.root}index.html`,
+    server: config.paths.public.root,
+    startPath: '/index.html',
     snippetOptions: {
       // Ignore all HTML files within the templates folder
       blacklist: [`${config.paths.public.root}index.html`, config.paths.public.root, `${config.paths.public.root}index.html/?*`],
@@ -220,7 +239,9 @@ const pl = patternlabNode(config);
  * (Re)builds the patternlab styleguide
  */
 const patternlabTask = (cb) => {
-  pl.build(cb, config.cleanPublic);
+  pl.build({
+    cleanPublic: false, // this doesn't work (yet), won't do a partial build
+  }).then(cb);
 };
 
 
@@ -229,7 +250,9 @@ const patternlabTask = (cb) => {
  * Builds the full patternlab styleguide
  */
 const fullPatternlabTask = (cb) => {
-  pl.build(cb, true);
+  pl.build({
+    cleanPublic: true,
+  }).then(cb);
 };
 
 
@@ -254,12 +277,17 @@ const watchTask = (cb) => {
   /**
    * Styles
    */
-  watch(`${config.paths.source.sass}**/*.scss`, series(stylesDevTask));
+  watch(`${config.paths.source.sass}**/*.scss`, series(stylesDevTask, copyBuildTask));
+
+  /**
+   * Javascripts
+   */
+  watch(`${config.paths.assets.js}**/*.js`, series(javascriptLintTask, bsReloadTask, copyBuildTask));
 
   /**
    * SVG
    */
-  watch(`${config.paths.source.svg}**/*.svg`, series(svgSpriteTask, bsReloadTask));
+  watch(`${config.paths.source.svg}**/*.svg`, series(svgSpriteTask, bsReloadTask, copyBuildTask));
 
   /**
    * Patterns
@@ -267,17 +295,17 @@ const watchTask = (cb) => {
   watch([
     config.paths.source.meta,
     config.paths.source.patterns,
-  ], series(patternlabTask, bsReloadTask));
+  ], series(patternlabTask, bsReloadTask, copyBuildTask));
 
   /**
    * Data
    */
-  watch(config.paths.source.data, series(fullPatternlabTask, bsReloadTask));
+  watch(config.paths.source.data, series(fullPatternlabTask, bsReloadTask, copyBuildTask));
 
   /**
    * Assets (enable if your assets public path differs from the source)
    */
-  // watch(config.paths.source.assets, series(copyAssetsTask, bsReloadTask));
+  watch(config.paths.assets.assets, series(copyAssetsTask, bsReloadTask, copyBuildTask));
 
   cb();
 };
@@ -290,16 +318,13 @@ const watchTask = (cb) => {
 \*----------------------------------------------------------------------------*/
 
 /**
- * task: default
- * Prepares the code one time
+ * Build styleguide
  */
-const defaultTask = parallel(
+const patternlabAssetsTask = parallel(
   fullPatternlabTask,
   copyStyleguideTask,
   copyStyleguideCssTask,
   copyAnnotationsTask,
-  copyAssetsTask,
-  svgSpriteTask,
 );
 
 /**
@@ -307,20 +332,59 @@ const defaultTask = parallel(
  * Prepares the code, fires up a development server and sets up watch tasks
  */
 exports.serve = series(
-  defaultTask,
-  javascriptDevTask,
-  stylesDevTask,
+  parallel(
+    copyAssetsTask,
+    svgSpriteTask,
+    patternlabAssetsTask,
+    javascriptLintTask,
+    javascriptDevTask,
+    stylesDevTask,
+  ),
   watchTask,
   connectTask,
 );
 
 
 /**
- * task: build
- * Build production JS & CSS bundles
+ * Dev task. Build dev files and copy to build directory (for use while developing outside Patternlab)
  */
-exports.build = parallel(
-  defaultTask,
+exports.dev = series(
+  parallel(
+    copyAssetsTask,
+    svgSpriteTask,
+    patternlabAssetsTask,
+    javascriptLintTask,
+    javascriptDevTask,
+    stylesDevTask,
+  ),
+  copyBuildTask,
+  watchTask,
+);
+
+
+/**
+ * task: build
+ * Build production SVG, JS & CSS bundles, copy assets
+ */
+exports.build = series(
+  parallel(
+    copyAssetsTask,
+    svgSpriteTask,
+    javascriptProdTask,
+    stylesProdTask,
+  ),
+  copyBuildTask,
+);
+
+
+/**
+ * task: deployPatternlab
+ * Build Patternlab with production JS & CSS bundles
+ */
+exports.deployPatternlab = parallel(
+  copyAssetsTask,
+  svgSpriteTask,
+  patternlabAssetsTask,
   javascriptProdTask,
   stylesProdTask,
 );

@@ -1,13 +1,15 @@
-import { resolve } from 'path';
-import config from '../config';
+const { resolve } = require('path');
+const config = require('../patternlab-config.json');
 
 module.exports = {
   mode: 'production',
-  entry: `${config.paths.source.js}entry.js`,
+  entry: {
+    bundle: `${config.paths.assets.js}entry.js`,
+  },
   devtool: 'source-map',
   output: {
     path: resolve(config.paths.public.js),
-    publicPath: `/${config.paths.public.js}`,
-    filename: 'bundle.es6.js',
+    publicPath: config.paths.public.jsPublicPath,
+    filename: '[name].es6.js',
   },
 };
