@@ -277,7 +277,7 @@ const watchTask = (cb) => {
   /**
    * Styles
    */
-  watch(`${config.paths.source.sass}**/*.scss`, series(stylesDevTask, copyBuildTask));
+  watch(`${config.paths.assets.sass}**/*.scss`, series(stylesDevTask, copyBuildTask));
 
   /**
    * Javascripts
@@ -287,7 +287,7 @@ const watchTask = (cb) => {
   /**
    * SVG
    */
-  watch(`${config.paths.source.svg}**/*.svg`, series(svgSpriteTask, bsReloadTask, copyBuildTask));
+  watch(`${config.paths.assets.svg}**/*.svg`, series(svgSpriteTask, bsReloadTask, copyBuildTask));
 
   /**
    * Patterns
