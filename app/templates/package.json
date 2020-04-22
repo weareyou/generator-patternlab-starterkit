@@ -6,7 +6,7 @@
     "defaults"
   ],
   "scripts": {
-    "serve": "gulp serve",
+    "start": "gulp serve",
     "build": "gulp build",
     "dev": "gulp dev",
     "postinstall": "npm run build"
