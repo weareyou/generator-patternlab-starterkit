@@ -8,18 +8,18 @@
 /*  Settings
     ========================================================================= */
 
-@import "settings/vars";
-@import "~supple/lib/settings/defaults";
-@import "~supple/lib/settings/responsive";
+@import 'settings/vars';
+@import '~supple/lib/settings/defaults';
+@import '~supple/lib/settings/responsive';
 
 
 
 /*  Tools
     ========================================================================= */
 
-@import "~sass-mq/mq";
-@import "~supple/lib/tools/functions";
-@import "~supple/lib/tools/mixins";
+@import '~sass-mq/mq';
+@import '~supple/lib/tools/functions';
+@import '~supple/lib/tools/mixins';
 
 
 
@@ -27,45 +27,45 @@
     ========================================================================= */
 
 @import-normalize;
-@import "~supple/lib/generic/reset";
+@import '~supple/lib/generic/reset';
 
 
 
 /*  Elements
     ========================================================================= */
 
-@import "~supple/lib/elements/headings";
+@import '~supple/lib/elements/headings';
 
 
 
 /*  Objects
     ========================================================================= */
 
-@import "~supple/lib/objects/list-clean";
-@import "~supple/lib/objects/layout";
-@import "~supple/lib/objects/flexembed";
+@import '~supple/lib/objects/list-clean';
+@import '~supple/lib/objects/layout';
+@import '~supple/lib/objects/flexembed';
 
 
 
 /*  Components
     ========================================================================= */
 
-// @import "";
+// @import ';
 
 
 
 /*  Theme
     ========================================================================= */
 
-@import "theme/colors";
+@import 'theme/colors';
 
 
 
 /*  Utilities
     ========================================================================= */
 
-@import "~supple/lib/utilities/fractions";
-@import "~supple/lib/utilities/module";
-@import "~supple/lib/utilities/visually-hidden";
-@import "~supple/lib/utilities/hidden";
-@import "~supple/lib/utilities/spacing";
+@import '~supple/lib/utilities/fractions';
+@import '~supple/lib/utilities/module';
+@import '~supple/lib/utilities/visually-hidden';
+@import '~supple/lib/utilities/hidden';
+@import '~supple/lib/utilities/spacing';
