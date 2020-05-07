@@ -1,0 +1,8 @@
+{
+  "label": {
+    "isLegend": false,
+    "for": "inputId",
+    "label": "Field label",
+    "hint": null
+  }
+}

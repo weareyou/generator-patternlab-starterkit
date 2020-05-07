@@ -1,0 +1,7 @@
+{
+  "textarea": {
+    "id": "",
+    "name": "text-input",
+    "isRequired": true
+  }
+}
