@@ -1,5 +1,5 @@
 /* your global dependencies */
-// import 'lazysizes';
+// import 'MODULE_FROM_NPM';
 
 /**
  * Utilities
@@ -8,4 +8,4 @@ import './utilities/conditioner';
 import './utilities/setExtLinks';
 
 /* your components */
-// import './components/your-module';
+// import './components/YOUR_MODULE';
