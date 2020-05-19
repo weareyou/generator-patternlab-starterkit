@@ -56,6 +56,12 @@ module.exports = class extends Generator {
       this.destinationPath(this.answers.sourcePath),
       { ...this.answers }
     )
+
+    // Copy all dotfiles
+    this.fs.copy(
+      this.templatePath('_labtemplates/**/.*'),
+      this.destinationPath(this.answers.sourcePath)
+    );
   }
 
   install() {
