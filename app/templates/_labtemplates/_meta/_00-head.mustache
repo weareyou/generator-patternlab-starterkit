@@ -1,21 +1,31 @@
 <!DOCTYPE html>
-<html class="{{ htmlClass }}">
+<html class="{{ htmlClass }}" lang="{{ htmlLang }}">
 <head>
-    <title>{{ title }}</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width" />
+  <meta charset="UTF-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="../../css/style.css?{{ cacheBuster }}" media="all" />
+  {{! Generic app tags }}
+  <link rel="manifest" href="../../assets/manifest/manifest.json">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/manifest/icons/icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/manifest/icons/icon-32x32.png">
+  <meta name="theme-color" content="{{themeColor}}">
 
-    <!-- Development modernizr: DO NOT COPY TO PRODUCTION -->
-    <script src="../../js/lib/modernizr.development.js?{{ cacheBuster }}"></script>
-    <!-- INSTEAD, USE THIS IN PRODUCTION CODE
-    <script src="../../js/lib/modernizr.build.js?{{ cacheBuster }}"></script>
-    -->
+  {{! Inform CSS that JS is enabled }}
+  <script>
+    document.documentElement.classList.add('has-js');
+  </script>
 
-    <!-- Patternlab code: DO NOT MODIFY OR COPY TO PRODUCTION -->
-    <link rel="stylesheet" href="../../css/pattern-scaffolding.css?{{ cacheBuster }}" media="all" />
-    {{{ patternLabHead }}}
-    <!-- /Patternlab code: DO NOT MODIFY OR COPY TO PRODUCTION -->
+  <link rel="stylesheet" href="../../css/style.css?{{ cacheBuster }}" media="all" />
+
+  {{! List dependencies in the head for faster discovery/preloading. They are deferred by default. }}
+  <script type="module" src="../../js/bundle.es6.js?{{ cacheBuster }}"></script>
+
+  <!-- Patternlab code: DO NOT MODIFY OR COPY TO PRODUCTION -->
+  <link rel="stylesheet" href="../../css/pattern-scaffolding.css?{{ cacheBuster }}" media="all" />
+  {{{ patternLabHead }}}
+  <!-- /Patternlab code: DO NOT MODIFY OR COPY TO PRODUCTION -->
 </head>
 <body class="{{ bodyClass }}">

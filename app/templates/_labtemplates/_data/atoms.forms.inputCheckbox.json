@@ -1,10 +1,16 @@
 {
-    "inputCheckbox": {
-        "modifier": "",
-        "id": "checkbox1",
-        "name": "checkbox1",
-        "label": "Checkbox 1",
-        "isDisabled": false,
-        "isChecked": false
+  "inputCheckbox": {
+    "label": "Input control label",
+    "modifier": "",
+    "id": "inputControlId",
+    "name": "inputControlName",
+    "value": "",
+    "type": "checkbox",
+    "isChecked": false,
+    "isDisabled": false,
+    "icon": {
+      "icon": "icon-checkmark",
+      "modifier": "c-icon--control"
     }
+  }
 }
