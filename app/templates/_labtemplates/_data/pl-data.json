@@ -1,5 +1,7 @@
 {
-    "title" : "Pattern Lab",
-    "htmlClass": "pl modernizr-no-js",
-    "bodyClass": "body"
+  "title": "Pattern Lab",
+  "htmlClass": "pl",
+  "bodyClass": "body",
+  "htmlLang": "en",
+  "themeColor": "#ff0000"
 }

@@ -1,13 +1,29 @@
 {
-    "inputText": {
-        "modifier": "",
-        "id": "",
-        "name": "input-text",
-        "type": "text",
-        "placeholder": "Text input placeholder",
-        "value": false,
-        "isRequired": false,
-        "isReadonly": false,
-        "autocomplete": true
+  "inputText": {
+    "modifier": "",
+    "id": "inputId",
+    "name": "input-text",
+    "type": "text",
+    "placeholder": "",
+    "value": false,
+    "isRequired": false,
+    "isReadonly": false,
+    "autocomplete": null
+  },
+  "defaultInputTexts": {
+    "search": {
+      "label": {
+        "isVisuallyHidden": true,
+        "for": "q",
+        "label": "Zoekterm"
+      },
+      "inputText": {
+        "id": "q",
+        "name": "q",
+        "type": "search",
+        "placeholder": "Bijv. foo, of bar",
+        "modifier": "c-form-search__input  js--courses-filter__query"
+      }
     }
+  }
 }

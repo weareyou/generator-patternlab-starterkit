@@ -1,8 +1,8 @@
 {
-    "label": {
-        "modifier": "",
-        "isRequired": false,
-        "for": "input-text",
-        "label": "Label for text input"
-    }
+  "label": {
+    "isLegend": false,
+    "for": "inputId",
+    "label": "Field label",
+    "hint": null
+  }
 }

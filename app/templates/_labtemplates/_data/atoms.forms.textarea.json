@@ -1,12 +1,7 @@
 {
-    "textarea": {
-        "modifier": "",
-        "id": "",
-        "name": "text-input",
-        "hasPlaceholder": false,
-        "placeholder": "Textarea placeholder",
-        "value": "",
-        "isReadonly": false,
-        "isRequired": true
-    }
+  "textarea": {
+    "id": "",
+    "name": "text-input",
+    "isRequired": true
+  }
 }

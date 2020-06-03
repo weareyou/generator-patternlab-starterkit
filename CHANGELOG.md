@@ -1,5 +1,18 @@
 == HEAD
 
+== 1.7.0 (April, 2020)
+
+* Update dependencies
+* Upgrade Patternlab
+* Remove Gulpfile transpiling
+
+== 1.6.0 (Februari 31, 2019)
+
+* Update dependencies
+* Update to Gulp 4
+* Add Webpack to bundle and transpile es6
+* Change sass compiler to dart-sass
+
 == 1.5.0 (August 23, 2017)
 
 * Update dependencies
