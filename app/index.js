@@ -9,7 +9,7 @@ module.exports = class extends Generator {
   }
 
   async prompting() {
-    this.log(yosay('Welcome to the Patternlab starterkit generator!'));
+    this.log(yosay('Welcome to the Patternlab starterkit generator v1.8.0!'));
 
     const prompts = [
       {
@@ -43,7 +43,7 @@ module.exports = class extends Generator {
 
   copyingDependencyFiles() {
     this.fs.copyTpl(
-      this.templatePath('?(*.*)'),
+      this.templatePath('?(.*|*.*)'),
       this.destinationPath('.'),
       {
         ...this.answers,

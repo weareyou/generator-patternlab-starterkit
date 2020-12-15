@@ -95,6 +95,7 @@
   "uikits": [
     {
       "name": "uikit-bare",
+      "package": "@pattern-lab/uikit-bare",
       "outputDir": "",
       "enabled": true,
       "excludedPatternStates": [],

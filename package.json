@@ -1,12 +1,12 @@
 {
   "name": "generator-patternlab-starterkit",
-  "version": "1.7.0",
-  "description": "Yeoman patternlab starterkit generator",
+  "version": "1.8.0",
+  "description": "Yeoman Pattern Lab starterkit generator",
   "license": "MIT",
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/weareyou/generator-patternlab-starterkit"
+    "url": "https://github.com/weareyou/generator-patternlab-starterkit"
   },
   "author": "We are you",
   "contributors": [
@@ -20,8 +20,8 @@
     }
   ],
   "engines": {
-    "node": ">=0.10.0",
-    "npm": ">=1.2.10"
+    "node": ">=14.15.1",
+    "npm": ">=6.14.9"
   },
   "files": [
     "app"

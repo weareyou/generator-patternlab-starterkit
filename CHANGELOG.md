@@ -1,10 +1,14 @@
 == HEAD
 
+== 1.8.0 (December 15, 2020)
+
+* Simplify installation method
+
 == 1.7.0 (June 3, 2020)
 
 * Update to supple v4 & stylelint-config-supple v3
 * Update dependencies
-* Upgrade Patternlab
+* Upgrade Pattern Lab
 * Remove Gulpfile transpiling
 
 == 1.6.0 (Februari 31, 2019)

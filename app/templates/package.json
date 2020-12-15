@@ -6,7 +6,7 @@
     "defaults"
   ],
   "scripts": {
-    "start": "gulp serve",
+    "serve": "gulp serve",
     "build": "gulp build",
     "dev": "gulp dev"
   },
