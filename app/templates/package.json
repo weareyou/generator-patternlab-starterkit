@@ -8,8 +8,7 @@
   "scripts": {
     "start": "gulp serve",
     "build": "gulp build",
-    "dev": "gulp dev",
-    "postinstall": "npm run build"
+    "dev": "gulp dev"
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.7",

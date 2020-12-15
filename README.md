@@ -4,7 +4,6 @@
 > Scaffolds out a new Pattern Lab site, along with a few other optional workflow bells and whistles (Sass, Autoprefixer, Babel, Bundle splitting, modern+legacy JS output) and front-end dependencies ([Supple](https://github.com/supple-css/supple), ConditionerJS, etc.).
 
 
-<a name="prerequisites"></a>
 ## Prerequisites
 Make sure Node 12 and npm are installed. A great guide can be found here: [https://docs.npmjs.com/getting-started/installing-node](https://docs.npmjs.com/getting-started/installing-node)
 
@@ -12,7 +11,7 @@ Make sure Node 12 and npm are installed. A great guide can be found here: [https
 ## Installation
 Please make sure your system meets the [prerequisites](#prerequisites)
 - From the terminal / command prompt, navigate to your site's directory.
-- Type `npx -p yo -p generator-patternlab-starterkit -c "yo patternlab-starterkit"`, answer a few questions about your project, and wait.
+- Type `npm init yo patternlab-starterkit`, answer a few questions about your project, and wait.
 - Bask in the glory of your fully scaffolded patternlab installation.
 
 
