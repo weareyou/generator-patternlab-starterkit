@@ -9,7 +9,6 @@ const eslint = require('gulp-eslint');
 const notify = require('gulp-notify');
 const plumber = require('gulp-plumber');
 const sass = require('gulp-dart-sass');
-const tildeImporter = require('node-sass-tilde-importer');
 const stylelint = require('gulp-stylelint');
 const postcss = require('gulp-postcss');
 const cssnano = require('cssnano');
@@ -113,7 +112,6 @@ const stylesDevTask = () => (
     }))
     .pipe(sourcemaps.init())
     .pipe(sass({
-      importer: tildeImporter,
       precision: 8,
     }))
     .pipe(postcss())
@@ -126,7 +124,6 @@ const stylesProdTask = () => (
   src(`${config.paths.assets.sass}**/*.scss`)
     .pipe(plumber())
     .pipe(sass({
-      importer: tildeImporter, // enable imports from /node_modules/ using tilde character
       precision: 8,
     }))
     .pipe(postcss()) // default postcss.config.js
