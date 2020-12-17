@@ -1,17 +1,22 @@
 // define a new class
-function YourClass($element) {
+class YourClass {
   // init class, i.e. store DOM elements
-  this.$element = $element;
-  // kick-off methods, i.e. add event handlers
-  this.yourMethod();
+  constructor($element) {
+    this.$element = $element;
+  }
+
+  init() {
+    // kick-off methods, i.e. add event handlers
+    this.YourMethod();
+  }
+
+  YourMethod() {
+    // DOM manipulation happens here
+    this.$element.textContent = 'Component mounted';
+  }
 }
 
-YourClass.prototype.yourMethod = function yourMethod() {
-  // DOM manipulation happens here
-  this.$element.textContent = 'Component mounted';
-};
-
 export default ($element) => {
-  // auto-invoke
-  (() => new YourClass($element))();
+  const inst = new YourClass($element);
+  inst.init();
 };

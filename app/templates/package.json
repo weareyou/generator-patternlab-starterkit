@@ -15,13 +15,13 @@
     "conditioner-core": "^2.3.3",
     "element-closest": "^3.0.2",
     "focus-visible": "^5.1.0",
-    "intersection-observer": "^0.10.0",
+    "intersection-observer": "^0.12.0",
     "supple": "^4.0.1",
     "svgxuse": "^1.2.6"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
-    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-env": "^7.12.11",
     "@pattern-lab/core": "^5.10.1",
     "@pattern-lab/engine-mustache": "^5.10.1",
     "@pattern-lab/uikit-bare": "0.0.1",
@@ -40,10 +40,9 @@
     "gulp": "^4.0.2",
     "gulp-dart-sass": "^1.0.2",
     "gulp-eslint": "^6.0.0",
-    "gulp-notify": "^3.2.0",
     "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^9.0.0",
-    "gulp-sourcemaps": "^2.6.5",
+    "gulp-sourcemaps": "^3.0.0",
     "gulp-stylelint": "^13.0.0",
     "gulp-svg-sprite": "^1.5.0",
     "postcss": "^8.2.1",
@@ -52,8 +51,8 @@
     "stylelint": "^13.4.1",
     "stylelint-config-supple": "^3.0.2",
     "stylelint-scss": "^3.17.2",
-    "webpack": "^4.43.0",
-    "webpack-merge": "^4.2.2",
-    "webpack-stream": "^5.2.1"
+    "webpack": "^5.10.3",
+    "webpack-merge": "^5.7.0",
+    "webpack-stream": "^6.1.1"
   }
 }
