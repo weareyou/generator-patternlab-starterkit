@@ -1,8 +1,9 @@
 == HEAD
 
-== 1.8.0 (December 15, 2020)
+== 1.8.0 (September 9, 2021)
 
 * Simplify installation method
+* Replace uitkit-bare with uikit-workshop
 
 == 1.7.0 (June 3, 2020)
 
