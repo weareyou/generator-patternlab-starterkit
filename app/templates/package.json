@@ -24,7 +24,7 @@
     "@babel/preset-env": "^7.12.11",
     "@pattern-lab/core": "^5.10.1",
     "@pattern-lab/engine-mustache": "^5.10.1",
-    "@pattern-lab/uikit-bare": "0.0.1",
+    "@pattern-lab/uikit-workshop": "^5.15.0",
     "autoprefixer": "^10.1.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
