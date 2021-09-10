@@ -1,11 +1,11 @@
-const merge = require('webpack-merge');
-const common = require('./webpack.common');
+const { merge } = require('webpack-merge');
+const common = require('./webpack.config');
 
 module.exports = merge(common, {
+  mode: 'production',
   module: {
     rules: [
       {
-        test: /\.js$/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -16,7 +16,6 @@ module.exports = merge(common, {
                   targets: {
                     esmodules: true,
                   },
-                  debug: false,
                 },
               ],
             ],

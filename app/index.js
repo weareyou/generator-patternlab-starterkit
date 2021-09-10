@@ -9,33 +9,33 @@ module.exports = class extends Generator {
   }
 
   async prompting() {
-    this.log(yosay('Welcome to the Patternlab starterkit generator!'));
+    this.log(yosay('Welcome to the Patternlab starterkit generator v1.8.0!'));
 
     const prompts = [
       {
         type: 'input',
         name: 'projectName',
         message: 'What is the name of your project?',
-        default: this.appname
+        default: this.appname,
       },
       {
         type: 'input',
         name: 'sourcePath',
         message: 'Where do you want your source files to be located?',
-        default: 'src'
+        default: 'src',
       },
       {
         type: 'input',
         name: 'publicPath',
         message: 'Where do you want the patternlab folder to be generated?',
-        default: 'public'
+        default: 'public',
       },
       {
         type: 'input',
         name: 'distPath',
         message: 'Where do you want your production bundles to be generated?',
-        default: 'dist'
-      }
+        default: 'dist',
+      },
     ];
 
     this.answers = await this.prompt(prompts);
@@ -43,24 +43,29 @@ module.exports = class extends Generator {
 
   copyingDependencyFiles() {
     this.fs.copyTpl(
-      this.templatePath('?(.*|*.*|config/**/*)'),
+      this.templatePath('?(.*|*.*)'),
       this.destinationPath('.'),
       {
         ...this.answers,
         projectSlug: slugify(this.answers.projectName),
-      }
+      },
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('config/**'),
+      this.destinationPath('config'),
     );
 
     this.fs.copyTpl(
       this.templatePath('_labtemplates'),
       this.destinationPath(this.answers.sourcePath),
-      { ...this.answers }
-    )
+      { ...this.answers },
+    );
 
     // Copy all dotfiles
     this.fs.copy(
       this.templatePath('_labtemplates/**/.*'),
-      this.destinationPath(this.answers.sourcePath)
+      this.destinationPath(this.answers.sourcePath),
     );
   }
 

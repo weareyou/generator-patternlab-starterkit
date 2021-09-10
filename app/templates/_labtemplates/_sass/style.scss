@@ -9,17 +9,17 @@
     ========================================================================= */
 
 @import 'settings/vars';
-@import '~supple/lib/settings/defaults';
-@import '~supple/lib/settings/responsive';
+@import 'node_modules/supple/lib/settings/defaults';
+@import 'node_modules/supple/lib/settings/responsive';
 
 
 
 /*  Tools
     ========================================================================= */
 
-@import '~sass-mq/mq';
-@import '~supple/lib/tools/functions';
-@import '~supple/lib/tools/mixins';
+@import 'node_modules/sass-mq/mq';
+@import 'node_modules/supple/lib/tools/functions';
+@import 'node_modules/supple/lib/tools/mixins';
 
 
 
@@ -27,23 +27,23 @@
     ========================================================================= */
 
 @import-normalize;
-@import '~supple/lib/generic/reset';
+@import 'node_modules/supple/lib/generic/reset';
 
 
 
 /*  Elements
     ========================================================================= */
 
-@import '~supple/lib/elements/headings';
+@import 'node_modules/supple/lib/elements/headings';
 
 
 
 /*  Objects
     ========================================================================= */
 
-@import '~supple/lib/objects/list-clean';
-@import '~supple/lib/objects/layout';
-@import '~supple/lib/objects/flexembed';
+@import 'node_modules/supple/lib/objects/list-clean';
+@import 'node_modules/supple/lib/objects/layout';
+@import 'node_modules/supple/lib/objects/flexembed';
 
 
 
@@ -64,8 +64,8 @@
 /*  Utilities
     ========================================================================= */
 
-@import '~supple/lib/utilities/fractions';
-@import '~supple/lib/utilities/module';
-@import '~supple/lib/utilities/visually-hidden';
-@import '~supple/lib/utilities/hidden';
-@import '~supple/lib/utilities/spacing';
+@import 'node_modules/supple/lib/utilities/fractions';
+@import 'node_modules/supple/lib/utilities/module';
+@import 'node_modules/supple/lib/utilities/visually-hidden';
+@import 'node_modules/supple/lib/utilities/hidden';
+@import 'node_modules/supple/lib/utilities/spacing';

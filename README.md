@@ -1,19 +1,18 @@
-# generator-patternlab-starterkit - v1.7.0
+# generator-patternlab-starterkit - v1.8.0
 
-> A [Yeoman](http://yeoman.io) generator for [Pattern Lab](http://patternlab.io/), a static site generator based on Brad Frost's [Atomic Design](http://bradfrostweb.com/blog/post/atomic-web-design/) methodologies.
+> A [Yeoman](http://yeoman.io) generator for [Pattern Lab](https://patternlab.io/), a static site generator based on Brad Frost's [Atomic Design](http://bradfrostweb.com/blog/post/atomic-web-design/) methodologies.
 > Scaffolds out a new Pattern Lab site, along with a few other optional workflow bells and whistles (Sass, Autoprefixer, Babel, Bundle splitting, modern+legacy JS output) and front-end dependencies ([Supple](https://github.com/supple-css/supple), ConditionerJS, etc.).
 
 
-<a name="prerequisites"></a>
 ## Prerequisites
-Make sure Node 12 and npm are installed. A great guide can be found here: [https://docs.npmjs.com/getting-started/installing-node](https://docs.npmjs.com/getting-started/installing-node)
+Make sure Node 14 and npm are installed. A great guide can be found here: [https://docs.npmjs.com/getting-started/installing-node](https://docs.npmjs.com/getting-started/installing-node)
 
 
 ## Installation
 Please make sure your system meets the [prerequisites](#prerequisites)
 - From the terminal / command prompt, navigate to your site's directory.
-- Type `npx -p yo -p generator-patternlab-starterkit -c "yo patternlab-starterkit"`, answer a few questions about your project, and wait.
-- Bask in the glory of your fully scaffolded patternlab installation.
+- Type `npm init yo patternlab-starterkit`, answer a few questions about your project, and wait.
+- Bask in the glory of your fully scaffolded Pattern Lab installation.
 
 
 ## Alternative installation method
@@ -24,15 +23,15 @@ Please make sure your system meets the [prerequisites](#prerequisites)
 
 ## Getting Started
 ### Front-end developing
-Run `npm run start` from the commandline. This creates all patterns, the styleguide, and the pattern lab site by BrowserSync which serves the files to you.
+Run `npm run serve` from the commandline. This creates all patterns, the styleguide, assets, and the Pattern Lab site by BrowserSync which serves the files to you. Assets are not optimized for production environments.
 
 
 ### Deployments
-For a single compile of all code, you can run `npm run build`. This will compile the front-end one single time.
+For a single compile of all code, run `npm run build`. This will compile the front-end assets one single time in production-ready code.
 
 
 ## Featureset
-In general refer to [patternlab-node](https://github.com/pattern-lab/patternlab-node) for more in depth documentation about the use of patternlab.
+Refer to [patternlab-node](https://github.com/pattern-lab/patternlab-node) for more in depth documentation about the use of patternlab.
 generator-patternlab-starterkit has some important additions compared to patternlab-node:
 
 

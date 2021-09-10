@@ -5,3 +5,4 @@ temp/
 *.sublime-workspace
 *.sass-cache/
 Gemfile.lock
+package-lock.json
